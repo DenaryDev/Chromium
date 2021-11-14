@@ -1,0 +1,10 @@
+{
+  "sapphireclient.menu.singleplayer": "Singleplayer",
+  "sapphireclient.menu.multiplayer": "Multiplayer",
+  "sapphireclient.menu.options": "Options",
+  "sapphireclient.menu.mods": "Mods (%s)",
+  "sapphireclient.menu.vkGroup": "VK Group",
+  "sapphireclient.menu.confirmQuit": "Quit the game?",
+  "sapphireclient.menu.quit": "Quit",
+  "sapphireclient.menu.cancel": "Cancel"
+}

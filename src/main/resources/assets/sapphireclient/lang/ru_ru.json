@@ -1,0 +1,10 @@
+{
+  "sapphireclient.menu.singleplayer": "Одиночная игра",
+  "sapphireclient.menu.multiplayer": "Сетевая игра",
+  "sapphireclient.menu.options": "Настройки",
+  "sapphireclient.menu.mods": "Моды (%s)",
+  "sapphireclient.menu.vkGroup": "Группа ВК",
+  "sapphireclient.menu.confirmQuit": "Выйти из игры?",
+  "sapphireclient.menu.quit": "Выйти",
+  "sapphireclient.menu.cancel": "Отмена"
+}
