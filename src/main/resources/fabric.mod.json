@@ -21,6 +21,9 @@
   "entrypoints": {
     "client": [
       "io.sapphiremc.client.SapphireClientMod"
+    ],
+    "modmenu": [
+      "io.sapphiremc.client.compat.ModMenuCompat"
     ]
   },
   "mixins": [
@@ -36,5 +39,13 @@
   },
   "suggests": {
     "another-mod": "*"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.vkontakte": "https://vk.com/denaryworld"
+      },
+      "badges": [ "client" ]
+    }
   }
 }

@@ -67,6 +67,7 @@ public abstract class MixinTitleScreen extends Screen {
 
     /**
      * @author DenaryDev
+     * @reason Fully custom main menu
      */
     @Overwrite
     public static CompletableFuture<Void> loadTexturesAsync(TextureManager textureManager, Executor executor) {
@@ -75,6 +76,7 @@ public abstract class MixinTitleScreen extends Screen {
 
     /**
      * @author DenaryDev
+     * @reason Fully custom main menu
      */
     @Overwrite
     public boolean shouldCloseOnEsc() {
@@ -84,6 +86,7 @@ public abstract class MixinTitleScreen extends Screen {
 
     /**
      * @author DenaryDev
+     * @reason Fully custom main menu
      */
     @Overwrite
     public void init() {
@@ -114,6 +117,7 @@ public abstract class MixinTitleScreen extends Screen {
 
     /**
      * @author DenaryDev
+     * @reason Fully custom main menu
      */
     @Overwrite
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float delta) {

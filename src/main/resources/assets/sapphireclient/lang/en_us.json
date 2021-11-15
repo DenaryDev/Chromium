@@ -6,5 +6,9 @@
   "sapphireclient.menu.vkGroup": "VK Group",
   "sapphireclient.menu.confirmQuit": "Quit the game?",
   "sapphireclient.menu.quit": "Quit",
-  "sapphireclient.menu.cancel": "Cancel"
+  "sapphireclient.menu.cancel": "Cancel",
+  "sapphireclient.menu.options_title": "SapphireClient Settings",
+  "sapphireclient.option.true": "On",
+  "sapphireclient.option.false": "Off",
+  "sapphireclient.option.chat_messages_time": "Messages time"
 }

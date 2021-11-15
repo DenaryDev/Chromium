@@ -6,5 +6,9 @@
   "sapphireclient.menu.vkGroup": "Группа ВК",
   "sapphireclient.menu.confirmQuit": "Выйти из игры?",
   "sapphireclient.menu.quit": "Выйти",
-  "sapphireclient.menu.cancel": "Отмена"
+  "sapphireclient.menu.cancel": "Отмена",
+  "sapphireclient.menu.options_title": "Настройки SapphireClient",
+  "sapphireclient.option.true": "Вкл",
+  "sapphireclient.option.false": "Выкл",
+  "sapphireclient.option.chat_messages_time": "Время сообщений"
 }

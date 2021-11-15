@@ -1,5 +1,9 @@
 package io.sapphiremc.client;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import io.sapphiremc.client.config.SapphireClientConfigManager;
 import io.sapphiremc.client.dummy.DummyClientWorld;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -22,14 +26,16 @@ public class SapphireClientMod implements ClientModInitializer {
 
 	public static final String MOD_ID = "sapphireclient";
 	public static final Logger LOGGER = LogManager.getLogger("sapphireclient");
+	public static final Gson GSON = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).setPrettyPrinting().create();
 
-	public static final boolean RUNNING_IN_IDE = true;
+	public static final boolean RUNNING_IN_IDE = false;
 
 	public static LivingEntity livingEntity = null;
 	private static final Random RANDOM = new Random();
 
 	@Override
 	public void onInitializeClient() {
+		SapphireClientConfigManager.initializeConfig();
 		ClientTickEvents.END_CLIENT_TICK.register((client -> {
 			if (livingEntity == null) {
 				List<EntityType<?>> collect = Registry.ENTITY_TYPE.stream()
