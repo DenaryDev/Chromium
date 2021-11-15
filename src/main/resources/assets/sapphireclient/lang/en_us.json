@@ -10,5 +10,11 @@
   "sapphireclient.menu.options_title": "SapphireClient Settings",
   "sapphireclient.option.true": "On",
   "sapphireclient.option.false": "Off",
-  "sapphireclient.option.chat_messages_time": "Messages time"
+  "sapphireclient.option.chat_messages_time": "Messages time",
+  "sapphireclient.option.show_fps": "Show FPS",
+  "sapphireclient.fps": "FPS: %s MAX: %s VSYNC: %s",
+  "sapphireclient.option.show_time": "Show Current Time",
+  "sapphireclient.time": "Time: %s",
+  "sapphireclient.option.show_coords": "Show Coordinates",
+  "sapphireclient.coordinates": "Coordinates: %s %s %s"
 }

@@ -5,12 +5,11 @@
   "compatibilityLevel": "JAVA_16",
   "client": [
     "MixinLivingEntityRenderer",
-    "MixinTitleScreen"
+    "MixinTitleScreen",
+    "MixinChatHud",
+    "MixinGameRenderer"
   ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "mixins": [
-    "MixinChatHud"
-  ]
+  }
 }

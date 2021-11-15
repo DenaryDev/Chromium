@@ -11,6 +11,9 @@ import java.util.ArrayList;
 public class SapphireClientConfig {
 
     public static final BooleanConfigOption CHAT_MESSAGES_TIME = new BooleanConfigOption("chat_messages_time", false);
+    public static final BooleanConfigOption SHOW_FPS = new BooleanConfigOption("show_fps", false);
+    public static final BooleanConfigOption SHOW_TIME = new BooleanConfigOption("show_time", false);
+    public static final BooleanConfigOption SHOW_COORDS = new BooleanConfigOption("show_coords", false);
 
     public static Option[] asOptions() {
         ArrayList<Option> options = new ArrayList<>();

@@ -4,23 +4,19 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.sapphiremc.client.config.SapphireClientConfigManager;
-import io.sapphiremc.client.dummy.DummyClientWorld;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
+import net.minecraft.client.option.Option;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnGroup;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.text.TranslatableText;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.List;
-import java.util.Random;
+import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.stream.Collectors;
 
 public class SapphireClientMod implements ClientModInitializer {
 
@@ -30,12 +26,13 @@ public class SapphireClientMod implements ClientModInitializer {
 
 	public static final boolean RUNNING_IN_IDE = false;
 
-	public static LivingEntity livingEntity = null;
-	private static final Random RANDOM = new Random();
+	//private static final Random RANDOM = new Random();
+	//public static LivingEntity livingEntity = null;
 
 	@Override
 	public void onInitializeClient() {
 		SapphireClientConfigManager.initializeConfig();
+		/*
 		ClientTickEvents.END_CLIENT_TICK.register((client -> {
 			if (livingEntity == null) {
 				List<EntityType<?>> collect = Registry.ENTITY_TYPE.stream()
@@ -45,6 +42,7 @@ public class SapphireClientMod implements ClientModInitializer {
 				if (entity instanceof LivingEntity) livingEntity = (LivingEntity) entity;
  			}
 		}));
+		*/
 
 		if (RUNNING_IN_IDE) {
 			LOGGER.warn("You are running this in IDE!");
@@ -61,5 +59,31 @@ public class SapphireClientMod implements ClientModInitializer {
 				}
 			}, 200L, 200L);
 		}
+	}
+
+	public static String getFpsString() {
+		String fpsField = RUNNING_IN_IDE ? "currentFps" : "field_1738";
+		MinecraftClient client = MinecraftClient.getInstance();
+		int currentFps;
+		try {
+			Field field = MinecraftClient.class.getDeclaredField(fpsField);
+			field.setAccessible(true);
+			currentFps = field.getInt(MinecraftClient.class);
+		} catch (NoSuchFieldException | IllegalAccessException e) {
+			LOGGER.error("Field " + fpsField + " not found!");
+			currentFps = -1;
+		}
+
+		String maxFPS = (double) client.options.maxFps == Option.FRAMERATE_LIMIT.getMax() ? "\u221E" : String.valueOf(client.options.maxFps);
+		String vsync = String.valueOf(client.options.enableVsync);
+		return new TranslatableText("sapphireclient.fps", currentFps, maxFPS, vsync).getString();
+	}
+
+	public static String getTime() {
+		return new TranslatableText("sapphireclient.time", new SimpleDateFormat("HH:mm:ss dd/MM").format(new Date())).getString();
+	}
+
+	public static String getCoordsString(LivingEntity entity) {
+		return new TranslatableText("sapphireclient.coordinates", entity.getBlockX(), entity.getBlockY(), entity.getBlockZ()).getString();
 	}
 }

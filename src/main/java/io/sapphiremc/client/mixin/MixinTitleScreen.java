@@ -39,10 +39,12 @@ import java.util.concurrent.Executor;
 @Mixin(TitleScreen.class)
 public abstract class MixinTitleScreen extends Screen {
 
+    /*
     @Inject(method = "<init>()V", at = @At("RETURN"))
     private void sapphireclient$init(CallbackInfo ci) {
         SapphireClientMod.livingEntity = null;
     }
+    */
 
     @Shadow private long backgroundFadeStart;
     @Shadow @Final private boolean doBackgroundFade;
@@ -90,7 +92,7 @@ public abstract class MixinTitleScreen extends Screen {
      */
     @Overwrite
     public void init() {
-        SapphireClientMod.livingEntity = null;
+        //SapphireClientMod.livingEntity = null;
         int buttonW = (this.width - 128) / 5;
 
         this.addDrawableChild(new ButtonWidget(48, 48, buttonW, 20, new TranslatableText("sapphireclient.menu.singleplayer"), (element) ->

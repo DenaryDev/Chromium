@@ -10,5 +10,11 @@
   "sapphireclient.menu.options_title": "Настройки SapphireClient",
   "sapphireclient.option.true": "Вкл",
   "sapphireclient.option.false": "Выкл",
-  "sapphireclient.option.chat_messages_time": "Время сообщений"
+  "sapphireclient.option.chat_messages_time": "Время сообщений",
+  "sapphireclient.option.show_fps": "Отображать FPS",
+  "sapphireclient.fps": "FPS: %s MAX: %s VSYNC: %s",
+  "sapphireclient.option.show_time": "Показывать время",
+  "sapphireclient.time": "Время: %s",
+  "sapphireclient.option.show_coords": "Показать координаты",
+  "sapphireclient.coordinates": "Координаты: %s %s %s"
 }

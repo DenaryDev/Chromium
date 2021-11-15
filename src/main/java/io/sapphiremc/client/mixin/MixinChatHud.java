@@ -41,6 +41,7 @@ public abstract class MixinChatHud extends DrawableHelper {
 
     /**
      * @author DenaryDev
+     * @reason Add messages time
      */
     @Overwrite
     private void addMessage(Text message, int messageId, int timestamp, boolean refresh) {
