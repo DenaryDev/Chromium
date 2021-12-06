@@ -2,10 +2,12 @@ package io.sapphiremc.client.mixin;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.terraformersmc.modmenu.api.ModMenuApi;
 import com.terraformersmc.modmenu.gui.ModsScreen;
-import com.terraformersmc.modmenu.util.mod.fabric.FabricDummyParentMod;
 import io.sapphiremc.client.SapphireClientMod;
 import io.sapphiremc.client.dummy.DummyClientPlayerEntity;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.screen.ConfirmChatLinkScreen;
@@ -29,22 +31,9 @@ import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
 
 @Mixin(TitleScreen.class)
 public abstract class MixinTitleScreen extends Screen {
-
-    /*
-    @Inject(method = "<init>()V", at = @At("RETURN"))
-    private void sapphireclient$init(CallbackInfo ci) {
-        SapphireClientMod.livingEntity = null;
-    }
-    */
 
     @Shadow private long backgroundFadeStart;
     @Shadow @Final private boolean doBackgroundFade;
@@ -92,7 +81,6 @@ public abstract class MixinTitleScreen extends Screen {
      */
     @Overwrite
     public void init() {
-        //SapphireClientMod.livingEntity = null;
         int buttonW = (this.width - 128) / 5;
 
         this.addDrawableChild(new ButtonWidget(48, 48, buttonW, 20, new TranslatableText("sapphireclient.menu.singleplayer"), (element) ->

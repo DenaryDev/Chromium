@@ -2,6 +2,7 @@ package io.sapphiremc.client.dummy;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayNetworkHandler;
+import net.minecraft.client.util.telemetry.TelemetrySender;
 import net.minecraft.network.ClientConnection;
 import net.minecraft.network.NetworkSide;
 
@@ -15,6 +16,6 @@ public class DummyClientPlayNetworkHandler extends ClientPlayNetworkHandler {
     }
 
     private DummyClientPlayNetworkHandler() {
-        super(MinecraftClient.getInstance(), null, new ClientConnection(NetworkSide.CLIENTBOUND), MinecraftClient.getInstance().getSession().getProfile());
+        super(MinecraftClient.getInstance(), null, new ClientConnection(NetworkSide.CLIENTBOUND), MinecraftClient.getInstance().getSession().getProfile(), null);
     }
 }

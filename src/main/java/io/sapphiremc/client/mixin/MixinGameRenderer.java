@@ -15,7 +15,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,10 +49,6 @@ public abstract class MixinGameRenderer {
                 for (int i = 0; i < list.size(); i++) {
                     String s = list.get(i);
                     if (Strings.isNullOrEmpty(s)) continue;
-                    //int j = this.getTextRenderer().fontHeight;
-                    //int k = this.getTextRenderer().getWidth(s);
-                    //int m = 2 + j * i;
-                    //InGameHud.fill(matrices, 1, m - 1, 2 + k + 1, m + j - 1, -1873784752);
                     this.getTextRenderer().drawWithShadow(matrices, s, 2, 2 + (i * 9), 0xE0E0E0);
                 }
             }

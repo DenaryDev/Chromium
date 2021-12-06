@@ -83,7 +83,12 @@ public class SapphireClientMod implements ClientModInitializer {
 		return new TranslatableText("sapphireclient.time", new SimpleDateFormat("HH:mm:ss dd/MM").format(new Date())).getString();
 	}
 
+	private static String cachedCoords = "";
+
 	public static String getCoordsString(LivingEntity entity) {
-		return new TranslatableText("sapphireclient.coordinates", entity.getBlockX(), entity.getBlockY(), entity.getBlockZ()).getString();
+		if (entity != null) {
+			cachedCoords = new TranslatableText("sapphireclient.coordinates", entity.getBlockX(), entity.getBlockY(), entity.getBlockZ()).getString();
+		}
+		return cachedCoords;
 	}
 }
