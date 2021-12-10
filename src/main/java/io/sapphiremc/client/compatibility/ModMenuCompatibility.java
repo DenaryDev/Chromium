@@ -1,10 +1,10 @@
-package io.sapphiremc.client.compat;
+package io.sapphiremc.client.compatibility;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import io.sapphiremc.client.gui.SapphireClientOptionsScreen;
 
-public class ModMenuCompat implements ModMenuApi {
+public class ModMenuCompatibility implements ModMenuApi {
 
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {

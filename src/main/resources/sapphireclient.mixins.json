@@ -7,7 +7,7 @@
     "MixinLivingEntityRenderer",
     "MixinTitleScreen",
     "MixinChatHud",
-    "MixinGameRenderer"
+    "MixinInGameHud"
   ],
   "injectors": {
     "defaultRequire": 1

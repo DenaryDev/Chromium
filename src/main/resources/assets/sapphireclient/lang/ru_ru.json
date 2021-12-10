@@ -1,6 +1,6 @@
 {
   "modmenu.descriptionTranslation.sapphireclient": "Все функции из DenaryLauncher в одном моде!",
-  "sapphireclient.menu.singleplayer": "Одиночная игра",
+  "sapphireclient.menu.singleplayer": "Ваши миры",
   "sapphireclient.menu.multiplayer": "Сетевая игра",
   "sapphireclient.menu.options": "Настройки",
   "sapphireclient.menu.mods": "Моды (%s)",
@@ -9,13 +9,20 @@
   "sapphireclient.menu.quit": "Выйти",
   "sapphireclient.menu.cancel": "Отмена",
   "sapphireclient.menu.options_title": "Настройки SapphireClient",
+
   "sapphireclient.option.true": "Вкл",
   "sapphireclient.option.false": "Выкл",
+
   "sapphireclient.option.chat_messages_time": "Время сообщений",
   "sapphireclient.option.show_fps": "Отображать FPS",
-  "sapphireclient.fps": "FPS: %s MAX: %s VSYNC: %s",
-  "sapphireclient.option.show_time": "Показывать время",
-  "sapphireclient.time": "Время: %s",
+  "sapphireclient.option.show_time": "Отображать время",
   "sapphireclient.option.show_coords": "Показать координаты",
-  "sapphireclient.coordinates": "Координаты: %s %s %s"
+  "sapphireclient.option.show_light": "Отображать освещение",
+  "sapphireclient.option.show_biome": "Отображать биом",
+
+  "sapphireclient.fps": "FPS: %s MAX: %s VSYNC: %s",
+  "sapphireclient.time": "Время: %s",
+  "sapphireclient.coordinates": "Координаты: %s %s %s",
+  "sapphireclient.light": "Освещение: %s (%s небо, %s блок)",
+  "sapphireclient.biome": "Биом: %s"
 }

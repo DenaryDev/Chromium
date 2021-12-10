@@ -17,13 +17,13 @@
   "license": "MIT",
   "icon": "assets/sapphireclient/icon.png",
 
-  "environment": "*",
+  "environment": "client",
   "entrypoints": {
     "client": [
       "io.sapphiremc.client.SapphireClientMod"
     ],
     "modmenu": [
-      "io.sapphiremc.client.compat.ModMenuCompat"
+      "io.sapphiremc.client.compatibility.ModMenuCompatibility"
     ]
   },
   "mixins": [
@@ -33,12 +33,9 @@
   "depends": {
     "fabricloader": ">=0.12.8",
     "fabric": ">=0.44.0",
-    "minecraft": "1.18",
+    "minecraft": "1.18.x",
     "java": ">=17",
-    "modmenu": ">=3.0.0+SC1"
-  },
-  "suggests": {
-    "another-mod": "*"
+    "modmenu": ">=3.0.1-pre.2+SC1"
   },
   "custom": {
     "modmenu": {

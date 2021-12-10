@@ -20,11 +20,14 @@ public class DummyClientPlayerEntity extends ClientPlayerEntity {
 
     private DummyClientPlayerEntity() {
         super(MinecraftClient.getInstance(), DummyClientWorld.getInstance(), DummyClientPlayNetworkHandler.getInstance(), null, null,false, false);
+    }
+
+    public void updateSkin() {
         MinecraftClient.getInstance().getSkinProvider().loadSkin(getGameProfile(), (type, identifier, texture) -> {
             if (type.equals(MinecraftProfileTexture.Type.SKIN)) {
                 skinIdentifier = identifier;
             }
-        }, true);
+        }, false);
     }
 
     @Override
@@ -40,6 +43,11 @@ public class DummyClientPlayerEntity extends ClientPlayerEntity {
     @Override
     public Identifier getSkinTexture() {
         return skinIdentifier == null ? DefaultSkinHelper.getTexture(this.getUuid()) : skinIdentifier;
+    }
+
+    @Override
+    public String getModel() {
+        return "slim";
     }
 
     @Nullable

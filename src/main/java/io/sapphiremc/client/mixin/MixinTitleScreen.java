@@ -2,7 +2,6 @@ package io.sapphiremc.client.mixin;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.terraformersmc.modmenu.api.ModMenuApi;
 import com.terraformersmc.modmenu.gui.ModsScreen;
 import io.sapphiremc.client.SapphireClientMod;
 import io.sapphiremc.client.dummy.DummyClientPlayerEntity;
@@ -42,9 +41,9 @@ public abstract class MixinTitleScreen extends Screen {
 
     @Shadow private Screen realmsNotificationGui;
 
-    private static final Identifier BACKGROUND = new Identifier(SapphireClientMod.MOD_ID, "ui/background.png");
-    private static final Identifier LOGO = new Identifier(SapphireClientMod.MOD_ID, "ui/logo.png");
-    private static final Identifier GOLD = new Identifier(SapphireClientMod.MOD_ID, "ui/gold.png");
+    private static final Identifier BACKGROUND = new Identifier(SapphireClientMod.MOD_ID, "textures/ui/background.png");
+    private static final Identifier LOGO = new Identifier(SapphireClientMod.MOD_ID, "textures/ui/logo.png");
+    private static final Identifier GOLD = new Identifier(SapphireClientMod.MOD_ID, "textures/ui/gold.png");
 
     private boolean confirmOpened = false;
     private boolean widgetsAdded = false;
@@ -81,23 +80,34 @@ public abstract class MixinTitleScreen extends Screen {
      */
     @Overwrite
     public void init() {
+        SapphireClientMod.dummyClientPlayer.updateSkin();
         int buttonW = (this.width - 128) / 5;
 
-        this.addDrawableChild(new ButtonWidget(48, 48, buttonW, 20, new TranslatableText("sapphireclient.menu.singleplayer"), (element) ->
-                this.client.setScreen(new SelectWorldScreen(this))));
-        this.addDrawableChild(new ButtonWidget(48 + 8 + buttonW, 48, buttonW, 20, new TranslatableText("sapphireclient.menu.multiplayer"), (element) ->
-                this.client.setScreen(new MultiplayerScreen(this))));
-        this.addDrawableChild(new ButtonWidget(48 + 16 + buttonW * 2, 48, buttonW, 20, new TranslatableText("sapphireclient.menu.options"), (element) ->
-                this.client.setScreen(new OptionsScreen(this, this.client.options))));
-        this.addDrawableChild(new ButtonWidget(48 + 24 + buttonW * 3, 48, buttonW, 20, new TranslatableText("sapphireclient.menu.mods", FabricLoader.getInstance().getAllMods().size()), (element) ->
-                this.client.setScreen(new ModsScreen(this))));
-        this.addDrawableChild(new ButtonWidget(48 + 32 + buttonW * 4, 48, buttonW, 20, new TranslatableText("sapphireclient.menu.vkGroup"), (element) ->
-                this.client.setScreen(new ConfirmChatLinkScreen((confirmOpened) -> {
-                    if (confirmOpened) {
-                        Util.getOperatingSystem().open("https://vk.com/denaryworld");
-                    }
-                    this.client.setScreen(this);
-                }, "https://vk.com/denaryworld", false))));
+        this.addDrawableChild(new ButtonWidget(48, 48, buttonW, 20, new TranslatableText("sapphireclient.menu.singleplayer"), (element) -> {
+            this.confirmOpened = false;
+            this.client.setScreen(new SelectWorldScreen(this));
+        }));
+        this.addDrawableChild(new ButtonWidget(48 + 8 + buttonW, 48, buttonW, 20, new TranslatableText("sapphireclient.menu.multiplayer"), (element) -> {
+            this.confirmOpened = false;
+            this.client.setScreen(new MultiplayerScreen(this));
+        }));
+        this.addDrawableChild(new ButtonWidget(48 + 16 + buttonW * 2, 48, buttonW, 20, new TranslatableText("sapphireclient.menu.options"), (element) -> {
+            this.confirmOpened = false;
+            this.client.setScreen(new OptionsScreen(this, this.client.options));
+        }));
+        this.addDrawableChild(new ButtonWidget(48 + 24 + buttonW * 3, 48, buttonW, 20, new TranslatableText("sapphireclient.menu.mods", FabricLoader.getInstance().getAllMods().size()), (element) -> {
+            this.confirmOpened = false;
+            this.client.setScreen(new ModsScreen(this));
+        }));
+        this.addDrawableChild(new ButtonWidget(48 + 32 + buttonW * 4, 48, buttonW, 20, new TranslatableText("sapphireclient.menu.vkGroup"), (element) -> {
+            this.confirmOpened = false;
+            this.client.setScreen(new ConfirmChatLinkScreen((confirmOpened) -> {
+                if (confirmOpened) {
+                    Util.getOperatingSystem().open("https://vk.com/denaryworld");
+                }
+                this.client.setScreen(this);
+            }, "https://vk.com/denaryworld", false));
+        }));
 
         this.quitButton = new ButtonWidget(this.width / 2 - 80, this.height / 2 - 10, 160, 20, new TranslatableText("sapphireclient.menu.quit"), (element) ->
                 this.client.stop());
@@ -133,7 +143,6 @@ public abstract class MixinTitleScreen extends Screen {
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderTexture(0, LOGO);
             RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, g);
-            //drawTexture(matrixStack, -12, this.height - 120, 0, 0, 160, 160, 160, 160);
             drawTexture(matrixStack, 16, this.height - 104, 0, 0, 120, 120, 120, 120);
 
             if (widgetsAdded) {

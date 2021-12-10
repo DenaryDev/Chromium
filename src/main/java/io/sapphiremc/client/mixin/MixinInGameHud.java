@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Mixin(InGameHud.class)
-public abstract class MixinGameRenderer {
+public abstract class MixinInGameHud {
 
     @Shadow @Final private MinecraftClient client;
 
@@ -31,6 +31,7 @@ public abstract class MixinGameRenderer {
     private void sapphireclient$render(MatrixStack matrices, float tickDelta, CallbackInfo callbackInfo) {
         boolean flag = this.client.world != null && (!this.client.options.hudHidden || this.client.currentScreen != null) && !this.client.options.debugEnabled;
         if (flag) {
+            PlayerEntity player = getCameraPlayer();
             List<String> list = new ArrayList<>();
 
             if (SapphireClientConfig.SHOW_FPS.getValue()) {
@@ -42,7 +43,15 @@ public abstract class MixinGameRenderer {
             }
 
             if (SapphireClientConfig.SHOW_COORDS.getValue()) {
-                list.add(SapphireClientMod.getCoordsString(getCameraPlayer()));
+                list.add(SapphireClientMod.getCoordsString(player));
+            }
+
+            if (SapphireClientConfig.SHOW_LIGHT.getValue()) {
+                list.add(SapphireClientMod.getLightString(player.getBlockPos()));
+            }
+
+            if (SapphireClientConfig.SHOW_BIOME.getValue()) {
+                list.add(SapphireClientMod.getBiomeString(player.getBlockPos()));
             }
 
             if (list.size() > 0) {

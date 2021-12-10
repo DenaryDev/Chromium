@@ -10,6 +10,7 @@ pluginManagement {
 }
 
 if (JavaVersion.current().ordinal() + 1 < 17) {
+    System.out.println(JavaVersion.current().ordinal() + 1)
     throw new IllegalStateException("Please run gradle with Java 17+!")
 }
 

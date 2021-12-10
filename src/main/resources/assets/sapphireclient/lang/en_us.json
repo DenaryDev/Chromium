@@ -1,6 +1,6 @@
 {
   "modmenu.descriptionTranslation.sapphireclient": "All features from DenaryLauncher in one mod!",
-  "sapphireclient.menu.singleplayer": "Singleplayer",
+  "sapphireclient.menu.singleplayer": "Your worlds",
   "sapphireclient.menu.multiplayer": "Multiplayer",
   "sapphireclient.menu.options": "Options",
   "sapphireclient.menu.mods": "Mods (%s)",
@@ -9,13 +9,20 @@
   "sapphireclient.menu.quit": "Quit",
   "sapphireclient.menu.cancel": "Cancel",
   "sapphireclient.menu.options_title": "SapphireClient Settings",
+
   "sapphireclient.option.true": "On",
   "sapphireclient.option.false": "Off",
-  "sapphireclient.option.chat_messages_time": "Messages time",
+
+  "sapphireclient.option.chat_messages_time": "Сhat messages time",
   "sapphireclient.option.show_fps": "Show FPS",
+  "sapphireclient.option.show_time": "Show current time",
+  "sapphireclient.option.show_coords": "Show coordinates",
+  "sapphireclient.option.show_light": "Show client light",
+  "sapphireclient.option.show_biome": "Show current biome",
+
   "sapphireclient.fps": "FPS: %s MAX: %s VSYNC: %s",
-  "sapphireclient.option.show_time": "Show Current Time",
   "sapphireclient.time": "Time: %s",
-  "sapphireclient.option.show_coords": "Show Coordinates",
-  "sapphireclient.coordinates": "Coordinates: %s %s %s"
+  "sapphireclient.coordinates": "Coordinates: %s %s %s",
+  "sapphireclient.light": "Light: %s (%s sky, %s block)",
+  "sapphireclient.biome": "Biome: %s"
 }

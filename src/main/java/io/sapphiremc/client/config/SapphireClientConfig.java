@@ -14,6 +14,8 @@ public class SapphireClientConfig {
     public static final BooleanConfigOption SHOW_FPS = new BooleanConfigOption("show_fps", false);
     public static final BooleanConfigOption SHOW_TIME = new BooleanConfigOption("show_time", false);
     public static final BooleanConfigOption SHOW_COORDS = new BooleanConfigOption("show_coords", false);
+    public static final BooleanConfigOption SHOW_LIGHT = new BooleanConfigOption("show_light", false);
+    public static final BooleanConfigOption SHOW_BIOME = new BooleanConfigOption("show_biome", false);
 
     public static Option[] asOptions() {
         ArrayList<Option> options = new ArrayList<>();
