@@ -69,11 +69,11 @@ public class SapphireClientMod implements ClientModInitializer {
 
 		String maxFPS = (double) MC.options.maxFps == Option.FRAMERATE_LIMIT.getMax() ? "\u221E" : String.valueOf(MC.options.maxFps);
 		String vsync = String.valueOf(MC.options.enableVsync);
-		return new TranslatableText("sapphire_client.fps", currentFps, maxFPS, vsync).getString();
+		return new TranslatableText("sapphireclient.fps", currentFps, maxFPS, vsync).getString();
 	}
 
 	public static String getTime() {
-		return new TranslatableText("sapphire_client.time", new SimpleDateFormat("HH:mm:ss dd/MM").format(new Date())).getString();
+		return new TranslatableText("sapphireclient.time", new SimpleDateFormat("HH:mm:ss dd/MM").format(new Date())).getString();
 	}
 
 	private static String cachedCoords = "";
