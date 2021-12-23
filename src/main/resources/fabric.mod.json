@@ -14,7 +14,7 @@
     "issues": "https://github.com/SapphireMC/SapphireClient/issues"
   },
 
-  "license": "MIT",
+  "license": "GPL-3.0-only",
   "icon": "assets/sapphireclient/icon.png",
 
   "environment": "client",
