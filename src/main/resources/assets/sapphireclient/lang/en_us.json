@@ -1,10 +1,15 @@
 {
+  "options.mods.title": "Mods settings",
+  "options.mods.settings": "%s settings",
+
   "modmenu.descriptionTranslation.sapphireclient": "All features from DenaryLauncher in one mod!",
+  "sapphireclient.warnings.beta": "⚠ Beta version! If bugs bother you, please let us know and go back to the stable version!",
   "sapphireclient.menu.singleplayer": "Your worlds",
   "sapphireclient.menu.multiplayer": "Multiplayer",
+  "sapphireclient.menu.appearance": "Appearance",
+  "sapphireclient.menu.vkGroup": "VK Group",
   "sapphireclient.menu.options": "Options",
   "sapphireclient.menu.mods": "Mods (%s)",
-  "sapphireclient.menu.vkGroup": "VK Group",
   "sapphireclient.menu.confirmQuit": "Quit the game?",
   "sapphireclient.menu.quit": "Quit",
   "sapphireclient.menu.cancel": "Cancel",

@@ -31,11 +31,11 @@
   ],
 
   "depends": {
-    "fabricloader": ">=0.12.8",
-    "fabric": ">=0.44.0",
+    "fabricloader": ">=0.12.12",
+    "fabric": ">=0.45.0",
     "minecraft": "1.18.x",
     "java": ">=17",
-    "modmenu": ">=3.0.1-pre.2+SC1"
+    "modmenu": ">=3.0.1+SC.2"
   },
   "custom": {
     "modmenu": {

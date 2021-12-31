@@ -25,24 +25,30 @@ import io.sapphiremc.client.dummy.DummyClientPlayerEntity;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.screen.ConfirmChatLinkScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
-import net.minecraft.client.gui.screen.ingame.InventoryScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.screen.option.OptionsScreen;
 import net.minecraft.client.gui.screen.world.SelectWorldScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.GameRenderer;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.texture.TextureManager;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Quaternion;
+import net.minecraft.util.math.Vec3f;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -64,6 +70,8 @@ public abstract class MixinTitleScreen extends Screen {
 
     private boolean confirmOpened = false;
     private boolean widgetsAdded = false;
+
+    private int i = width;
 
     private ButtonWidget quitButton;
     private ButtonWidget cancelButton;
@@ -108,15 +116,14 @@ public abstract class MixinTitleScreen extends Screen {
             this.confirmOpened = false;
             this.client.setScreen(new MultiplayerScreen(this));
         }));
-        this.addDrawableChild(new ButtonWidget(48 + 16 + buttonW * 2, 48, buttonW, 20, new TranslatableText("sapphireclient.menu.options"), (element) -> {
-            this.confirmOpened = false;
-            this.client.setScreen(new OptionsScreen(this, this.client.options));
-        }));
-        this.addDrawableChild(new ButtonWidget(48 + 24 + buttonW * 3, 48, buttonW, 20, new TranslatableText("sapphireclient.menu.mods", FabricLoader.getInstance().getAllMods().size()), (element) -> {
-            this.confirmOpened = false;
-            this.client.setScreen(new ModsScreen(this));
-        }));
-        this.addDrawableChild(new ButtonWidget(48 + 32 + buttonW * 4, 48, buttonW, 20, new TranslatableText("sapphireclient.menu.vkGroup"), (element) -> {
+
+        ButtonWidget appearance = new ButtonWidget(48 + 16 + buttonW * 2, 48, buttonW, 20, new TranslatableText("sapphireclient.menu.appearance"), (element) -> {
+            //TODO: Create appearance menu
+        });
+        appearance.active = false;
+        this.addDrawableChild(appearance);
+
+        this.addDrawableChild(new ButtonWidget(48 + 24 + buttonW * 3, 48, buttonW, 20, new TranslatableText("sapphireclient.menu.vkGroup"), (element) -> {
             this.confirmOpened = false;
             this.client.setScreen(new ConfirmChatLinkScreen((confirmOpened) -> {
                 if (confirmOpened) {
@@ -124,6 +131,11 @@ public abstract class MixinTitleScreen extends Screen {
                 }
                 this.client.setScreen(this);
             }, "https://vk.com/denaryworld", false));
+        }));
+
+        this.addDrawableChild(new ButtonWidget(48 + 32 + buttonW * 4, 48, buttonW, 20, new TranslatableText("sapphireclient.menu.options"), (element) -> {
+            this.confirmOpened = false;
+            this.client.setScreen(new OptionsScreen(this, this.client.options));
         }));
 
         this.quitButton = new ButtonWidget(this.width / 2 - 80, this.height / 2 - 10, 160, 20, new TranslatableText("sapphireclient.menu.quit"), (element) ->
@@ -170,8 +182,8 @@ public abstract class MixinTitleScreen extends Screen {
 
             ClientPlayerEntity player = DummyClientPlayerEntity.getInstance();
             int height = this.height + 50;
-            int playerX = this.width - (int) (this.height / 3.2F);
-            InventoryScreen.drawEntity(playerX, height, this.height / 3, -mouseX + playerX, -mouseY + height - (this.height / 1.9F), player);
+            int playerX = this.width - (int) (this.height / 3.4F);
+            drawEntity(playerX, height, (int) (this.height / 2.5F), -mouseX + playerX, -mouseY + height - (this.height / 1.535F), player);
         } else {
             if (!this.widgetsAdded) {
                 this.addDrawableChild(quitButton);
@@ -196,7 +208,7 @@ public abstract class MixinTitleScreen extends Screen {
         }
 
         String userName = this.client.getSession().getUsername();
-        String goldAmount = "2021";
+        String goldAmount = "2022";
 
         int nameLength = this.textRenderer.getWidth(userName);
         int amountLength = this.textRenderer.getWidth(goldAmount);
@@ -210,5 +222,79 @@ public abstract class MixinTitleScreen extends Screen {
         drawTexture(matrixStack, this.width - 76 - nameLength, 18, 0, 0, 11, 11, 11, 11);
 
         this.textRenderer.drawWithShadow(matrixStack, goldAmount, this.width - 78 - nameLength - amountLength, 20, 0xFFD700);
+
+        String modVersion = FabricLoader.getInstance().getModContainer(SapphireClientMod.MOD_ID).get().getMetadata().getVersion().getFriendlyString();
+        boolean isBeta = modVersion.contains("beta") || modVersion.contains("pre") || modVersion.contains("rc");
+        if (isBeta) {
+            fill(matrixStack, 0, 0, width, 13, -1873784752);
+            String beta = new TranslatableText("sapphireclient.warnings.beta").getString();
+            this.textRenderer.drawWithShadow(matrixStack, beta, i, 3, 0xFF5555);
+
+            i -= 1;
+            if (i < (-textRenderer.getWidth(beta))) {
+                i = width;
+            }
+        }
+    }
+
+    private float yaw = 190.0F;
+
+    private void drawEntity(int x, int y, int size, float mouseX, float mouseY, ClientPlayerEntity player) {
+        float finalYaw = yaw;
+        if (InputUtil.isKeyPressed(SapphireClientMod.MC.getWindow().getHandle(), 342)) {
+            finalYaw = this.yaw++;
+            if (finalYaw > 359.0F) {
+                this.yaw = 0;
+            }
+        } else if (InputUtil.isKeyPressed(SapphireClientMod.MC.getWindow().getHandle(), 346)) {
+            finalYaw = this.yaw--;
+            if (finalYaw < 1.0F) {
+                this.yaw = 360;
+            }
+        } else if (InputUtil.isKeyPressed(SapphireClientMod.MC.getWindow().getHandle(), 345)) {
+            this.yaw = 190.0F;
+        }
+
+        float f = (float)Math.atan(mouseX / 400.0F);
+        float g = (float)Math.atan(mouseY / 400.0F);
+        MatrixStack matrixStack = RenderSystem.getModelViewStack();
+        matrixStack.push();
+        matrixStack.translate(x, y, 1050.0D);
+        matrixStack.scale(1.0F, 1.0F, -1.0F);
+        RenderSystem.applyModelViewMatrix();
+        MatrixStack matrixStack2 = new MatrixStack();
+        matrixStack2.translate(0.0D, 0.0D, 1000.0D);
+        matrixStack2.scale((float)size, (float)size, (float)size);
+        Quaternion quaternion = Vec3f.POSITIVE_Z.getDegreesQuaternion(180.0F);
+        Quaternion quaternion2 = Vec3f.POSITIVE_X.getDegreesQuaternion(g * 20.0F);
+        quaternion.hamiltonProduct(quaternion2);
+        matrixStack2.multiply(quaternion);
+        float h = player.bodyYaw;
+        float i = player.getYaw();
+        float j = player.getPitch();
+        float k = player.prevHeadYaw;
+        float l = player.headYaw;
+        player.bodyYaw = finalYaw + f * 20.0F;
+        player.setYaw(yaw + f * 40.0F);
+        player.setPitch(-g * 20.0F);
+        player.headYaw = player.getYaw();
+        player.prevHeadYaw = player.getYaw();
+        DiffuseLighting.method_34742();
+        EntityRenderDispatcher entityRenderDispatcher = MinecraftClient.getInstance().getEntityRenderDispatcher();
+        quaternion2.conjugate();
+        entityRenderDispatcher.setRotation(quaternion2);
+        entityRenderDispatcher.setRenderShadows(false);
+        VertexConsumerProvider.Immediate immediate = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
+        RenderSystem.runAsFancy(() -> entityRenderDispatcher.render(player, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, matrixStack2, immediate, 15728880));
+        immediate.draw();
+        entityRenderDispatcher.setRenderShadows(true);
+        player.bodyYaw = h;
+        player.setYaw(i);
+        player.setPitch(j);
+        player.prevHeadYaw = k;
+        player.headYaw = l;
+        matrixStack.pop();
+        RenderSystem.applyModelViewMatrix();
+        DiffuseLighting.enableGuiDepthLighting();
     }
 }

@@ -25,10 +25,10 @@ import io.sapphiremc.client.dummy.DummyClientPlayerEntity;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.option.Option;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.text.TranslatableText;
@@ -47,40 +47,36 @@ public class SapphireClientMod implements ClientModInitializer {
 	public static final Gson GSON = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).setPrettyPrinting().create();
 	public static final MinecraftClient MC = MinecraftClient.getInstance();
 
-	public static final boolean RUNNING_IN_IDE = false;
-
 	public static DummyClientPlayerEntity dummyClientPlayer;
 
 	@Override
 	public void onInitializeClient() {
 		SapphireClientConfigManager.initializeConfig();
 		dummyClientPlayer = DummyClientPlayerEntity.getInstance();
-		if (RUNNING_IN_IDE) {
-			LOGGER.warn("You are running in IDE!");
-			Timer timer = new Timer();
-			timer.scheduleAtFixedRate(new TimerTask() {
-				@Override
-				public void run() {
-					if (MinecraftClient.getInstance() != null) {
-						if (MinecraftClient.getInstance().getWindow() != null) {
-							MinecraftClient.getInstance().getWindow().setWindowedSize(1000, 700);
-							cancel();
-						}
-					}
-				}
-			}, 200L, 200L);
-		}
 	}
 
 	public static String getFpsString() {
-		String fpsField = RUNNING_IN_IDE ? "currentFps" : "field_1738";
+		Field fpsField;
 		int currentFps;
+
 		try {
-			Field field = MinecraftClient.class.getDeclaredField(fpsField);
-			field.setAccessible(true);
-			currentFps = field.getInt(MinecraftClient.class);
-		} catch (NoSuchFieldException | IllegalAccessException e) {
-			LOGGER.error("Field " + fpsField + " not found!");
+			fpsField = MinecraftClient.class.getDeclaredField("currentFps");
+		} catch (NoSuchFieldException ex) {
+			try {
+				fpsField = MinecraftClient.class.getDeclaredField("field_1738");
+			} catch (NoSuchFieldException ex2) {
+				fpsField = null;
+			}
+		}
+
+		if (fpsField != null) {
+			try {
+				fpsField.setAccessible(true);
+				currentFps = fpsField.getInt(MinecraftClient.class);
+			} catch (IllegalAccessException ex) {
+				currentFps = -1;
+			}
+		} else {
 			currentFps = -1;
 		}
 

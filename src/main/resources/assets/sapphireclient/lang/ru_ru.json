@@ -1,10 +1,15 @@
 {
+  "options.mods.title": "Настройки модов",
+  "options.mods.settings": "Настройки %s",
+
   "modmenu.descriptionTranslation.sapphireclient": "Все функции из DenaryLauncher в одном моде!",
+  "sapphireclient.warnings.beta": "⚠ Бета версия! Если вам мешают баги, сообщите нам и вернитесь на стабильную версию!",
   "sapphireclient.menu.singleplayer": "Ваши миры",
   "sapphireclient.menu.multiplayer": "Сетевая игра",
+  "sapphireclient.menu.appearance": "Внешний вид",
+  "sapphireclient.menu.vkGroup": "Группа ВК",
   "sapphireclient.menu.options": "Настройки",
   "sapphireclient.menu.mods": "Моды (%s)",
-  "sapphireclient.menu.vkGroup": "Группа ВК",
   "sapphireclient.menu.confirmQuit": "Выйти из игры?",
   "sapphireclient.menu.quit": "Выйти",
   "sapphireclient.menu.cancel": "Отмена",
