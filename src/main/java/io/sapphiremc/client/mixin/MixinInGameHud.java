@@ -64,11 +64,11 @@ public abstract class MixinInGameHud {
             }
 
             if (SapphireClientConfig.SHOW_LIGHT.getValue()) {
-                list.add(SapphireClientMod.getLightString(player.getBlockPos()));
+                list.add(SapphireClientMod.getLightString(player));
             }
 
             if (SapphireClientConfig.SHOW_BIOME.getValue()) {
-                list.add(SapphireClientMod.getBiomeString(player.getBlockPos()));
+                list.add(SapphireClientMod.getBiomeString(player));
             }
 
             if (list.size() > 0) {

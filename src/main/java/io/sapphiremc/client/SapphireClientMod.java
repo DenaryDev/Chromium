@@ -31,6 +31,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.option.Option;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
@@ -100,8 +101,9 @@ public class SapphireClientMod implements ClientModInitializer {
 
 	private static String cachedLight = "";
 
-	public static String getLightString(BlockPos blockPos) {
-		if (blockPos != null && MC.world != null) {
+	public static String getLightString(PlayerEntity player) {
+		if (player != null && MC.world != null) {
+			BlockPos blockPos = player.getBlockPos();
 			int clientLight = MC.world.getChunkManager().getLightingProvider().getLight(blockPos, 0);
 			int skyLight = MC.world.getLightLevel(LightType.SKY, blockPos);
 			int blockLight = MC.world.getLightLevel(LightType.BLOCK, blockPos);
@@ -112,8 +114,9 @@ public class SapphireClientMod implements ClientModInitializer {
 
 	private static String cachedBiome = "";
 
-	public static String getBiomeString(BlockPos blockPos) {
-		if (blockPos != null && MC.world != null) {
+	public static String getBiomeString(PlayerEntity player) {
+		if (player != null && MC.world != null) {
+			BlockPos blockPos = player.getBlockPos();
 			Registry<Biome> biomes = MC.world.getRegistryManager().get(Registry.BIOME_KEY);
 			Biome biome = MC.world.getBiome(blockPos);
 			Identifier biomeId = biomes.getId(biome);
