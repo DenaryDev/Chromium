@@ -28,11 +28,6 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-/**
- * Created 09.01.2022
- *
- * @author DenaryDev
- */
 @Mixin(Keyboard.class)
 public abstract class MixinKeyboard {
 

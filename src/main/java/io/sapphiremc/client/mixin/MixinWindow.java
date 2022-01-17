@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2021 DenaryDev
+ * Copyright (c) 2022 DenaryDev
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -30,11 +30,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-/**
- * Created 24.12.2021
- *
- * @author DenaryDev
- */
 @Mixin(Window.class)
 public abstract class MixinWindow {
 
