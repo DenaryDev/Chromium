@@ -8,7 +8,9 @@
     "MixinInGameHud",
     "MixinLivingEntityRenderer",
     "MixinTitleScreen",
-    "MixinWindow"
+    "MixinWindow",
+    "MixinKeyboard",
+    "MixinGameModeSelectionScreen"
   ],
   "injectors": {
     "defaultRequire": 1
