@@ -34,8 +34,7 @@
     "fabricloader": ">=0.12.12",
     "fabric": ">=0.45.0",
     "minecraft": "1.18.x",
-    "java": ">=17",
-    "modmenu": ">=3.0.2-pre.2"
+    "java": ">=17"
   },
   "custom": {
     "modmenu": {
