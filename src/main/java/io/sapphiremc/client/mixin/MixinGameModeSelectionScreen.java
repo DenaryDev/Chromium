@@ -29,7 +29,7 @@ public class MixinGameModeSelectionScreen {
 
     @Redirect(method = "apply(Lnet/minecraft/client/MinecraftClient;Ljava/util/Optional;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasPermissionLevel(I)Z"))
     private static boolean sapphireclient$applyGamemode(ClientPlayerEntity player, int level) {
-        if (SapphireClientMod.MC.isInSingleplayer()) {
+        if (SapphireClientMod.MC.getCurrentServerEntry() == null) {
             return player.hasPermissionLevel(level);
         } else {
             return level == 2;

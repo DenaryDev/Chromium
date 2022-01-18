@@ -42,7 +42,7 @@ public abstract class MixinKeyboard {
     @Redirect(method = "processF3", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasPermissionLevel(I)Z"))
     public boolean sapphireclient$openSwitcher(ClientPlayerEntity player, int level) {
         if (cachedKey == 293) {
-            return !client.isInSingleplayer();
+            return client.getCurrentServerEntry() != null || player.hasPermissionLevel(level);
         } else {
             return player.hasPermissionLevel(level);
         }

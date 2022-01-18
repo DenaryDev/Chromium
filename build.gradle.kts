@@ -4,7 +4,7 @@ plugins {
 	id("fabric-loom") version "0.10-SNAPSHOT"
 }
 
-val acrhivesName: String by project
+val archivesName: String by project
 val minecraftVersion: String by project
 val modVersion: String by project
 val mavenGroup: String by project
@@ -46,6 +46,10 @@ tasks.withType<ProcessResources> {
 	filteringCharset = Charsets.UTF_8.name()
 }
 
+tasks.withType<Jar> {
+	archiveBaseName.set(archivesName)
+}
+
 java {
 	toolchain {
 		languageVersion.set(JavaLanguageVersion.of(17))
@@ -63,12 +67,18 @@ tasks.processResources {
 
 tasks.jar {
 	from("LICENSE") {
-		rename { "${it}_${acrhivesName}_${minecraftVersion}" }
+		rename { "${it}_$archivesName\\_$minecraftVersion" }
 	}
+}
+
+tasks.remapJar {
+	archiveBaseName.set(archivesName)
 }
 
 publishing {
 	publications.create<MavenPublication>("maven") {
+		artifactId = "client"
+
 		from(components["java"])
 	}
 
