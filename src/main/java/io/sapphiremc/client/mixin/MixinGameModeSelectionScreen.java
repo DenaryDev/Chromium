@@ -17,7 +17,7 @@
  */
 package io.sapphiremc.client.mixin;
 
-import io.sapphiremc.client.SapphireClientMod;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.GameModeSelectionScreen;
 import net.minecraft.client.network.ClientPlayerEntity;
 import org.spongepowered.asm.mixin.Mixin;
@@ -29,7 +29,7 @@ public class MixinGameModeSelectionScreen {
 
     @Redirect(method = "apply(Lnet/minecraft/client/MinecraftClient;Ljava/util/Optional;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasPermissionLevel(I)Z"))
     private static boolean sapphireclient$applyGamemode(ClientPlayerEntity player, int level) {
-        if (SapphireClientMod.MC.getCurrentServerEntry() == null) {
+        if (MinecraftClient.getInstance().getCurrentServerEntry() == null) {
             return player.hasPermissionLevel(level);
         } else {
             return level == 2;

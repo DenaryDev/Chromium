@@ -17,17 +17,21 @@
  */
 package io.sapphiremc.client;
 
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import io.sapphiremc.client.config.SapphireClientConfigManager;
+import io.sapphiremc.client.config.Config;
+import io.sapphiremc.client.config.ConfigManager;
 import io.sapphiremc.client.dummy.DummyClientPlayerEntity;
+import io.sapphiremc.client.gui.OptionsScreenBuilder;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import lombok.Getter;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.option.Option;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.TranslatableText;
@@ -38,23 +42,52 @@ import net.minecraft.world.LightType;
 import net.minecraft.world.biome.Biome;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.glfw.GLFW;
 
 public class SapphireClientMod implements ClientModInitializer {
 
-	public static final String MOD_ID = "sapphireclient";
-	public static final Logger LOGGER = LogManager.getLogger(MOD_ID);
-	public static final Gson GSON = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).setPrettyPrinting().create();
-	public static final MinecraftClient MC = MinecraftClient.getInstance();
+	@Getter
+	private static SapphireClientMod instance;
+	@Getter
+	private static final String modId = "sapphireclient";
+	@Getter
+	private static final Logger logger = LogManager.getLogger(modId);
 
-	public static DummyClientPlayerEntity dummyClientPlayer;
+	@Getter
+	private static DummyClientPlayerEntity dummyClientPlayer;
+
+	@Getter
+	private ConfigManager configManager;
+
+	private KeyBinding configKey;
 
 	@Override
 	public void onInitializeClient() {
-		SapphireClientConfigManager.initializeConfig();
+		instance = this;
+
 		dummyClientPlayer = DummyClientPlayerEntity.getInstance();
+
+		configManager = new ConfigManager();
+
+		configKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+				"key.sapphireclient.config",
+				InputUtil.Type.KEYSYM,
+				GLFW.GLFW_KEY_N,
+				"SapphireClient"
+		));
+		ClientTickEvents.END_CLIENT_TICK.register(client -> {
+			if (configKey.isPressed()) {
+				client.setScreen(OptionsScreenBuilder.build(this));
+			}
+		});
+	}
+
+	public Config getConfig() {
+		return configManager.getConfig();
 	}
 
 	public static String getFpsString() {
+		MinecraftClient client = MinecraftClient.getInstance();
 		Field fpsField;
 		int currentFps;
 
@@ -79,8 +112,8 @@ public class SapphireClientMod implements ClientModInitializer {
 			currentFps = -1;
 		}
 
-		String maxFPS = (double) MC.options.maxFps == Option.FRAMERATE_LIMIT.getMax() ? "\u221E" : String.valueOf(MC.options.maxFps);
-		String vsync = String.valueOf(MC.options.enableVsync);
+		String maxFPS = (double) client.options.maxFps == Option.FRAMERATE_LIMIT.getMax() ? "\u221E" : String.valueOf(client.options.maxFps);
+		String vsync = String.valueOf(client.options.enableVsync);
 		return new TranslatableText("sapphireclient.fps", currentFps, maxFPS, vsync).getString();
 	}
 
@@ -100,11 +133,12 @@ public class SapphireClientMod implements ClientModInitializer {
 	private static String cachedLight = "";
 
 	public static String getLightString(PlayerEntity player) {
-		if (player != null && MC.world != null) {
+		MinecraftClient client = MinecraftClient.getInstance();
+		if (player != null && client.world != null) {
 			BlockPos blockPos = player.getBlockPos();
-			int clientLight = MC.world.getChunkManager().getLightingProvider().getLight(blockPos, 0);
-			int skyLight = MC.world.getLightLevel(LightType.SKY, blockPos);
-			int blockLight = MC.world.getLightLevel(LightType.BLOCK, blockPos);
+			int clientLight = client.world.getChunkManager().getLightingProvider().getLight(blockPos, 0);
+			int skyLight = client.world.getLightLevel(LightType.SKY, blockPos);
+			int blockLight = client.world.getLightLevel(LightType.BLOCK, blockPos);
 			cachedLight = new TranslatableText("sapphireclient.light", clientLight, skyLight, blockLight).getString();
 		}
 		return cachedLight;
@@ -113,10 +147,11 @@ public class SapphireClientMod implements ClientModInitializer {
 	private static String cachedBiome = "";
 
 	public static String getBiomeString(PlayerEntity player) {
-		if (player != null && MC.world != null) {
+		MinecraftClient client = MinecraftClient.getInstance();
+		if (player != null && client.world != null) {
 			BlockPos blockPos = player.getBlockPos();
-			Registry<Biome> biomes = MC.world.getRegistryManager().get(Registry.BIOME_KEY);
-			Biome biome = MC.world.getBiome(blockPos);
+			Registry<Biome> biomes = client.world.getRegistryManager().get(Registry.BIOME_KEY);
+			Biome biome = client.world.getBiome(blockPos);
 			Identifier biomeId = biomes.getId(biome);
 			if (biomeId != null) {
 				cachedBiome = new TranslatableText("sapphireclient.biome", new TranslatableText("biome.minecraft." + biomeId.getPath())).getString();

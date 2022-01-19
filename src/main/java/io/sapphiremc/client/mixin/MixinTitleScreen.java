@@ -19,7 +19,6 @@ package io.sapphiremc.client.mixin;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.terraformersmc.modmenu.gui.ModsScreen;
 import io.sapphiremc.client.SapphireClientMod;
 import io.sapphiremc.client.dummy.DummyClientPlayerEntity;
 import java.util.concurrent.CompletableFuture;
@@ -64,9 +63,9 @@ public abstract class MixinTitleScreen extends Screen {
 
     @Shadow private Screen realmsNotificationGui;
 
-    private static final Identifier BACKGROUND = new Identifier(SapphireClientMod.MOD_ID, "textures/ui/background.png");
-    private static final Identifier LOGO = new Identifier(SapphireClientMod.MOD_ID, "textures/ui/logo.png");
-    private static final Identifier GOLD = new Identifier(SapphireClientMod.MOD_ID, "textures/ui/gold.png");
+    private static final Identifier BACKGROUND = new Identifier(SapphireClientMod.getModId(), "textures/ui/background.png");
+    private static final Identifier LOGO = new Identifier(SapphireClientMod.getModId(), "textures/ui/logo.png");
+    private static final Identifier GOLD = new Identifier(SapphireClientMod.getModId(), "textures/ui/gold.png");
 
     private boolean confirmOpened = false;
     private boolean widgetsAdded = false;
@@ -105,7 +104,7 @@ public abstract class MixinTitleScreen extends Screen {
      */
     @Overwrite
     public void init() {
-        SapphireClientMod.dummyClientPlayer.updateSkin();
+        SapphireClientMod.getDummyClientPlayer().updateSkin();
         int buttonW = (this.width - 128) / 5;
 
         this.addDrawableChild(new ButtonWidget(48, 48, buttonW, 20, new TranslatableText("sapphireclient.menu.singleplayer"), (element) -> {
@@ -223,7 +222,7 @@ public abstract class MixinTitleScreen extends Screen {
 
         this.textRenderer.drawWithShadow(matrixStack, goldAmount, this.width - 78 - nameLength - amountLength, 20, 0xFFD700);
 
-        String modVersion = FabricLoader.getInstance().getModContainer(SapphireClientMod.MOD_ID).get().getMetadata().getVersion().getFriendlyString();
+        String modVersion = FabricLoader.getInstance().getModContainer(SapphireClientMod.getModId()).get().getMetadata().getVersion().getFriendlyString();
         boolean isBeta = modVersion.contains("beta") || modVersion.contains("pre") || modVersion.contains("rc");
         if (isBeta) {
             fill(matrixStack, 0, 0, width, 13, -1873784752);
@@ -241,17 +240,17 @@ public abstract class MixinTitleScreen extends Screen {
 
     private void drawEntity(int x, int y, int size, float mouseX, float mouseY, ClientPlayerEntity player) {
         float finalYaw = yaw;
-        if (InputUtil.isKeyPressed(SapphireClientMod.MC.getWindow().getHandle(), 342)) {
+        if (InputUtil.isKeyPressed(client.getWindow().getHandle(), 342)) {
             finalYaw = this.yaw++;
             if (finalYaw > 359.0F) {
                 this.yaw = 0;
             }
-        } else if (InputUtil.isKeyPressed(SapphireClientMod.MC.getWindow().getHandle(), 346)) {
+        } else if (InputUtil.isKeyPressed(client.getWindow().getHandle(), 346)) {
             finalYaw = this.yaw--;
             if (finalYaw < 1.0F) {
                 this.yaw = 360;
             }
-        } else if (InputUtil.isKeyPressed(SapphireClientMod.MC.getWindow().getHandle(), 345)) {
+        } else if (InputUtil.isKeyPressed(client.getWindow().getHandle(), 345)) {
             this.yaw = 190.0F;
         }
 

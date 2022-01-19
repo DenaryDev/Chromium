@@ -15,10 +15,19 @@
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
-package io.sapphiremc.client.config.option;
+package io.sapphiremc.client.config;
 
-import net.minecraft.client.option.Option;
+import com.google.gson.annotations.Expose;
+import lombok.Getter;
+import lombok.Setter;
 
-public interface OptionConvertable {
-    Option asOption();
+public class Config {
+
+    @Getter @Setter @Expose boolean showFps = false;
+    @Getter @Setter @Expose boolean showTime = false;
+    @Getter @Setter @Expose boolean showCoords = true;
+    @Getter @Setter @Expose boolean showLight = false;
+    @Getter @Setter @Expose boolean showBiome = false;
+
+    @Getter @Setter @Expose boolean showMessagesTime = false;
 }

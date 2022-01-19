@@ -12,12 +12,14 @@ val yarnMappings: String by project
 val loaderVersion: String by project
 val fabricVersion: String by project
 val modmenuVersion: String by project
+val clothConfigVersion: String by project
 
 group = mavenGroup
 version = modVersion
 
 repositories {
 	mavenCentral()
+	maven("https://maven.shedaniel.me/")
 	maven("http://repo.denaryworld.ru/snapshots") {
 		isAllowInsecureProtocol = true
 	}
@@ -29,8 +31,13 @@ dependencies {
 	modImplementation("net.fabricmc:fabric-loader:$loaderVersion")
 	modImplementation("net.fabricmc.fabric-api:fabric-api:$fabricVersion")
 	modImplementation("com.terraformersmc:modmenu:$modmenuVersion")
+	modApi("me.shedaniel.cloth:cloth-config-fabric:$clothConfigVersion") {
+		exclude(group = "net.fabricmc.fabric-api")
+	}
 
 	compileOnly("net.fabricmc:fabric-loader:$loaderVersion")
+	compileOnly("org.projectlombok:lombok:1.18.22")
+	annotationProcessor("org.projectlombok:lombok:1.18.22")
 }
 
 tasks.withType<JavaCompile> {

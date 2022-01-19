@@ -1,9 +1,49 @@
 {
-  "options.mods.title": "Настройки модов",
-  "options.mods.settings": "Настройки %s",
-
-  "modmenu.descriptionTranslation.sapphireclient": "Все функции из DenaryLauncher в одном моде!",
   "sapphireclient.warnings.beta": "⚠ Бета версия! Если вам мешают баги, сообщите нам и вернитесь на стабильную версию!",
+
+  "key.sapphireclient.config": "Меню настроек SapphireClient",
+
+  "title.sapphireclient.config": "Настройки SapphireClient",
+  "category.sapphireclient.general": "Основные настройки",
+  "category.sapphireclient.info": "Панель информации",
+  "category.sapphireclient.chat": "Настройки чата",
+
+  "options.sapphireclient.showFps": "Частота кадров (FPS)",
+  "options.sapphireclient.showFps.tooltip.1": "В левом верхнем углу будут отображаться",
+  "options.sapphireclient.showFps.tooltip.2": "текущая частота кадров, максимальная",
+  "options.sapphireclient.showFps.tooltip.3": "частота кадров и статус синхронизации с",
+  "options.sapphireclient.showFps.tooltip.4": "частотой обновления монитора.",
+  "sapphireclient.fps": "FPS: %s MAX: %s VSYNC: %s",
+
+  "options.sapphireclient.showTime": "Время из вашей системы",
+  "options.sapphireclient.showTime.tooltip.1": "В левом верхнем углу будет отображаться",
+  "options.sapphireclient.showTime.tooltip.2": "время, которое установлено в вашей системе.",
+  "sapphireclient.time": "Время: %s",
+
+  "options.sapphireclient.showCoords": "Координаты",
+  "options.sapphireclient.showCoords.tooltip.1": "В левом верхнем углу будет отображаться",
+  "options.sapphireclient.showCoords.tooltip.2": "ваша текущая позиция в формате X Y Z.",
+  "sapphireclient.coordinates": "Позиция: %s %s %s",
+
+  "options.sapphireclient.showLight": "Уровень освещения",
+  "options.sapphireclient.showLight.tooltip.1": "В левом верхнем углу будет отображаться",
+  "options.sapphireclient.showLight.tooltip.2": "текущий уровень освещения на вашей позиции.",
+  "sapphireclient.light": "Свет: %s (%s небо, %s блок)",
+
+  "options.sapphireclient.showBiome": "Текущий биом",
+  "options.sapphireclient.showBiome.tooltip.1": "В левом верхнем углу будет отображаться",
+  "options.sapphireclient.showBiome.tooltip.2": "тот биом, в котором вы находитесь.",
+  "sapphireclient.biome": "Биом: %s",
+
+  "options.sapphireclient.showMessagesTime": "Время сообщений в чате",
+  "options.sapphireclient.showMessagesTime.tooltip.1": "Перед каждым сообщением в чате будет",
+  "options.sapphireclient.showMessagesTime.tooltip.2": "отображаться текущее время, а при",
+  "options.sapphireclient.showMessagesTime.tooltip.3": "наведении вы сможете посмотреть",
+  "options.sapphireclient.showMessagesTime.tooltip.4": "текущий часовой пояс.",
+
+  "label.sapphireclient.on": "\u00A7aВкл",
+  "label.sapphireclient.off": "\u00A7eВыкл",
+
   "sapphireclient.menu.singleplayer": "Ваши миры",
   "sapphireclient.menu.multiplayer": "Сетевая игра",
   "sapphireclient.menu.appearance": "Внешний вид",
@@ -12,22 +52,5 @@
   "sapphireclient.menu.mods": "Моды (%s)",
   "sapphireclient.menu.confirmQuit": "Выйти из игры?",
   "sapphireclient.menu.quit": "Выйти",
-  "sapphireclient.menu.cancel": "Отмена",
-  "sapphireclient.menu.options_title": "Настройки SapphireClient",
-
-  "sapphireclient.option.true": "Вкл",
-  "sapphireclient.option.false": "Выкл",
-
-  "sapphireclient.option.chat_messages_time": "Время сообщений",
-  "sapphireclient.option.show_fps": "Отображать FPS",
-  "sapphireclient.option.show_time": "Отображать время",
-  "sapphireclient.option.show_coords": "Показать координаты",
-  "sapphireclient.option.show_light": "Отображать освещение",
-  "sapphireclient.option.show_biome": "Отображать биом",
-
-  "sapphireclient.fps": "FPS: %s MAX: %s VSYNC: %s",
-  "sapphireclient.time": "Время: %s",
-  "sapphireclient.coordinates": "Координаты: %s %s %s",
-  "sapphireclient.light": "Освещение: %s (%s небо, %s блок)",
-  "sapphireclient.biome": "Биом: %s"
+  "sapphireclient.menu.cancel": "Отмена"
 }

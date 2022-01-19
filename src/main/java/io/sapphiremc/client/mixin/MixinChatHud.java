@@ -17,7 +17,7 @@
  */
 package io.sapphiremc.client.mixin;
 
-import io.sapphiremc.client.config.SapphireClientConfig;
+import io.sapphiremc.client.SapphireClientMod;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.ChatHud;
@@ -63,7 +63,7 @@ public abstract class MixinChatHud extends DrawableHelper {
     @Overwrite
     private void addMessage(Text message, int messageId, int timestamp, boolean refresh) {
         TranslatableText prefixedMessage;
-        if (SapphireClientConfig.CHAT_MESSAGES_TIME.getValue()) {
+        if (SapphireClientMod.getInstance().getConfig().isShowMessagesTime()) {
             Text hoverText = new TranslatableText(Formatting.YELLOW + new SimpleDateFormat("dd-MM-yyyy HH:mm:ss ").format(new Date()) + TimeZone.getDefault().getID());
             Text timeText = new TranslatableText(Formatting.GRAY + new SimpleDateFormat("[HH:mm:ss] ").format(new Date()) + Formatting.RESET).styled(
                     (style -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText))));

@@ -19,7 +19,7 @@ package io.sapphiremc.client.mixin;
 
 import com.google.common.base.Strings;
 import io.sapphiremc.client.SapphireClientMod;
-import io.sapphiremc.client.config.SapphireClientConfig;
+import io.sapphiremc.client.config.Config;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.hud.InGameHud;
@@ -48,26 +48,27 @@ public abstract class MixinInGameHud {
     private void sapphireclient$render(MatrixStack matrices, float tickDelta, CallbackInfo callbackInfo) {
         boolean flag = this.client.world != null && (!this.client.options.hudHidden || this.client.currentScreen != null) && !this.client.options.debugEnabled;
         if (flag) {
+            Config config = SapphireClientMod.getInstance().getConfig();
             PlayerEntity player = getCameraPlayer();
             List<String> list = new ArrayList<>();
 
-            if (SapphireClientConfig.SHOW_FPS.getValue()) {
+            if (config.isShowFps()) {
                 list.add(SapphireClientMod.getFpsString());
             }
 
-            if (SapphireClientConfig.SHOW_TIME.getValue()) {
+            if (config.isShowTime()) {
                 list.add(SapphireClientMod.getTime());
             }
 
-            if (SapphireClientConfig.SHOW_COORDS.getValue()) {
+            if (config.isShowCoords()) {
                 list.add(SapphireClientMod.getCoordsString(player));
             }
 
-            if (SapphireClientConfig.SHOW_LIGHT.getValue()) {
+            if (config.isShowLight()) {
                 list.add(SapphireClientMod.getLightString(player));
             }
 
-            if (SapphireClientConfig.SHOW_BIOME.getValue()) {
+            if (config.isShowBiome()) {
                 list.add(SapphireClientMod.getBiomeString(player));
             }
 
