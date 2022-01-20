@@ -5,35 +5,40 @@
 
   "title.sapphireclient.config": "SapphireClient Settings",
   "category.sapphireclient.general": "General settings",
+  "category.sapphireclient.screen": "Screens",
   "category.sapphireclient.info": "Info panel",
   "category.sapphireclient.chat": "Chat settings",
+
+  "options.sapphireclient.changeScreenProvider": "Change title screen provider",
+  "options.sapphireclient.screenType.sapphireClient": "SapphireClient",
+  "options.sapphireclient.screenType.minecraft": "Minecraft",
 
   "options.sapphireclient.showFps": "Show fps",
   "options.sapphireclient.showFps.tooltip.1": "Current frame rate, maximum",
   "options.sapphireclient.showFps.tooltip.2": "frame rate, and sync status with",
   "options.sapphireclient.showFps.tooltip.3": "the monitor's refresh rate will be",
   "options.sapphireclient.showFps.tooltip.4": "displayed in the upper left corner.",
-  "sapphireclient.fps": "FPS: %s MAX: %s VSYNC: %s",
+  "options.sapphireclient.fps": "FPS: %s MAX: %s VSYNC: %s",
 
   "options.sapphireclient.showTime": "Show your system time",
   "options.sapphireclient.showTime.tooltip.1": "Top left corner will display",
   "options.sapphireclient.showTime.tooltip.2": "time that is set on your system.",
-  "sapphireclient.time": "Time: %s",
+  "options.sapphireclient.time": "Time: %s",
 
   "options.sapphireclient.showCoords": "Show your position",
   "options.sapphireclient.showCoords.tooltip.1": "Top left corner will display",
   "options.sapphireclient.showCoords.tooltip.2": "your current position in X Y Z format.",
-  "sapphireclient.coordinates": "Coordinates: %s %s %s",
+  "options.sapphireclient.coordinates": "Coordinates: %s %s %s",
 
   "options.sapphireclient.showLight": "Show light at your position",
   "options.sapphireclient.showLight.tooltip.1": "Top left corner will display",
   "options.sapphireclient.showLight.tooltip.2": "current light level at your position.",
-  "sapphireclient.light": "Light: %s (%s sky, %s block)",
+  "options.sapphireclient.light": "Light: %s (%s sky, %s block)",
 
   "options.sapphireclient.showBiome": "Show biome at your position",
   "options.sapphireclient.showBiome.tooltip.1": "Biome you are in will be",
   "options.sapphireclient.showBiome.tooltip.2": "displayed in the top left corner.",
-  "sapphireclient.biome": "Biome: %s",
+  "options.sapphireclient.biome": "Biome: %s",
 
   "options.sapphireclient.showMessagesTime": "Show messages time in chat",
   "options.sapphireclient.showMessagesTime.tooltip.1": "Current time will be displayed",
@@ -41,16 +46,11 @@
   "options.sapphireclient.showMessagesTime.tooltip.3": "and on hover you can see the",
   "options.sapphireclient.showMessagesTime.tooltip.4": "current timezone.",
 
-  "label.sapphireclient.on": "\u00A7aOn",
-  "label.sapphireclient.off": "\u00A7eOff",
+  "menu.sapphireclient.vkGroup": "VK Group",
+  "menu.sapphireclient.confirmQuit": "Quit the game?",
+  "menu.sapphireclient.quit": "Quit",
+  "menu.sapphireclient.cancel": "Cancel",
 
-  "sapphireclient.menu.singleplayer": "Your worlds",
-  "sapphireclient.menu.multiplayer": "Multiplayer",
-  "sapphireclient.menu.appearance": "Appearance",
-  "sapphireclient.menu.vkGroup": "VK Group",
-  "sapphireclient.menu.options": "Options",
-  "sapphireclient.menu.mods": "Mods (%s)",
-  "sapphireclient.menu.confirmQuit": "Quit the game?",
-  "sapphireclient.menu.quit": "Quit",
-  "sapphireclient.menu.cancel": "Cancel"
+  "label.sapphireclient.on": "\u00A7aOn",
+  "label.sapphireclient.off": "\u00A7eOff"
 }

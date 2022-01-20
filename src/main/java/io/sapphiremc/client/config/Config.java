@@ -30,4 +30,11 @@ public class Config {
     @Getter @Setter @Expose boolean showBiome = false;
 
     @Getter @Setter @Expose boolean showMessagesTime = false;
+
+    @Getter @Setter @Expose TitleScreenProvider titleScreenProvider = TitleScreenProvider.MINECRAFT;
+
+    public enum TitleScreenProvider {
+        SAPPHIRECLIENT,
+        MINECRAFT
+    }
 }

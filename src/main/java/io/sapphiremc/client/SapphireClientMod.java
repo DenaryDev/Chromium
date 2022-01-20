@@ -21,6 +21,7 @@ import io.sapphiremc.client.config.Config;
 import io.sapphiremc.client.config.ConfigManager;
 import io.sapphiremc.client.dummy.DummyClientPlayerEntity;
 import io.sapphiremc.client.gui.OptionsScreenBuilder;
+import io.sapphiremc.client.gui.SClientTitleScreen;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,7 +29,9 @@ import lombok.Getter;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.option.Option;
 import net.minecraft.client.util.InputUtil;
@@ -80,6 +83,11 @@ public class SapphireClientMod implements ClientModInitializer {
 				client.setScreen(OptionsScreenBuilder.build(this));
 			}
 		});
+		ScreenEvents.BEFORE_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
+			if (screen instanceof TitleScreen && getConfig().getTitleScreenProvider().equals(Config.TitleScreenProvider.SAPPHIRECLIENT)) {
+				client.setScreen(new SClientTitleScreen());
+			}
+		});
 	}
 
 	public Config getConfig() {
@@ -114,18 +122,18 @@ public class SapphireClientMod implements ClientModInitializer {
 
 		String maxFPS = (double) client.options.maxFps == Option.FRAMERATE_LIMIT.getMax() ? "\u221E" : String.valueOf(client.options.maxFps);
 		String vsync = String.valueOf(client.options.enableVsync);
-		return new TranslatableText("sapphireclient.fps", currentFps, maxFPS, vsync).getString();
+		return new TranslatableText("options.sapphireclient.fps", currentFps, maxFPS, vsync).getString();
 	}
 
 	public static String getTime() {
-		return new TranslatableText("sapphireclient.time", new SimpleDateFormat("HH:mm:ss dd/MM").format(new Date())).getString();
+		return new TranslatableText("options.sapphireclient.time", new SimpleDateFormat("HH:mm:ss dd/MM").format(new Date())).getString();
 	}
 
 	private static String cachedCoords = "";
 
 	public static String getCoordsString(LivingEntity entity) {
 		if (entity != null) {
-			cachedCoords = new TranslatableText("sapphireclient.coordinates", entity.getBlockX(), entity.getBlockY(), entity.getBlockZ()).getString();
+			cachedCoords = new TranslatableText("options.sapphireclient.coordinates", entity.getBlockX(), entity.getBlockY(), entity.getBlockZ()).getString();
 		}
 		return cachedCoords;
 	}
@@ -139,7 +147,7 @@ public class SapphireClientMod implements ClientModInitializer {
 			int clientLight = client.world.getChunkManager().getLightingProvider().getLight(blockPos, 0);
 			int skyLight = client.world.getLightLevel(LightType.SKY, blockPos);
 			int blockLight = client.world.getLightLevel(LightType.BLOCK, blockPos);
-			cachedLight = new TranslatableText("sapphireclient.light", clientLight, skyLight, blockLight).getString();
+			cachedLight = new TranslatableText("options.sapphireclient.light", clientLight, skyLight, blockLight).getString();
 		}
 		return cachedLight;
 	}
@@ -154,7 +162,7 @@ public class SapphireClientMod implements ClientModInitializer {
 			Biome biome = client.world.getBiome(blockPos);
 			Identifier biomeId = biomes.getId(biome);
 			if (biomeId != null) {
-				cachedBiome = new TranslatableText("sapphireclient.biome", new TranslatableText("biome.minecraft." + biomeId.getPath())).getString();
+				cachedBiome = new TranslatableText("options.sapphireclient.biome", new TranslatableText("biome.minecraft." + biomeId.getPath())).getString();
 			}
 		}
 		return cachedBiome;

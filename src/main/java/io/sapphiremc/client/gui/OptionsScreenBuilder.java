@@ -55,6 +55,16 @@ public class OptionsScreenBuilder {
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
         ConfigCategory category = builder.getOrCreateCategory(new TranslatableText("category.sapphireclient.general"));
 
+        AbstractConfigListEntry<Config.TitleScreenProvider> changeScreenType = entryBuilder.startEnumSelector(new TranslatableText("options.sapphireclient.changeScreenProvider"), Config.TitleScreenProvider.class, current.getTitleScreenProvider())
+                .setDefaultValue(defaults.getTitleScreenProvider())
+                .setTooltip(getTooltip("options.sapphireclient.changeScreenProvider"))
+                .setSaveConsumer(value -> mod.getConfig().setTitleScreenProvider(value))
+                .setEnumNameProvider(anEnum -> {
+                    if (anEnum.equals(Config.TitleScreenProvider.SAPPHIRECLIENT)) return new TranslatableText("options.sapphireclient.screenType.sapphireClient");
+                    else return new TranslatableText("options.sapphireclient.screenType.minecraft");
+                })
+                .build();
+
         AbstractConfigListEntry<Boolean> toggleShowFps = entryBuilder.startBooleanToggle(new TranslatableText("options.sapphireclient.showFps"), current.isShowFps())
                 .setDefaultValue(defaults.isShowFps())
                 .setTooltip(getTooltip("options.sapphireclient.showFps"))
@@ -97,6 +107,10 @@ public class OptionsScreenBuilder {
                 .setYesNoTextSupplier(yesNoSupplier)
                 .build();
 
+        SubCategoryBuilder screen = entryBuilder.startSubCategory(new TranslatableText("category.sapphireclient.screen"));
+        screen.add(changeScreenType);
+        screen.setExpanded(true);
+
         SubCategoryBuilder info = entryBuilder.startSubCategory(new TranslatableText("category.sapphireclient.info"));
         info.add(toggleShowFps);
         info.add(toggleShowTime);
@@ -109,6 +123,7 @@ public class OptionsScreenBuilder {
         chat.add(toggleMessagesTime);
         chat.setExpanded(true);
 
+        category.addEntry(screen.build());
         category.addEntry(info.build());
         category.addEntry(chat.build());
 
