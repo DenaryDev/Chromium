@@ -21,6 +21,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import io.sapphiremc.client.SapphireClientMod;
 import io.sapphiremc.client.dummy.DummyClientPlayerEntity;
+import java.util.Calendar;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 import net.fabricmc.loader.api.FabricLoader;
@@ -51,7 +52,11 @@ import net.minecraft.util.math.Vec3f;
 
 public class SClientTitleScreen extends Screen {
 
-    private static final Identifier BACKGROUND = new Identifier(SapphireClientMod.getModId(), "textures/ui/background.png");
+    private static final Identifier MORNING_BACKGROUND = new Identifier(SapphireClientMod.getModId(), "textures/ui/background/morning.png");
+    private static final Identifier DAY_BACKGROUND = new Identifier(SapphireClientMod.getModId(), "textures/ui/background/day.png");
+    private static final Identifier EVENING_BACKGROUND = new Identifier(SapphireClientMod.getModId(), "textures/ui/background/evening.png");
+    private static final Identifier NIGHT_BACKGROUND = new Identifier(SapphireClientMod.getModId(), "textures/ui/background/night.png");
+
     private static final Identifier LOGO = new Identifier(SapphireClientMod.getModId(), "textures/ui/logo.png");
     private static final Identifier ICON = new Identifier(SapphireClientMod.getModId(), "icon.png");
     private static final Identifier GOLD = new Identifier(SapphireClientMod.getModId(), "textures/ui/gold.png");
@@ -77,7 +82,7 @@ public class SClientTitleScreen extends Screen {
     }
 
     public static CompletableFuture<Void> loadTexturesAsync(TextureManager textureManager, Executor executor) {
-        return CompletableFuture.allOf(textureManager.loadTextureAsync(BACKGROUND, executor), textureManager.loadTextureAsync(LOGO, executor), textureManager.loadTextureAsync(GOLD, executor));
+        return CompletableFuture.allOf(textureManager.loadTextureAsync(MORNING_BACKGROUND, executor), textureManager.loadTextureAsync(DAY_BACKGROUND, executor), textureManager.loadTextureAsync(EVENING_BACKGROUND, executor), textureManager.loadTextureAsync(NIGHT_BACKGROUND, executor), textureManager.loadTextureAsync(LOGO, executor), textureManager.loadTextureAsync(GOLD, executor));
     }
 
     @Override
@@ -143,7 +148,7 @@ public class SClientTitleScreen extends Screen {
         float f = this.doBackgroundFade ? (float) (System.currentTimeMillis() - this.backgroundFadeStart) / 1000.0F : 1.0F;
         GlStateManager._disableDepthTest();
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
-        RenderSystem.setShaderTexture(0, BACKGROUND);
+        RenderSystem.setShaderTexture(0, getBackground());
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.doBackgroundFade ? (float) MathHelper.ceil(MathHelper.clamp(f, 0.0F, 1.0F)) : 1.0F);
@@ -227,6 +232,20 @@ public class SClientTitleScreen extends Screen {
         } else {
             if (chScrY != 2) changeScreenButton.y = 2;
         }
+    }
+
+    private Identifier getBackground() {
+        int hours = Calendar.getInstance().getTime().getHours();
+        if (hours >= 6 && hours < 12) {
+            return MORNING_BACKGROUND;
+        }
+        if (hours >= 12 && hours < 18) {
+            return DAY_BACKGROUND;
+        }
+        if (hours >= 18 && hours < 23) {
+            return EVENING_BACKGROUND;
+        }
+        return NIGHT_BACKGROUND;
     }
 
     private float yaw = 190.0F;
