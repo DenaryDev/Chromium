@@ -31,7 +31,7 @@ public class Config {
 
     @Getter @Setter @Expose boolean showMessagesTime = false;
 
-    @Getter @Setter @Expose TitleScreenProvider titleScreenProvider = TitleScreenProvider.MINECRAFT;
+    @Getter @Setter @Expose TitleScreenProvider titleScreenProvider = TitleScreenProvider.SAPPHIRECLIENT;
 
     public enum TitleScreenProvider {
         SAPPHIRECLIENT,
