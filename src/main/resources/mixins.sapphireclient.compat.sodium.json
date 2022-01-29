@@ -13,6 +13,5 @@
     "gui.MixinSodiumOptionsGUI",
     "gui.MixinSodiumGameOptionPages",
     "gui.MixinControlValueFormatter"
-  ],
-  "refmap": "sapphireclient-sodium-compat-refmap.json"
+  ]
 }

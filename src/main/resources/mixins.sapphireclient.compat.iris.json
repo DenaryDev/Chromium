@@ -11,6 +11,5 @@
   },
   "client": [
     "option.MixinIrisSodiumOptions"
-  ],
-  "refmap": "sapphireclient-iris-compat-refmap.json"
+  ]
 }
