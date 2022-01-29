@@ -1,0 +1,18 @@
+{
+  "package": "io.sapphiremc.client.compat.sodium.mixin",
+  "plugin": "io.sapphiremc.client.compat.sodium.SClientSodiumCompatMixinPlugin",
+  "required": true,
+  "compatibilityLevel": "JAVA_17",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "conformVisibility": true
+  },
+  "client": [
+    "gui.MixinSodiumOptionsGUI",
+    "gui.MixinSodiumGameOptionPages",
+    "gui.MixinControlValueFormatter"
+  ],
+  "refmap": "sapphireclient-sodium-compat-refmap.json"
+}

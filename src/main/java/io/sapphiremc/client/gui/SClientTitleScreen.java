@@ -36,6 +36,7 @@ import net.minecraft.client.gui.screen.world.SelectWorldScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.network.ClientPlayerEntity;
+import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
 import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -112,23 +113,14 @@ public class SClientTitleScreen extends Screen {
             Screen screen = this.client.options.skipMultiplayerWarning ? new MultiplayerScreen(this) : new MultiplayerWarningScreen(this);
             this.client.setScreen(screen);
         }));
-        this.addDrawableChild(new ButtonWidget(x, centerY + 4, buttonW, 20, new TranslatableText("menu.options"), (element) -> {
+        this.addDrawableChild(new ButtonWidget(x, centerY + 4, buttonW, 20, new TranslatableText("menu.online"), (button) -> {
+            this.confirmOpened = false;
+            this.client.setScreen(new RealmsMainScreen(this));
+        }));
+        this.addDrawableChild(new ButtonWidget(x, centerY + 32, buttonW, 20, new TranslatableText("menu.options"), (element) -> {
             this.confirmOpened = false;
             this.client.setScreen(new OptionsScreen(this, this.client.options));
         }));
-        this.addDrawableChild(new ButtonWidget(x,centerY + 32, buttonW, 20, new TranslatableText("menu.sapphireclient.vkGroup"), (element) -> {
-            this.confirmOpened = false;
-            this.client.setScreen(new ConfirmChatLinkScreen((confirmOpened) -> {
-                if (confirmOpened) {
-                    Util.getOperatingSystem().open("https://vk.com/denaryworld");
-                }
-                this.client.setScreen(this);
-            }, "https://vk.com/denaryworld", false));
-        }));
-
-        // Temporary button needed to update the content of this screen
-       // this.addDrawableChild(new ButtonWidget(this.width - 22, 35, 20, 20, new TranslatableText("R"), (element) ->
-       //         this.client.setScreen(this)));
 
         this.quitButton = new ButtonWidget(this.width / 2 - 80, this.height / 2 - 10, 160, 20, new TranslatableText("menu.sapphireclient.quit"), (element) ->
                 this.client.stop());

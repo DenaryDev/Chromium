@@ -1,0 +1,16 @@
+{
+  "package": "io.sapphiremc.client.compat.iris.mixin",
+  "plugin": "io.sapphiremc.client.compat.iris.SClientIrisCompatMixinPlugin",
+  "required": true,
+  "compatibilityLevel": "JAVA_17",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "overwrites": {
+    "conformVisibility": true
+  },
+  "client": [
+    "option.MixinIrisSodiumOptions"
+  ],
+  "refmap": "sapphireclient-iris-compat-refmap.json"
+}

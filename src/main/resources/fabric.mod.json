@@ -23,11 +23,13 @@
       "io.sapphiremc.client.SapphireClientMod"
     ],
     "modmenu": [
-      "io.sapphiremc.client.compat.ModMenuCompat"
+      "io.sapphiremc.client.compat.modmenu.ModMenuCompat"
     ]
   },
   "mixins": [
-    "sapphireclient.mixins.json"
+    "mixins.sapphireclient.json",
+    "mixins.sapphireclient.compat.sodium.json",
+    "mixins.sapphireclient.compat.iris.json"
   ],
 
   "depends": {

@@ -13,6 +13,8 @@ val loaderVersion: String by project
 val fabricVersion: String by project
 val modmenuVersion: String by project
 val clothConfigVersion: String by project
+val sodiumVersion: String by project
+val irisVersion: String by project
 
 group = mavenGroup
 version = modVersion
@@ -23,6 +25,11 @@ repositories {
 	maven("http://repo.denaryworld.ru/snapshots") {
 		isAllowInsecureProtocol = true
 	}
+	maven("https://api.modrinth.com/maven") {
+		content {
+			includeGroup("maven.modrinth")
+		}
+	}
 }
 
 dependencies {
@@ -30,12 +37,14 @@ dependencies {
 	mappings("net.fabricmc:yarn:$yarnMappings:v2")
 	modImplementation("net.fabricmc:fabric-loader:$loaderVersion")
 	modImplementation("net.fabricmc.fabric-api:fabric-api:$fabricVersion")
+
 	modImplementation("com.terraformersmc:modmenu:$modmenuVersion")
+	modImplementation("maven.modrinth:sodium:$sodiumVersion")
+	modImplementation("maven.modrinth:iris:$irisVersion")
 	modApi("me.shedaniel.cloth:cloth-config-fabric:$clothConfigVersion") {
 		exclude(group = "net.fabricmc.fabric-api")
 	}
 
-	compileOnly("net.fabricmc:fabric-loader:$loaderVersion")
 	compileOnly("org.projectlombok:lombok:1.18.22")
 	annotationProcessor("org.projectlombok:lombok:1.18.22")
 }

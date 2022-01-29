@@ -1,7 +1,7 @@
 {
   "sapphireclient.warnings.beta": "⚠ Beta version! If bugs bother you, please let us know and go back to the stable version!",
 
-  "key.sapphireclient.config": "Меню настроек SapphireClient",
+  "key.sapphireclient.config": "SapphireClient settings menu",
 
   "title.sapphireclient.config": "SapphireClient Settings",
   "category.sapphireclient.general": "General settings",
@@ -46,11 +46,14 @@
   "options.sapphireclient.showMessagesTime.tooltip.3": "and on hover you can see the",
   "options.sapphireclient.showMessagesTime.tooltip.4": "current timezone.",
 
-  "menu.sapphireclient.vkGroup": "VK Group",
   "menu.sapphireclient.confirmQuit": "Quit the game?",
   "menu.sapphireclient.quit": "Quit",
   "menu.sapphireclient.cancel": "Cancel",
 
   "label.sapphireclient.on": "\u00A7aOn",
-  "label.sapphireclient.off": "\u00A7eOff"
+  "label.sapphireclient.off": "\u00A7eOff",
+  "label.sapphireclient.disabled": "Disabled",
+
+  "sodium.options.chunk_update_threads.default": "Default",
+  "sodium.options.chunk_update_threads.threads": "threads"
 }
