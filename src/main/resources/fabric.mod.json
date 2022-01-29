@@ -23,7 +23,7 @@
       "io.sapphiremc.client.SapphireClientMod"
     ],
     "modmenu": [
-      "io.sapphiremc.client.compatibility.ModMenuCompatibility"
+      "io.sapphiremc.client.compat.ModMenuCompat"
     ]
   },
   "mixins": [
