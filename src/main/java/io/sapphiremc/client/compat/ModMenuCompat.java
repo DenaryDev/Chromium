@@ -15,14 +15,14 @@
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  */
-package io.sapphiremc.client.compatibility;
+package io.sapphiremc.client.compat;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import io.sapphiremc.client.SapphireClientMod;
 import io.sapphiremc.client.gui.OptionsScreenBuilder;
 
-public class ModMenuCompatibility implements ModMenuApi {
+public class ModMenuCompat implements ModMenuApi {
 
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
