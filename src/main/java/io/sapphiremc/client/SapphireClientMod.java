@@ -17,11 +17,14 @@
  */
 package io.sapphiremc.client;
 
+import com.google.common.io.ByteArrayDataOutput;
 import io.sapphiremc.client.config.Config;
 import io.sapphiremc.client.config.ConfigManager;
 import io.sapphiremc.client.dummy.DummyClientPlayerEntity;
 import io.sapphiremc.client.gui.OptionsScreenBuilder;
 import io.sapphiremc.client.gui.SClientTitleScreen;
+import io.sapphiremc.client.network.Packet;
+import io.sapphiremc.client.util.Constants;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,6 +32,7 @@ import lombok.Getter;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.TitleScreen;
@@ -78,6 +82,15 @@ public class SapphireClientMod implements ClientModInitializer {
 				GLFW.GLFW_KEY_N,
 				"SapphireClient"
 		));
+
+		ClientPlayConnectionEvents.JOIN.register(((handler, sender, client) -> {
+			if (!client.isInSingleplayer()) {
+				ByteArrayDataOutput out = Packet.out();
+				out.writeInt(Constants.PROTOCOL_ID);
+				Packet.send(Constants.HELLO, out);
+			}
+		}));
+
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if (configKey.isPressed()) {
 				client.setScreen(OptionsScreenBuilder.build(this));
