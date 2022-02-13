@@ -2,6 +2,7 @@ plugins {
 	java
 	`maven-publish`
 	id("fabric-loom") version "0.11-SNAPSHOT"
+	id("org.cadixdev.licenser") version "0.6.1"
 }
 
 val archivesBaseName: String by project
@@ -54,6 +55,13 @@ java {
 		languageVersion.set(JavaLanguageVersion.of(17))
 	}
 	withSourcesJar()
+}
+
+license {
+	include("**/io/sapphiremc/chromium/**")
+
+	header(project.file("HEADER"))
+	newLine(false)
 }
 
 publishing {
