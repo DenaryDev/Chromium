@@ -1,40 +1,43 @@
 {
   "schemaVersion": 1,
-  "id": "sapphireclient",
+  "id": "chromium",
   "version": "${version}",
 
-  "name": "Sapphire Client",
+  "name": "Chromium",
   "description": "All features from DenaryLauncher in one mod!",
   "authors": [
     "DenaryDev"
   ],
   "contact": {
-    "homepage": "https://github.com/SapphireMC/SapphireClient",
-    "sources": "https://github.com/SapphireMC/SapphireClient.git",
-    "issues": "https://github.com/SapphireMC/SapphireClient/issues"
+    "homepage": "https://github.com/SapphireMC/Chromium-Fabric",
+    "sources": "https://github.com/SapphireMC/Chromium-Fabric.git",
+    "issues": "https://github.com/SapphireMC/Chromium-Fabric/issues"
   },
 
   "license": "GPL-3.0-only",
-  "icon": "assets/sapphireclient/icon.png",
+  "icon": "assets/chromium/icon.png",
 
   "environment": "client",
   "entrypoints": {
     "client": [
-      "io.sapphiremc.client.SapphireClientMod"
+      "io.sapphiremc.chromium.client.ChromiumClientMod"
+    ],
+    "server": [
+      "io.sapphiremc.chromium.server.ChromiumServerMod"
     ],
     "modmenu": [
-      "io.sapphiremc.client.compat.modmenu.ModMenuCompat"
+      "io.sapphiremc.chromium.client.compat.modmenu.ModMenuCompat"
     ]
   },
   "mixins": [
-    "mixins.sapphireclient.json",
-    "mixins.sapphireclient.compat.sodium.json",
-    "mixins.sapphireclient.compat.iris.json"
+    "mixins.chromium.json",
+    "mixins.chromium.compat.sodium.json",
+    "mixins.chromium.compat.iris.json"
   ],
 
   "depends": {
-    "fabricloader": ">=0.12.12",
-    "fabric": ">=0.45.0",
+    "fabricloader": ">=0.13.2",
+    "fabric": ">=0.46.4",
     "minecraft": "1.18.x",
     "java": ">=17"
   },

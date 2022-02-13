@@ -1,0 +1,59 @@
+{
+  "chromium.warnings.beta": "⚠ Beta version! If bugs bother you, please let us know and go back to the stable version!",
+
+  "key.chromium.config": "Chromium Settings Menu",
+
+  "title.chromium.config": "Chromium Settings",
+  "category.chromium.general": "General settings",
+  "category.chromium.screen": "Screens",
+  "category.chromium.info": "Info panel",
+  "category.chromium.chat": "Chat settings",
+
+  "options.chromium.changeScreenProvider": "Change title screen provider",
+  "options.chromium.screenType.chromium": "Chromium",
+  "options.chromium.screenType.minecraft": "Minecraft",
+
+  "options.chromium.showFps": "Show fps",
+  "options.chromium.showFps.tooltip.1": "Current frame rate, maximum",
+  "options.chromium.showFps.tooltip.2": "frame rate, and sync status with",
+  "options.chromium.showFps.tooltip.3": "the monitor's refresh rate will be",
+  "options.chromium.showFps.tooltip.4": "displayed in the upper left corner.",
+  "options.chromium.fps": "FPS: %s MAX: %s VSYNC: %s",
+
+  "options.chromium.showTime": "Show your system time",
+  "options.chromium.showTime.tooltip.1": "Top left corner will display",
+  "options.chromium.showTime.tooltip.2": "time that is set on your system.",
+  "options.chromium.time": "Time: %s",
+
+  "options.chromium.showCoords": "Show your position",
+  "options.chromium.showCoords.tooltip.1": "Top left corner will display",
+  "options.chromium.showCoords.tooltip.2": "your current position in X Y Z format.",
+  "options.chromium.coordinates": "Coordinates: %s %s %s",
+
+  "options.chromium.showLight": "Show light at your position",
+  "options.chromium.showLight.tooltip.1": "Top left corner will display",
+  "options.chromium.showLight.tooltip.2": "current light level at your position.",
+  "options.chromium.light": "Light: %s (%s sky, %s block)",
+
+  "options.chromium.showBiome": "Show biome at your position",
+  "options.chromium.showBiome.tooltip.1": "Biome you are in will be",
+  "options.chromium.showBiome.tooltip.2": "displayed in the top left corner.",
+  "options.chromium.biome": "Biome: %s",
+
+  "options.chromium.showMessagesTime": "Show messages time in chat",
+  "options.chromium.showMessagesTime.tooltip.1": "Current time will be displayed",
+  "options.chromium.showMessagesTime.tooltip.2": "before each message in the chat,",
+  "options.chromium.showMessagesTime.tooltip.3": "and on hover you can see the",
+  "options.chromium.showMessagesTime.tooltip.4": "current timezone.",
+
+  "menu.chromium.confirmQuit": "Quit the game?",
+  "menu.chromium.quit": "Quit",
+  "menu.chromium.cancel": "Cancel",
+
+  "label.chromium.on": "\u00A7aOn",
+  "label.chromium.off": "\u00A7eOff",
+  "label.chromium.disabled": "Disabled",
+
+  "sodium.options.chunk_update_threads.default": "Default",
+  "sodium.options.chunk_update_threads.threads": "threads"
+}

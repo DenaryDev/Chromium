@@ -1,0 +1,21 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "io.sapphiremc.chromium.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+    "client.MixinChatHud",
+    "client.MixinInGameHud",
+    "client.MixinLivingEntityRenderer",
+    "client.MixinTitleScreen",
+    "client.MixinWindow",
+    "client.MixinKeyboard",
+    "client.MixinGameModeSelectionScreen"
+  ],
+  "server": [
+    "server.MixinCommandManager"
+  ]
+}

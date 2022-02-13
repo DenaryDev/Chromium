@@ -4,7 +4,7 @@ plugins {
 	id("fabric-loom") version "0.11-SNAPSHOT"
 }
 
-val archivesName: String by project
+val archivesBaseName: String by project
 val minecraftVersion: String by project
 val modVersion: String by project
 val mavenGroup: String by project
@@ -63,7 +63,7 @@ tasks.withType<ProcessResources> {
 }
 
 tasks.withType<Jar> {
-	archiveBaseName.set(archivesName)
+	archiveBaseName.set(archivesBaseName)
 }
 
 java {
@@ -83,24 +83,22 @@ tasks.processResources {
 
 tasks.jar {
 	from("LICENSE") {
-		rename { "${it}_$archivesName\\_$minecraftVersion" }
+		rename { "${it}_$archivesBaseName\\_$minecraftVersion" }
 	}
 }
 
 tasks.remapJar {
-	archiveBaseName.set(archivesName)
+	archiveBaseName.set(archivesBaseName)
 }
 
 publishing {
 	publications.create<MavenPublication>("maven") {
-		artifactId = "client"
-
 		from(components["java"])
 	}
 
 	repositories {
 		maven {
-			name = "sapphireMC"
+			name = "SapphireMC"
 			url = uri("http://repo.denaryworld.ru/snapshots")
 			isAllowInsecureProtocol = true
 			credentials(PasswordCredentials::class)
