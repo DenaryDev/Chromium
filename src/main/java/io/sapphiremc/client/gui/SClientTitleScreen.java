@@ -24,6 +24,8 @@ import io.sapphiremc.client.dummy.DummyClientPlayerEntity;
 import java.util.Calendar;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
+import lombok.Getter;
+import lombok.Setter;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.Element;
@@ -57,10 +59,9 @@ public class SClientTitleScreen extends Screen {
     private static final Identifier NIGHT_BACKGROUND = new Identifier(SapphireClientMod.getModId(), "textures/ui/background/night.png");
 
     private static final Identifier LOGO = new Identifier(SapphireClientMod.getModId(), "textures/ui/logo.png");
-    private static final Identifier ICON = new Identifier(SapphireClientMod.getModId(), "icon.png");
     private static final Identifier GOLD = new Identifier(SapphireClientMod.getModId(), "textures/ui/gold.png");
 
-    private boolean confirmOpened = false;
+    @Getter @Setter private boolean confirmOpened = false;
     private boolean widgetsAdded = false;
 
     private int i = width;
@@ -102,6 +103,7 @@ public class SClientTitleScreen extends Screen {
         int x = (buttonW + 64) / 2 - buttonW / 2;
         int centerY = this.height / 2 + 32;
 
+        assert this.client != null;
         this.addDrawableChild(new ButtonWidget(x, centerY - 52, buttonW, 20, new TranslatableText("menu.singleplayer"), (element) -> {
             this.confirmOpened = false;
             this.client.setScreen(new SelectWorldScreen(this));
@@ -135,6 +137,7 @@ public class SClientTitleScreen extends Screen {
             this.backgroundFadeStart = System.currentTimeMillis();
         }
 
+        assert this.client != null;
         float f = this.doBackgroundFade ? (float) (System.currentTimeMillis() - this.backgroundFadeStart) / 1000.0F : 1.0F;
         GlStateManager._disableDepthTest();
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
@@ -195,7 +198,7 @@ public class SClientTitleScreen extends Screen {
         int nameLength = this.textRenderer.getWidth(userName);
         int amountLength = this.textRenderer.getWidth(goldAmount);
 
-        this.textRenderer.drawWithShadow(matrixStack, userName, centerX - (nameLength / 2), 96, -2039584);
+        this.textRenderer.drawWithShadow(matrixStack, userName, centerX - (nameLength / 2F), 96, -2039584);
 
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
@@ -241,6 +244,7 @@ public class SClientTitleScreen extends Screen {
     private float yaw = 190.0F;
 
     private void drawEntity(int x, int y, int size, float mouseX, float mouseY, ClientPlayerEntity player) {
+        assert this.client != null;
         float finalYaw = yaw;
         if (InputUtil.isKeyPressed(client.getWindow().getHandle(), 342)) {
             finalYaw = this.yaw++;

@@ -17,10 +17,13 @@
  */
 package io.sapphiremc.client.mixin;
 
+import io.sapphiremc.client.gui.SClientTitleScreen;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.WindowEventHandler;
 import net.minecraft.client.WindowSettings;
 import net.minecraft.client.util.MonitorTracker;
 import net.minecraft.client.util.Window;
+import org.checkerframework.checker.units.qual.A;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Final;
@@ -50,5 +53,12 @@ public abstract class MixinWindow {
         if (this.windowedHeight < 700) this.windowedHeight = 700;
 
         GLFW.glfwSetWindowSizeLimits(handle, 1000, 700, GLFW.GLFW_DONT_CARE, GLFW.GLFW_DONT_CARE);
+    }
+
+    @Inject(method = "toggleFullscreen", at = @At("HEAD"))
+    private void sapphireclient$toggleFullScreen(CallbackInfo ci) {
+        if (MinecraftClient.getInstance().currentScreen instanceof SClientTitleScreen screen && screen.isConfirmOpened()) {
+            screen.setConfirmOpened(false);
+        }
     }
 }
