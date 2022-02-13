@@ -5,11 +5,11 @@
  * license that can be found in the LICENSE file or at
  * https://opensource.org/licenses/MIT.
  */
-package io.sapphiremc.chromium.client.util;
+package io.sapphiremc.chromium.common.util;
 
 import net.minecraft.util.Identifier;
 
-public class Constants {
+public class MultiplayerConstants {
 
     public static final int PROTOCOL_ID = 0;
 

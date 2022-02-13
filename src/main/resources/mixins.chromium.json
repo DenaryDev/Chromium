@@ -16,6 +16,7 @@
     "client.MixinGameModeSelectionScreen"
   ],
   "server": [
-    "server.MixinCommandManager"
+    "server.MixinCommandManager",
+    "server.MixinPlayerManager"
   ]
 }

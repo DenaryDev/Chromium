@@ -1,25 +1,15 @@
 /*
  * Copyright (c) 2022 DenaryDev
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public
- * License along with this program.  If not, see
- * <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * Use of this source code is governed by an MIT-style
+ * license that can be found in the LICENSE file or at
+ * https://opensource.org/licenses/MIT.
  */
 package io.sapphiremc.chromium.client.gui;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import io.sapphiremc.chromium.client.ChromiumClientMod;
+import io.sapphiremc.chromium.ChromiumMod;
 import io.sapphiremc.chromium.client.dummy.DummyClientPlayerEntity;
 import java.util.Calendar;
 import java.util.concurrent.CompletableFuture;
@@ -53,13 +43,13 @@ import net.minecraft.util.math.Vec3f;
 
 public class ChromiumTitleScreen extends Screen {
 
-    private static final Identifier MORNING_BACKGROUND = new Identifier(ChromiumClientMod.getModId(), "textures/ui/background/morning.png");
-    private static final Identifier DAY_BACKGROUND = new Identifier(ChromiumClientMod.getModId(), "textures/ui/background/day.png");
-    private static final Identifier EVENING_BACKGROUND = new Identifier(ChromiumClientMod.getModId(), "textures/ui/background/evening.png");
-    private static final Identifier NIGHT_BACKGROUND = new Identifier(ChromiumClientMod.getModId(), "textures/ui/background/night.png");
+    private static final Identifier MORNING_BACKGROUND = new Identifier(ChromiumMod.getModId(), "textures/ui/background/morning.png");
+    private static final Identifier DAY_BACKGROUND = new Identifier(ChromiumMod.getModId(), "textures/ui/background/day.png");
+    private static final Identifier EVENING_BACKGROUND = new Identifier(ChromiumMod.getModId(), "textures/ui/background/evening.png");
+    private static final Identifier NIGHT_BACKGROUND = new Identifier(ChromiumMod.getModId(), "textures/ui/background/night.png");
 
-    private static final Identifier LOGO = new Identifier(ChromiumClientMod.getModId(), "textures/ui/logo.png");
-    private static final Identifier GOLD = new Identifier(ChromiumClientMod.getModId(), "textures/ui/gold.png");
+    private static final Identifier LOGO = new Identifier(ChromiumMod.getModId(), "textures/ui/logo.png");
+    private static final Identifier GOLD = new Identifier(ChromiumMod.getModId(), "textures/ui/gold.png");
 
     @Getter @Setter private boolean confirmOpened = false;
     private boolean widgetsAdded = false;
@@ -98,7 +88,7 @@ public class ChromiumTitleScreen extends Screen {
 
     @Override
     public void init() {
-        ChromiumClientMod.getDummyClientPlayer().updateSkin();
+        ChromiumMod.getDummyClientPlayer().updateSkin();
         int buttonW = (this.width) / 5;
         int x = (buttonW + 64) / 2 - buttonW / 2;
         int centerY = this.height / 2 + 32;
@@ -127,7 +117,7 @@ public class ChromiumTitleScreen extends Screen {
         this.cancelButton = new ButtonWidget(this.width / 2 - 80, this.height / 2 + 18, 160, 20, new TranslatableText("menu.chromium.cancel"), (element) ->
                 this.confirmOpened = false);
         this.changeScreenButton = new ButtonWidget(this.width - 22, 2, 20, 20, new TranslatableText("S"), (element) ->
-                this.client.setScreen(OptionsScreenBuilder.build(ChromiumClientMod.getInstance())));
+                this.client.setScreen(OptionsScreenBuilder.build()));
         this.addDrawableChild(changeScreenButton);
     }
 
@@ -209,7 +199,7 @@ public class ChromiumTitleScreen extends Screen {
         drawTexture(matrixStack, goldX, 110, 0, 0, 11, 11, 11, 11);
         this.textRenderer.drawWithShadow(matrixStack, goldAmount, goldX + 14, 112, 0xFFD700);
 
-        String modVersion = FabricLoader.getInstance().getModContainer(ChromiumClientMod.getModId()).get().getMetadata().getVersion().getFriendlyString();
+        String modVersion = FabricLoader.getInstance().getModContainer(ChromiumMod.getModId()).get().getMetadata().getVersion().getFriendlyString();
         boolean isBeta = modVersion.contains("beta") || modVersion.contains("pre") || modVersion.contains("rc");
         int chScrY = changeScreenButton.y;
         if (isBeta) {

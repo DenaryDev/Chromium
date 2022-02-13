@@ -106,12 +106,4 @@ tasks {
 	remapJar {
 		archiveBaseName.set(archivesBaseName)
 	}
-
-	runClient {
-		workingDir = project.projectDir.resolve("run/client")
-	}
-
-	runServer {
-		workingDir = project.projectDir.resolve("run/server")
-	}
 }

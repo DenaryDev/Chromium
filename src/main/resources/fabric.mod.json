@@ -20,10 +20,10 @@
   "environment": "client",
   "entrypoints": {
     "client": [
-      "io.sapphiremc.chromium.client.ChromiumClientMod"
+      "io.sapphiremc.chromium.ChromiumMod"
     ],
     "server": [
-      "io.sapphiremc.chromium.server.ChromiumServerMod"
+      "io.sapphiremc.chromium.ChromiumMod"
     ],
     "modmenu": [
       "io.sapphiremc.chromium.client.compat.modmenu.ModMenuCompat"

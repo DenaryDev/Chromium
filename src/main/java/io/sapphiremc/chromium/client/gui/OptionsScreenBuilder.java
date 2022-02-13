@@ -1,24 +1,14 @@
 /*
  * Copyright (c) 2022 DenaryDev
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public
- * License along with this program.  If not, see
- * <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * Use of this source code is governed by an MIT-style
+ * license that can be found in the LICENSE file or at
+ * https://opensource.org/licenses/MIT.
  */
 package io.sapphiremc.chromium.client.gui;
 
-import io.sapphiremc.chromium.client.config.ChromiumConfig;
-import io.sapphiremc.chromium.client.ChromiumClientMod;
+import io.sapphiremc.chromium.common.config.ChromiumConfig;
+import io.sapphiremc.chromium.ChromiumMod;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
@@ -36,82 +26,82 @@ import net.minecraft.text.TranslatableText;
 public class OptionsScreenBuilder {
 
     private static final Function<Boolean, Text> yesNoSupplier = bool -> {
-        if (bool) return new TranslatableText("label.sapphireclient.on");
-        else return new TranslatableText("label.sapphireclient.off");
+        if (bool) return new TranslatableText("label.chromium.on");
+        else return new TranslatableText("label.chromium.off");
     };
 
-    public static Screen build(ChromiumClientMod mod) {
+    public static Screen build() {
         MinecraftClient client = MinecraftClient.getInstance();
         ChromiumConfig defaults = new ChromiumConfig();
-        ChromiumConfig current = mod.getConfig();
+        ChromiumConfig current = ChromiumMod.getConfig();
 
         ConfigBuilder builder = ConfigBuilder.create()
                 .setParentScreen(client.currentScreen)
-                .setTitle(new TranslatableText("title.sapphireclient.config"))
+                .setTitle(new TranslatableText("title.chromium.config"))
                 .transparentBackground()
                 .setDoesConfirmSave(true)
-                .setSavingRunnable(() -> mod.getConfigManager().writeConfig(true));
+                .setSavingRunnable(() -> ChromiumMod.getConfigManager().writeConfig(true));
 
         ConfigEntryBuilder entryBuilder = builder.entryBuilder();
-        ConfigCategory category = builder.getOrCreateCategory(new TranslatableText("category.sapphireclient.general"));
+        ConfigCategory category = builder.getOrCreateCategory(new TranslatableText("category.chromium.general"));
 
-        AbstractConfigListEntry<ChromiumConfig.TitleScreenProvider> changeScreenType = entryBuilder.startEnumSelector(new TranslatableText("options.sapphireclient.changeScreenProvider"), ChromiumConfig.TitleScreenProvider.class, current.getTitleScreenProvider())
+        AbstractConfigListEntry<ChromiumConfig.TitleScreenProvider> changeScreenType = entryBuilder.startEnumSelector(new TranslatableText("options.chromium.changeScreenProvider"), ChromiumConfig.TitleScreenProvider.class, current.getTitleScreenProvider())
                 .setDefaultValue(defaults.getTitleScreenProvider())
-                .setTooltip(getTooltip("options.sapphireclient.changeScreenProvider"))
-                .setSaveConsumer(value -> mod.getConfig().setTitleScreenProvider(value))
+                .setTooltip(getTooltip("options.chromium.changeScreenProvider"))
+                .setSaveConsumer(value -> ChromiumMod.getConfig().setTitleScreenProvider(value))
                 .setEnumNameProvider(anEnum -> {
-                    if (anEnum.equals(ChromiumConfig.TitleScreenProvider.CHROMIUM)) return new TranslatableText("options.sapphireclient.screenType.sapphireClient");
-                    else return new TranslatableText("options.sapphireclient.screenType.minecraft");
+                    if (anEnum.equals(ChromiumConfig.TitleScreenProvider.CHROMIUM)) return new TranslatableText("options.chromium.screenType.chromium");
+                    else return new TranslatableText("options.chromium.screenType.minecraft");
                 })
                 .build();
 
-        AbstractConfigListEntry<Boolean> toggleShowFps = entryBuilder.startBooleanToggle(new TranslatableText("options.sapphireclient.showFps"), current.isShowFps())
+        AbstractConfigListEntry<Boolean> toggleShowFps = entryBuilder.startBooleanToggle(new TranslatableText("options.chromium.showFps"), current.isShowFps())
                 .setDefaultValue(defaults.isShowFps())
-                .setTooltip(getTooltip("options.sapphireclient.showFps"))
-                .setSaveConsumer(value -> mod.getConfig().setShowFps(value))
+                .setTooltip(getTooltip("options.chromium.showFps"))
+                .setSaveConsumer(value -> ChromiumMod.getConfig().setShowFps(value))
                 .setYesNoTextSupplier(yesNoSupplier)
                 .build();
 
-        AbstractConfigListEntry<Boolean> toggleShowTime = entryBuilder.startBooleanToggle(new TranslatableText("options.sapphireclient.showTime"), current.isShowTime())
+        AbstractConfigListEntry<Boolean> toggleShowTime = entryBuilder.startBooleanToggle(new TranslatableText("options.chromium.showTime"), current.isShowTime())
                 .setDefaultValue(defaults.isShowTime())
-                .setTooltip(getTooltip("options.sapphireclient.showTime"))
-                .setSaveConsumer(value -> mod.getConfig().setShowTime(value))
+                .setTooltip(getTooltip("options.chromium.showTime"))
+                .setSaveConsumer(value -> ChromiumMod.getConfig().setShowTime(value))
                 .setYesNoTextSupplier(yesNoSupplier)
                 .build();
 
-        AbstractConfigListEntry<Boolean> toggleShowCoords = entryBuilder.startBooleanToggle(new TranslatableText("options.sapphireclient.showCoords"), current.isShowCoords())
+        AbstractConfigListEntry<Boolean> toggleShowCoords = entryBuilder.startBooleanToggle(new TranslatableText("options.chromium.showCoords"), current.isShowCoords())
                 .setDefaultValue(defaults.isShowCoords())
-                .setTooltip(getTooltip("options.sapphireclient.showCoords"))
-                .setSaveConsumer(value -> mod.getConfig().setShowCoords(value))
+                .setTooltip(getTooltip("options.chromium.showCoords"))
+                .setSaveConsumer(value -> ChromiumMod.getConfig().setShowCoords(value))
                 .setYesNoTextSupplier(yesNoSupplier)
                 .build();
 
-        AbstractConfigListEntry<Boolean> toggleShowLight = entryBuilder.startBooleanToggle(new TranslatableText("options.sapphireclient.showLight"), current.isShowLight())
+        AbstractConfigListEntry<Boolean> toggleShowLight = entryBuilder.startBooleanToggle(new TranslatableText("options.chromium.showLight"), current.isShowLight())
                 .setDefaultValue(defaults.isShowLight())
-                .setTooltip(getTooltip("options.sapphireclient.showLight"))
-                .setSaveConsumer(value -> mod.getConfig().setShowLight(value))
+                .setTooltip(getTooltip("options.chromium.showLight"))
+                .setSaveConsumer(value -> ChromiumMod.getConfig().setShowLight(value))
                 .setYesNoTextSupplier(yesNoSupplier)
                 .build();
 
-        AbstractConfigListEntry<Boolean> toggleShowBiome = entryBuilder.startBooleanToggle(new TranslatableText("options.sapphireclient.showBiome"), current.isShowBiome())
+        AbstractConfigListEntry<Boolean> toggleShowBiome = entryBuilder.startBooleanToggle(new TranslatableText("options.chromium.showBiome"), current.isShowBiome())
                 .setDefaultValue(defaults.isShowBiome())
-                .setTooltip(getTooltip("options.sapphireclient.showBiome"))
-                .setSaveConsumer(value -> mod.getConfig().setShowBiome(value))
+                .setTooltip(getTooltip("options.chromium.showBiome"))
+                .setSaveConsumer(value -> ChromiumMod.getConfig().setShowBiome(value))
                 .setYesNoTextSupplier(yesNoSupplier)
                 .build();
 
-        AbstractConfigListEntry<Boolean> toggleMessagesTime = entryBuilder.startBooleanToggle(new TranslatableText("options.sapphireclient.showMessagesTime"), current.isShowMessagesTime())
+        AbstractConfigListEntry<Boolean> toggleMessagesTime = entryBuilder.startBooleanToggle(new TranslatableText("options.chromium.showMessagesTime"), current.isShowMessagesTime())
                 .setDefaultValue(defaults.isShowMessagesTime())
-                .setTooltip(getTooltip("options.sapphireclient.showMessagesTime"))
-                .setSaveConsumer(value -> mod.getConfig().setShowMessagesTime(value))
+                .setTooltip(getTooltip("options.chromium.showMessagesTime"))
+                .setSaveConsumer(value -> ChromiumMod.getConfig().setShowMessagesTime(value))
                 .setYesNoTextSupplier(yesNoSupplier)
                 .build();
 
-        SubCategoryBuilder screen = entryBuilder.startSubCategory(new TranslatableText("category.sapphireclient.screen"));
+        SubCategoryBuilder screen = entryBuilder.startSubCategory(new TranslatableText("category.chromium.screen"));
         screen.add(changeScreenType);
         screen.setExpanded(true);
 
-        SubCategoryBuilder info = entryBuilder.startSubCategory(new TranslatableText("category.sapphireclient.info"));
+        SubCategoryBuilder info = entryBuilder.startSubCategory(new TranslatableText("category.chromium.info"));
         info.add(toggleShowFps);
         info.add(toggleShowTime);
         info.add(toggleShowCoords);
@@ -119,7 +109,7 @@ public class OptionsScreenBuilder {
         info.add(toggleShowBiome);
         info.setExpanded(true);
 
-        SubCategoryBuilder chat = entryBuilder.startSubCategory(new TranslatableText("category.sapphireclient.chat"));
+        SubCategoryBuilder chat = entryBuilder.startSubCategory(new TranslatableText("category.chromium.chat"));
         chat.add(toggleMessagesTime);
         chat.setExpanded(true);
 

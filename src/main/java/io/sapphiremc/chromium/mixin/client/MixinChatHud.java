@@ -1,23 +1,13 @@
 /*
  * Copyright (c) 2022 DenaryDev
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public
- * License along with this program.  If not, see
- * <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * Use of this source code is governed by an MIT-style
+ * license that can be found in the LICENSE file or at
+ * https://opensource.org/licenses/MIT.
  */
 package io.sapphiremc.chromium.mixin.client;
 
-import io.sapphiremc.chromium.client.ChromiumClientMod;
+import io.sapphiremc.chromium.ChromiumMod;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.ChatHud;
@@ -63,7 +53,7 @@ public abstract class MixinChatHud extends DrawableHelper {
     @Overwrite
     private void addMessage(Text message, int messageId, int timestamp, boolean refresh) {
         TranslatableText prefixedMessage;
-        if (ChromiumClientMod.getInstance().getConfig().isShowMessagesTime()) {
+        if (ChromiumMod.getConfig().isShowMessagesTime()) {
             Text hoverText = new TranslatableText(Formatting.YELLOW + new SimpleDateFormat("dd-MM-yyyy HH:mm:ss ").format(new Date()) + TimeZone.getDefault().getID());
             Text timeText = new TranslatableText(Formatting.GRAY + new SimpleDateFormat("[HH:mm:ss] ").format(new Date()) + Formatting.RESET).styled(
                     (style -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText))));

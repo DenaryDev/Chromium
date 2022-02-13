@@ -1,24 +1,13 @@
 /*
  * Copyright (c) 2022 DenaryDev
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public
- * License along with this program.  If not, see
- * <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * Use of this source code is governed by an MIT-style
+ * license that can be found in the LICENSE file or at
+ * https://opensource.org/licenses/MIT.
  */
 package io.sapphiremc.chromium.mixin.client;
 
 import io.sapphiremc.chromium.client.gui.ChromiumTitleScreen;
-import io.sapphiremc.chromium.client.ChromiumClientMod;
 import io.sapphiremc.chromium.client.gui.OptionsScreenBuilder;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
@@ -67,6 +56,6 @@ public abstract class MixinTitleScreen extends Screen {
     @Inject(method = "init", at = @At("TAIL"))
     protected void sapphireclient$addChangeScreenButton(CallbackInfo ci) {
         addDrawableChild(new ButtonWidget(this.width - 22, 2, 20, 20, new TranslatableText("S"), (element) ->
-                this.client.setScreen(OptionsScreenBuilder.build(ChromiumClientMod.getInstance()))));
+                this.client.setScreen(OptionsScreenBuilder.build())));
     }
 }

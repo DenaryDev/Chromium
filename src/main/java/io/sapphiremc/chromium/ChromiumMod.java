@@ -1,35 +1,26 @@
 /*
  * Copyright (c) 2022 DenaryDev
  *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public
- * License along with this program.  If not, see
- * <http://www.gnu.org/licenses/gpl-3.0.html>.
+ * Use of this source code is governed by an MIT-style
+ * license that can be found in the LICENSE file or at
+ * https://opensource.org/licenses/MIT.
  */
-package io.sapphiremc.chromium.client;
+package io.sapphiremc.chromium;
 
 import com.google.common.io.ByteArrayDataOutput;
-import io.sapphiremc.chromium.client.config.ChromiumConfig;
-import io.sapphiremc.chromium.client.config.ConfigManager;
-import io.sapphiremc.chromium.client.gui.OptionsScreenBuilder;
-import io.sapphiremc.chromium.client.gui.ChromiumTitleScreen;
-import io.sapphiremc.chromium.client.util.Constants;
+import io.sapphiremc.chromium.common.config.ChromiumConfig;
+import io.sapphiremc.chromium.common.config.ConfigManager;
 import io.sapphiremc.chromium.client.dummy.DummyClientPlayerEntity;
+import io.sapphiremc.chromium.client.gui.ChromiumTitleScreen;
+import io.sapphiremc.chromium.client.gui.OptionsScreenBuilder;
 import io.sapphiremc.chromium.client.network.Packet;
+import io.sapphiremc.chromium.common.util.MultiplayerConstants;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import lombok.Getter;
 import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.DedicatedServerModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
@@ -51,10 +42,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.glfw.GLFW;
 
-public class ChromiumClientMod implements ClientModInitializer {
-
-	@Getter
-	private static ChromiumClientMod instance;
+public class ChromiumMod implements ClientModInitializer, DedicatedServerModInitializer {
 	@Getter
 	private static final String modId = "chromium";
 	@Getter
@@ -64,17 +52,17 @@ public class ChromiumClientMod implements ClientModInitializer {
 	private static DummyClientPlayerEntity dummyClientPlayer;
 
 	@Getter
-	private ConfigManager configManager;
+	private static ConfigManager configManager;
 
 	private KeyBinding configKey;
 
 	@Override
 	public void onInitializeClient() {
-		instance = this;
+		logger.info("Initializing chromium by SapphireMC");
+		logger.info("Running on client-side");
+		initialize();
 
 		dummyClientPlayer = DummyClientPlayerEntity.getInstance();
-
-		configManager = new ConfigManager();
 
 		configKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
 				"key.chromium.config",
@@ -86,14 +74,13 @@ public class ChromiumClientMod implements ClientModInitializer {
 		ClientPlayConnectionEvents.JOIN.register(((handler, sender, client) -> {
 			if (!client.isInSingleplayer()) {
 				ByteArrayDataOutput out = Packet.out();
-				out.writeInt(Constants.PROTOCOL_ID);
-				Packet.send(Constants.HELLO, out);
+				out.writeInt(MultiplayerConstants.PROTOCOL_ID);
+				Packet.send(MultiplayerConstants.HELLO, out);
 			}
 		}));
-
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if (configKey.isPressed()) {
-				client.setScreen(OptionsScreenBuilder.build(this));
+				client.setScreen(OptionsScreenBuilder.build());
 			}
 		});
 		ScreenEvents.BEFORE_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
@@ -103,7 +90,18 @@ public class ChromiumClientMod implements ClientModInitializer {
 		});
 	}
 
-	public ChromiumConfig getConfig() {
+	@Override
+	public void onInitializeServer() {
+		logger.info("Initializing chromium by SapphireMC");
+		logger.info("Running on client-side");
+		initialize();
+	}
+
+	private void initialize() {
+		configManager = new ConfigManager();
+	}
+
+	public static ChromiumConfig getConfig() {
 		return configManager.getConfig();
 	}
 
