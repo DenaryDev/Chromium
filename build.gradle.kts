@@ -49,46 +49,11 @@ dependencies {
 	annotationProcessor("org.projectlombok:lombok:1.18.22")
 }
 
-tasks.withType<JavaCompile> {
-	options.encoding = Charsets.UTF_8.name()
-	options.release.set(17)
-}
-
-tasks.withType<Javadoc> {
-	options.encoding = Charsets.UTF_8.name()
-}
-
-tasks.withType<ProcessResources> {
-	filteringCharset = Charsets.UTF_8.name()
-}
-
-tasks.withType<Jar> {
-	archiveBaseName.set(archivesBaseName)
-}
-
 java {
 	toolchain {
 		languageVersion.set(JavaLanguageVersion.of(17))
 	}
 	withSourcesJar()
-}
-
-tasks.processResources {
-	inputs.property("version", project.version)
-
-	filesMatching("fabric.mod.json") {
-		expand("version" to project.version)
-	}
-}
-
-tasks.jar {
-	from("LICENSE") {
-		rename { "${it}_$archivesBaseName\\_$minecraftVersion" }
-	}
-}
-
-tasks.remapJar {
-	archiveBaseName.set(archivesBaseName)
 }
 
 publishing {
@@ -103,5 +68,50 @@ publishing {
 			isAllowInsecureProtocol = true
 			credentials(PasswordCredentials::class)
 		}
+	}
+}
+
+tasks {
+	withType<JavaCompile> {
+		options.encoding = Charsets.UTF_8.name()
+		options.release.set(17)
+	}
+
+	withType<Javadoc> {
+		options.encoding = Charsets.UTF_8.name()
+	}
+
+	withType<ProcessResources> {
+		filteringCharset = Charsets.UTF_8.name()
+	}
+
+	withType<Jar> {
+		archiveBaseName.set(archivesBaseName)
+	}
+
+	processResources {
+		inputs.property("version", project.version)
+
+		filesMatching("fabric.mod.json") {
+			expand("version" to project.version)
+		}
+	}
+
+	jar {
+		from("LICENSE") {
+			rename { "${it}_$archivesBaseName\\_$minecraftVersion" }
+		}
+	}
+
+	remapJar {
+		archiveBaseName.set(archivesBaseName)
+	}
+
+	runClient {
+		workingDir = project.projectDir.resolve("run/client")
+	}
+
+	runServer {
+		workingDir = project.projectDir.resolve("run/server")
 	}
 }
