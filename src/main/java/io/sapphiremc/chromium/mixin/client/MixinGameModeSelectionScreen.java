@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class MixinGameModeSelectionScreen {
 
     @Redirect(method = "apply(Lnet/minecraft/client/MinecraftClient;Ljava/util/Optional;)V", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasPermissionLevel(I)Z"))
-    private static boolean sapphireclient$applyGamemode(ClientPlayerEntity player, int level) {
+    private static boolean chromium$checkPermissionLevel(ClientPlayerEntity player, int level) {
         if (MinecraftClient.getInstance().getCurrentServerEntry() == null) {
             return player.hasPermissionLevel(level);
         } else {

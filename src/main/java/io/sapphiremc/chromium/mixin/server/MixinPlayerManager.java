@@ -24,17 +24,17 @@ public abstract class MixinPlayerManager {
     @Shadow public abstract List<ServerPlayerEntity> getPlayerList();
 
     @Inject(method = "onPlayerConnect", at = @At(value = "HEAD"))
-    private void onPlayerConnect(ClientConnection connection, ServerPlayerEntity player, CallbackInfo ci) {
+    private void chromium$skins$loadPlayer(ClientConnection connection, ServerPlayerEntity player, CallbackInfo ci) {
         ChromiumMod.getSkinsManager().loadPlayer(player);
     }
 
     @Inject(method = "remove", at = @At("TAIL"))
-    private void remove(ServerPlayerEntity player, CallbackInfo ci) {
+    private void chromium$skins$unloadPlayer(ServerPlayerEntity player, CallbackInfo ci) {
         ChromiumMod.getSkinsManager().unloadPlayer(player);
     }
 
     @Inject(method = "disconnectAllPlayers", at = @At("HEAD"))
-    private void disconnectAllPlayers(CallbackInfo ci) {
+    private void chromium$skins$unloadAllPlayers(CallbackInfo ci) {
         for (ServerPlayerEntity player : getPlayerList()) {
             ChromiumMod.getSkinsManager().unloadPlayer(player);
         }

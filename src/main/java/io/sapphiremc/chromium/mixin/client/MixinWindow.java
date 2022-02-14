@@ -35,7 +35,7 @@ public abstract class MixinWindow {
     @Shadow private int windowedHeight;
 
     @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lorg/lwjgl/glfw/GLFW;glfwMakeContextCurrent(J)V"))
-    private void sapphireclient$setMinWinSize(WindowEventHandler eventHandler, MonitorTracker monitorTracker, WindowSettings settings, @Nullable String videoMode, String title, CallbackInfo callbackInfo) {
+    private void chromium$setMinimumWindowSize(WindowEventHandler eventHandler, MonitorTracker monitorTracker, WindowSettings settings, @Nullable String videoMode, String title, CallbackInfo callbackInfo) {
         if (this.width < 1000) this.width = 1000;
         if (this.height < 700) this.height = 700;
         if (this.windowedWidth < 1000) this.windowedWidth = 1000;
@@ -45,7 +45,7 @@ public abstract class MixinWindow {
     }
 
     @Inject(method = "toggleFullscreen", at = @At("HEAD"))
-    private void sapphireclient$toggleFullScreen(CallbackInfo ci) {
+    private void chromium$closeExitMenu(CallbackInfo ci) {
         if (MinecraftClient.getInstance().currentScreen instanceof ChromiumTitleScreen screen && screen.isConfirmOpened()) {
             screen.setConfirmOpened(false);
         }

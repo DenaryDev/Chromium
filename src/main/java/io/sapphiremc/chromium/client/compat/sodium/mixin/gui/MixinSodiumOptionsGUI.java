@@ -22,7 +22,7 @@ public class MixinSodiumOptionsGUI {
             index = 2,
             remap = false
     )
-    public int sapphireclient$boxWidthOne(int value) {
+    public int chromium$getElementWidth(int value) {
         return 242;
     }
 
@@ -32,7 +32,7 @@ public class MixinSodiumOptionsGUI {
             require = 1,
             remap = false
     )
-    public int sapphireclient$boxWidthTwo(int value) {
+    public int chromium$getTooltipWidth(int value) {
         return 242;
     }
 }

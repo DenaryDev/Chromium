@@ -45,7 +45,7 @@ public abstract class MixinTitleScreen extends Screen {
 
     /**
      * @author DenaryDev
-     * @reason Custom main menu
+     * @reason Load textures for our title screen
      */
     @Overwrite
     public static @NotNull CompletableFuture<Void> loadTexturesAsync(@NotNull TextureManager textureManager, Executor executor) {
@@ -54,7 +54,7 @@ public abstract class MixinTitleScreen extends Screen {
     }
 
     @Inject(method = "init", at = @At("TAIL"))
-    protected void sapphireclient$addChangeScreenButton(CallbackInfo ci) {
+    protected void chromium$addChromiumSettingsButton(CallbackInfo ci) {
         addDrawableChild(new ButtonWidget(this.width - 22, 2, 20, 20, new TranslatableText("S"), (element) ->
                 this.client.setScreen(OptionsScreenBuilder.build())));
     }

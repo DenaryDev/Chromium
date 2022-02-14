@@ -28,7 +28,7 @@ public class MixinSodiumGameOptionPages {
             index = 2,
             remap = false
     )
-    private static int sapphireclient$maxGuiScale(int value) {
+    private static int chromium$getMaxGuiScale(int value) {
         if (ChromiumMod.getConfig().getTitleScreenProvider().equals(ChromiumConfig.TitleScreenProvider.CHROMIUM)) {
             return 4;
         } else {
@@ -43,7 +43,7 @@ public class MixinSodiumGameOptionPages {
             index = 4,
             remap = false
     )
-    private static @NotNull ControlValueFormatter sapphireclient$quantityOrDisabled(ControlValueFormatter formatter) {
+    private static @NotNull ControlValueFormatter chromium$getChunkUpdateThreadsText(ControlValueFormatter formatter) {
         return ControlValueFormatter.quantityOrDisabled(new TranslatableText("sodium.options.chunk_update_threads.threads").getString(), new TranslatableText("sodium.options.chunk_update_threads.default").getString());
     }
 }

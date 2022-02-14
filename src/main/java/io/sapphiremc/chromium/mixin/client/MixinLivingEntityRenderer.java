@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(LivingEntityRenderer.class)
 public class MixinLivingEntityRenderer<T extends LivingEntity> {
     @Inject(method = "hasLabel(Lnet/minecraft/entity/LivingEntity;)Z", at = @At("HEAD"), cancellable = true)
-    private void sapphireclient$hasLabel(T livingEntity, CallbackInfoReturnable<Boolean> cir) {
+    private void chromium$checkEntityLabel(T livingEntity, CallbackInfoReturnable<Boolean> cir) {
         if (livingEntity instanceof DummyClientPlayerEntity || MinecraftClient.getInstance().currentScreen instanceof TitleScreen) cir.setReturnValue(false);
     }
 }
