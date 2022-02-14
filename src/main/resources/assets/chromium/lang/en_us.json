@@ -46,6 +46,12 @@
   "options.chromium.showMessagesTime.tooltip.3": "and on hover you can see the",
   "options.chromium.showMessagesTime.tooltip.4": "current timezone.",
 
+  "message.chromium.skin.downloading": "Downloading skin...",
+  "message.chromium.skin.set": "You need to reconnect to apply skin.",
+  "message.chromium.skin.set.operator": "Operator set skin for you. You need to reconnect to apply it.",
+  "message.chromium.skin.clear": "",
+  "message.chromium.skin.clear.operator": "",
+
   "menu.chromium.confirmQuit": "Quit the game?",
   "menu.chromium.quit": "Quit",
   "menu.chromium.cancel": "Cancel",

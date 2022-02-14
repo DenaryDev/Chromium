@@ -9,6 +9,7 @@ package io.sapphiremc.chromium.client.compat.sodium;
 
 import java.util.List;
 import java.util.Set;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
@@ -20,6 +21,7 @@ public class SodiumCompatMixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public void onLoad(String mixinPackage) {
+        if (FabricLoader.getInstance().getEnvironmentType().equals(EnvType.SERVER)) return;
         validSodiumVersion = FabricLoader.getInstance().getModContainer("sodium").map(sodium -> {
             String version = sodium.getMetadata().getVersion().getFriendlyString();
 

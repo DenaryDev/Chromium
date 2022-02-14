@@ -7,29 +7,24 @@
  */
 package io.sapphiremc.chromium;
 
-import com.google.common.io.ByteArrayDataOutput;
 import io.sapphiremc.chromium.common.config.ChromiumConfig;
 import io.sapphiremc.chromium.common.config.ConfigManager;
 import io.sapphiremc.chromium.client.dummy.DummyClientPlayerEntity;
-import io.sapphiremc.chromium.client.gui.ChromiumTitleScreen;
-import io.sapphiremc.chromium.client.gui.OptionsScreenBuilder;
-import io.sapphiremc.chromium.client.network.Packet;
-import io.sapphiremc.chromium.common.util.MultiplayerConstants;
+import io.sapphiremc.chromium.common.manager.Manager;
+import io.sapphiremc.chromium.common.skins.SkinsManager;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import lombok.Getter;
-import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.api.DedicatedServerModInitializer;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
-import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
-import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
+import lombok.Setter;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.api.ModInitializer;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.TitleScreen;
-import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.option.Option;
-import net.minecraft.client.util.InputUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.TranslatableText;
@@ -40,71 +35,59 @@ import net.minecraft.world.LightType;
 import net.minecraft.world.biome.Biome;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.lwjgl.glfw.GLFW;
 
-public class ChromiumMod implements ClientModInitializer, DedicatedServerModInitializer {
+public class ChromiumMod implements ModInitializer {
 	@Getter
 	private static final String modId = "chromium";
 	@Getter
 	private static final Logger logger = LogManager.getLogger(modId);
 
 	@Getter
-	private static DummyClientPlayerEntity dummyClientPlayer;
+	private static EnvType env;
 
 	@Getter
+	@Setter
+	@Environment(EnvType.CLIENT)
+	private static DummyClientPlayerEntity dummyClientPlayer;
+
+	private final List<Manager> managers = new ArrayList<>();
+	@Getter
 	private static ConfigManager configManager;
-
-	private KeyBinding configKey;
-
-	@Override
-	public void onInitializeClient() {
-		logger.info("Initializing chromium by SapphireMC");
-		logger.info("Running on client-side");
-		initialize();
-
-		dummyClientPlayer = DummyClientPlayerEntity.getInstance();
-
-		configKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
-				"key.chromium.config",
-				InputUtil.Type.KEYSYM,
-				GLFW.GLFW_KEY_N,
-				"Chromium"
-		));
-
-		ClientPlayConnectionEvents.JOIN.register(((handler, sender, client) -> {
-			if (!client.isInSingleplayer()) {
-				ByteArrayDataOutput out = Packet.out();
-				out.writeInt(MultiplayerConstants.PROTOCOL_ID);
-				Packet.send(MultiplayerConstants.HELLO, out);
-			}
-		}));
-		ClientTickEvents.END_CLIENT_TICK.register(client -> {
-			if (configKey.isPressed()) {
-				client.setScreen(OptionsScreenBuilder.build());
-			}
-		});
-		ScreenEvents.BEFORE_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
-			if (screen instanceof TitleScreen && getConfig().getTitleScreenProvider().equals(ChromiumConfig.TitleScreenProvider.CHROMIUM)) {
-				client.setScreen(new ChromiumTitleScreen());
-			}
-		});
-	}
+	@Getter
+	private static SkinsManager skinsManager;
 
 	@Override
-	public void onInitializeServer() {
-		logger.info("Initializing chromium by SapphireMC");
-		logger.info("Running on client-side");
-		initialize();
-	}
+	public void onInitialize() {
+		env = FabricLoader.getInstance().getEnvironmentType();
+		logger.info((env.equals(EnvType.CLIENT) ? "[Chromium] " : "") + "Initializing chromium by SapphireMC");
+		logger.info((env.equals(EnvType.CLIENT) ? "[Chromium] " : "") + "Running on " + env.name().toLowerCase() + "-side");
 
-	private void initialize() {
 		configManager = new ConfigManager();
+		managers.add(configManager);
+		skinsManager = new SkinsManager();
+		managers.add(skinsManager);
+
+		initializeManagers();
+		logger.info((env.equals(EnvType.CLIENT) ? "[Chromium] " : "") + "Chromium successfully initialized!");
+	}
+
+	private void initializeManagers() {
+		for (Manager manager : managers) {
+			if (manager.getEnv().equals(Manager.Env.BOTH)) {
+				manager.initialize();
+			} else if (manager.getEnv().equals(Manager.Env.CLIENT) && env.equals(EnvType.CLIENT)) {
+				manager.initialize();
+			} else if (manager.getEnv().equals(Manager.Env.SERVER) && env.equals(EnvType.SERVER)) {
+				manager.initialize();
+			}
+		}
 	}
 
 	public static ChromiumConfig getConfig() {
 		return configManager.getConfig();
 	}
 
+	@Environment(EnvType.CLIENT)
 	public static String getFpsString() {
 		MinecraftClient client = MinecraftClient.getInstance();
 		Field fpsField;
@@ -136,12 +119,15 @@ public class ChromiumMod implements ClientModInitializer, DedicatedServerModInit
 		return new TranslatableText("options.chromium.fps", currentFps, maxFPS, vsync).getString();
 	}
 
+	@Environment(EnvType.CLIENT)
 	public static String getTime() {
 		return new TranslatableText("options.chromium.time", new SimpleDateFormat("HH:mm:ss dd/MM").format(new Date())).getString();
 	}
 
+	@Environment(EnvType.CLIENT)
 	private static String cachedCoords = "";
 
+	@Environment(EnvType.CLIENT)
 	public static String getCoordsString(LivingEntity entity) {
 		if (entity != null) {
 			cachedCoords = new TranslatableText("options.chromium.coordinates", entity.getBlockX(), entity.getBlockY(), entity.getBlockZ()).getString();
@@ -149,8 +135,10 @@ public class ChromiumMod implements ClientModInitializer, DedicatedServerModInit
 		return cachedCoords;
 	}
 
+	@Environment(EnvType.CLIENT)
 	private static String cachedLight = "";
 
+	@Environment(EnvType.CLIENT)
 	public static String getLightString(PlayerEntity player) {
 		MinecraftClient client = MinecraftClient.getInstance();
 		if (player != null && client.world != null) {
@@ -163,8 +151,10 @@ public class ChromiumMod implements ClientModInitializer, DedicatedServerModInit
 		return cachedLight;
 	}
 
+	@Environment(EnvType.CLIENT)
 	private static String cachedBiome = "";
 
+	@Environment(EnvType.CLIENT)
 	public static String getBiomeString(PlayerEntity player) {
 		MinecraftClient client = MinecraftClient.getInstance();
 		if (player != null && client.world != null) {

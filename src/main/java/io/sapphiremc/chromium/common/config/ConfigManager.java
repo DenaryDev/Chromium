@@ -10,6 +10,7 @@ package io.sapphiremc.chromium.common.config;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.sapphiremc.chromium.ChromiumMod;
+import io.sapphiremc.chromium.common.manager.Manager;
 import java.nio.charset.Charset;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -19,7 +20,7 @@ import lombok.Getter;
 import net.fabricmc.loader.api.FabricLoader;
 import org.apache.commons.io.FileUtils;
 
-public class ConfigManager {
+public class ConfigManager implements Manager {
 
 	@Getter
 	private ChromiumConfig config;
@@ -33,6 +34,16 @@ public class ConfigManager {
 		this.gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
 		this.configFile = new File(FabricLoader.getInstance().getConfigDir().toString() + File.separator + ChromiumMod.getModId(), "settings.json");
 		readConfig(false);
+	}
+
+	@Override
+	public Env getEnv(){
+		return Env.BOTH;
+	}
+
+	@Override
+	public void initialize() {
+		// Do nothing
 	}
 
 	public void readConfig(boolean async) {

@@ -17,13 +17,13 @@
   "license": "GPL-3.0-only",
   "icon": "assets/chromium/icon.png",
 
-  "environment": "client",
+  "environment": "*",
   "entrypoints": {
-    "client": [
+    "main": [
       "io.sapphiremc.chromium.ChromiumMod"
     ],
-    "server": [
-      "io.sapphiremc.chromium.ChromiumMod"
+    "client": [
+      "io.sapphiremc.chromium.client.ChromiumClientInitializer"
     ],
     "modmenu": [
       "io.sapphiremc.chromium.client.compat.modmenu.ModMenuCompat"
