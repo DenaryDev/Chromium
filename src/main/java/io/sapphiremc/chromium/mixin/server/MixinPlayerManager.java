@@ -5,7 +5,7 @@
  * license that can be found in the LICENSE file or at
  * https://opensource.org/licenses/MIT.
  */
-package io.sapphiremc.chromium.mixin.common;
+package io.sapphiremc.chromium.mixin.server;
 
 import io.sapphiremc.chromium.ChromiumMod;
 import java.util.List;

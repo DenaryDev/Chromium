@@ -15,8 +15,8 @@
     "client.MixinKeyboard",
     "client.MixinGameModeSelectionScreen"
   ],
-  "mixins": [
-    "common.MixinCommandManager",
-    "common.MixinPlayerManager"
+  "server": [
+    "server.MixinCommandManager",
+    "server.MixinPlayerManager"
   ]
 }
