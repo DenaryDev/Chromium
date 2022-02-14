@@ -26,7 +26,7 @@ public class MixinIrisSodiumOptions {
             ),
             index = 4
     )
-    private static @NotNull ControlValueFormatter chromium$quantityOrDisabled(ControlValueFormatter formatter) {
+    private static @NotNull ControlValueFormatter sapphireclient$quantityOrDisabled(ControlValueFormatter formatter) {
         return ControlValueFormatter.quantityOrDisabled(new TranslatableText("options.chunks").getString(), new TranslatableText("label.chromium.disabled").getString());
     }
 
@@ -37,7 +37,7 @@ public class MixinIrisSodiumOptions {
             ),
             index = 2
     )
-    private static @NotNull Text @NotNull [] chromium$quantityOrDisabled(Text[] names) {
+    private static @NotNull Text @NotNull [] sapphireclient$quantityOrDisabled(Text[] names) {
         return new Text[]{new TranslatableText("options.graphics.fast"), new TranslatableText("options.graphics.fancy")};
     }
 }

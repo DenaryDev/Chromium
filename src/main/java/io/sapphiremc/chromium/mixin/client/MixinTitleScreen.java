@@ -54,7 +54,7 @@ public abstract class MixinTitleScreen extends Screen {
     }
 
     @Inject(method = "init", at = @At("TAIL"))
-    protected void chromium$addChangeScreenButton(CallbackInfo ci) {
+    protected void sapphireclient$addChangeScreenButton(CallbackInfo ci) {
         addDrawableChild(new ButtonWidget(this.width - 22, 2, 20, 20, new TranslatableText("S"), (element) ->
                 this.client.setScreen(OptionsScreenBuilder.build())));
     }

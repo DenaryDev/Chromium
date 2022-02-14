@@ -25,12 +25,12 @@ public abstract class MixinKeyboard {
     private int cachedKey = 0;
 
     @Inject(method = "processF3", at = @At("HEAD"))
-    private void chromium$cacheKey(int key, CallbackInfoReturnable<Boolean> cir) {
+    private void sapphireclient$cacheKey(int key, CallbackInfoReturnable<Boolean> cir) {
         cachedKey = key;
     }
 
     @Redirect(method = "processF3", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasPermissionLevel(I)Z"))
-    public boolean chromium$openSwitcher(ClientPlayerEntity player, int level) {
+    public boolean sapphireclient$openSwitcher(ClientPlayerEntity player, int level) {
         if (cachedKey == 293) {
             return client.getCurrentServerEntry() != null || player.hasPermissionLevel(level);
         } else {

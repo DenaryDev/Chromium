@@ -14,7 +14,6 @@ val modmenuVersion: String by project
 val clothConfigVersion: String by project
 val sodiumVersion: String by project
 val irisVersion: String by project
-val bobbyVersion: String by project
 
 repositories {
 	mavenCentral()
@@ -38,7 +37,6 @@ dependencies {
 	modImplementation("com.terraformersmc:modmenu:$modmenuVersion")
 	modImplementation("maven.modrinth:sodium:$sodiumVersion")
 	modImplementation("maven.modrinth:iris:$irisVersion")
-	modImplementation(files("libs/bobby-$bobbyVersion.jar"))
 	modApi("me.shedaniel.cloth:cloth-config-fabric:$clothConfigVersion") {
 		exclude(group = "net.fabricmc.fabric-api")
 	}
