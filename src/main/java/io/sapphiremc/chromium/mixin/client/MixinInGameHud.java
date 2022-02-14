@@ -35,7 +35,7 @@ public abstract class MixinInGameHud {
     @Shadow protected abstract PlayerEntity getCameraPlayer();
 
     @Inject(method = "render", at = @At("TAIL"))
-    private void sapphireclient$render(MatrixStack matrices, float tickDelta, CallbackInfo callbackInfo) {
+    private void chromium$render(MatrixStack matrices, float tickDelta, CallbackInfo callbackInfo) {
         boolean flag = this.client.world != null && (!this.client.options.hudHidden || this.client.currentScreen != null) && !this.client.options.debugEnabled;
         if (flag) {
             ChromiumConfig config = ChromiumMod.getConfig();

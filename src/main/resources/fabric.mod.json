@@ -32,7 +32,8 @@
   "mixins": [
     "mixins.chromium.json",
     "mixins.chromium.compat.sodium.json",
-    "mixins.chromium.compat.iris.json"
+    "mixins.chromium.compat.iris.json",
+    "mixins.chromium.compat.bobby.json"
   ],
 
   "depends": {
