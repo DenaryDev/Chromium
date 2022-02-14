@@ -7,8 +7,6 @@ plugins {
 
 val archivesBaseName: String by project
 val minecraftVersion: String by project
-val modVersion: String by project
-val mavenGroup: String by project
 val yarnMappings: String by project
 val loaderVersion: String by project
 val fabricVersion: String by project
@@ -17,9 +15,6 @@ val clothConfigVersion: String by project
 val sodiumVersion: String by project
 val irisVersion: String by project
 val bobbyVersion: String by project
-
-group = mavenGroup
-version = modVersion
 
 repositories {
 	mavenCentral()
