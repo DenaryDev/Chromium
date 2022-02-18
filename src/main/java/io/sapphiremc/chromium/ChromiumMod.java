@@ -45,11 +45,6 @@ public class ChromiumMod implements ModInitializer {
 	@Getter
 	private static EnvType env;
 
-	@Getter
-	@Setter
-	@Environment(EnvType.CLIENT)
-	private static DummyClientPlayerEntity dummyClientPlayer;
-
 	private final List<Manager> managers = new ArrayList<>();
 	@Getter
 	private static ConfigManager configManager;

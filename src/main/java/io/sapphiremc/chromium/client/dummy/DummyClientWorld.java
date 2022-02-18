@@ -7,8 +7,12 @@
  */
 package io.sapphiremc.chromium.client.dummy;
 
+import io.sapphiremc.chromium.ChromiumMod;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.tag.BlockTags;
+import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.dimension.DimensionType;
 
@@ -26,6 +30,6 @@ public class DummyClientWorld extends ClientWorld {
     }
 
     private DummyClientWorld() {
-        super(DummyClientPlayNetworkHandler.getInstance(), new Properties(Difficulty.EASY, false, true), null, DUMMY_OVERWORLD, 0, 0, () -> null, null, false, 0L);
+        super(DummyClientPlayNetworkHandler.getInstance(), new Properties(Difficulty.EASY, false, true), RegistryKey.of(Registry.WORLD_KEY, new Identifier(ChromiumMod.getModId(), "dummy")), DUMMY_OVERWORLD, 0, 0, () -> null, null, false, 0L);
     }
 }

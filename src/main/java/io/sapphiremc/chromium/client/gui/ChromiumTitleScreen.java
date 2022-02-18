@@ -88,7 +88,7 @@ public class ChromiumTitleScreen extends Screen {
 
     @Override
     public void init() {
-        ChromiumMod.getDummyClientPlayer().updateSkin();
+        DummyClientPlayerEntity.getInstance().updateSkin();
         int buttonW = (this.width) / 5;
         int x = (buttonW + 64) / 2 - buttonW / 2;
         int centerY = this.height / 2 + 32;

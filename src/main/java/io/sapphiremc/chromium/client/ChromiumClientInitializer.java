@@ -31,8 +31,6 @@ public class ChromiumClientInitializer implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        ChromiumMod.setDummyClientPlayer(DummyClientPlayerEntity.getInstance());
-
         configKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.chromium.config",
                 InputUtil.Type.KEYSYM,
