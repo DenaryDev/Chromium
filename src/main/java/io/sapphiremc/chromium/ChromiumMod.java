@@ -9,7 +9,6 @@ package io.sapphiremc.chromium;
 
 import io.sapphiremc.chromium.common.config.ChromiumConfig;
 import io.sapphiremc.chromium.common.config.ConfigManager;
-import io.sapphiremc.chromium.client.dummy.DummyClientPlayerEntity;
 import io.sapphiremc.chromium.common.manager.Manager;
 import io.sapphiremc.chromium.common.skins.SkinsManager;
 import java.lang.reflect.Field;
@@ -18,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import lombok.Getter;
-import lombok.Setter;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
@@ -33,14 +31,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.LightType;
 import net.minecraft.world.biome.Biome;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ChromiumMod implements ModInitializer {
 	@Getter
 	private static final String modId = "chromium";
 	@Getter
-	private static final Logger logger = LogManager.getLogger(modId);
+	private static final Logger logger = LoggerFactory.getLogger(modId);
 
 	@Getter
 	private static EnvType env;
@@ -155,7 +153,7 @@ public class ChromiumMod implements ModInitializer {
 		if (player != null && client.world != null) {
 			BlockPos blockPos = player.getBlockPos();
 			Registry<Biome> biomes = client.world.getRegistryManager().get(Registry.BIOME_KEY);
-			Biome biome = client.world.getBiome(blockPos);
+			Biome biome = client.world.getBiome(blockPos).value();
 			Identifier biomeId = biomes.getId(biome);
 			if (biomeId != null) {
 				cachedBiome = new TranslatableText("options.chromium.biome", new TranslatableText("biome.minecraft." + biomeId.getPath())).getString();

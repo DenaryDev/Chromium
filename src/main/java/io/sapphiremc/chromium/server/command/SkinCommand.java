@@ -15,7 +15,6 @@ import io.sapphiremc.chromium.common.skins.SkinVariant;
 import io.sapphiremc.chromium.common.skins.provider.MineSkinSkinsProvider;
 import io.sapphiremc.chromium.common.skins.provider.MojangSkinsProvider;
 import net.minecraft.command.argument.EntityArgumentType;
-import net.minecraft.network.MessageType;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
