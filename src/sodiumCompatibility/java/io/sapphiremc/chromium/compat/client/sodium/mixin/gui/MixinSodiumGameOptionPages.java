@@ -5,7 +5,7 @@
  * license that can be found in the LICENSE file or at
  * https://opensource.org/licenses/MIT.
  */
-package io.sapphiremc.chromium.client.compat.sodium.mixin.gui;
+package io.sapphiremc.chromium.compat.client.sodium.mixin.gui;
 
 import io.sapphiremc.chromium.ChromiumMod;
 import io.sapphiremc.chromium.common.config.ChromiumConfig;

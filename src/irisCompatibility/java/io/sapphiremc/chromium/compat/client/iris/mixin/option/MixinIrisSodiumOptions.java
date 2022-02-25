@@ -5,7 +5,7 @@
  * license that can be found in the LICENSE file or at
  * https://opensource.org/licenses/MIT.
  */
-package io.sapphiremc.chromium.client.compat.iris.mixin.option;
+package io.sapphiremc.chromium.compat.client.iris.mixin.option;
 
 import me.jellysquid.mods.sodium.client.gui.options.control.ControlValueFormatter;
 import net.coderbot.iris.compat.sodium.impl.options.IrisSodiumOptions;

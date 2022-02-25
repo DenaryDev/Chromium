@@ -12,7 +12,9 @@ val loaderVersion: String by project
 val fabricVersion: String by project
 val modmenuVersion: String by project
 val clothConfigVersion: String by project
+val sodiumCompatibility: Boolean = project.properties["sodiumCompatibility"].toString().toBoolean()
 val sodiumVersion: String by project
+val irisCompatibility: Boolean = project.properties["irisCompatibility"].toString().toBoolean()
 val irisVersion: String by project
 
 repositories {
@@ -34,10 +36,15 @@ dependencies {
 	modImplementation("net.fabricmc:fabric-loader:$loaderVersion")
 	modImplementation("net.fabricmc.fabric-api:fabric-api:$fabricVersion")
 
+	if (sodiumCompatibility) {
+		modImplementation("maven.modrinth:sodium:$sodiumVersion")
+		implementation("org.joml:joml:1.10.2")
+	}
+	if (irisCompatibility) {
+		modImplementation("maven.modrinth:iris:$irisVersion")
+	}
 	modImplementation("com.terraformersmc:modmenu:$modmenuVersion")
-	modImplementation("maven.modrinth:sodium:$sodiumVersion")
-	modImplementation("maven.modrinth:iris:$irisVersion")
-	modApi("me.shedaniel.cloth:cloth-config-fabric:$clothConfigVersion") {
+	modImplementation("me.shedaniel.cloth:cloth-config-fabric:$clothConfigVersion") {
 		exclude(group = "net.fabricmc.fabric-api")
 	}
 
@@ -74,6 +81,36 @@ publishing {
 	}
 }
 
+sourceSets {
+	if (sodiumCompatibility) {
+		create("sodiumCompatibility") {
+			java {
+				compileClasspath += main.get().compileClasspath
+				compileClasspath += main.get().output
+			}
+		}
+	}
+	if (irisCompatibility) {
+		create("irisCompatibility") {
+			java {
+				compileClasspath += main.get().compileClasspath
+				compileClasspath += main.get().output
+			}
+		}
+	}
+
+	main {
+		java {
+			if (sodiumCompatibility) {
+				runtimeClasspath += getByName("sodiumCompatibility").output
+			}
+			if (irisCompatibility) {
+				runtimeClasspath += getByName("irisCompatibility").output
+			}
+		}
+	}
+}
+
 tasks {
 	withType<JavaCompile> {
 		options.encoding = Charsets.UTF_8.name()
@@ -97,6 +134,24 @@ tasks {
 
 		filesMatching("fabric.mod.json") {
 			expand("version" to project.version)
+
+			if (!sodiumCompatibility) {
+				filter {
+					it.replace("mixins.chromium.compat.sodium.json", "mixins.empty.sodium.json")
+				}
+			}
+			if (!irisCompatibility) {
+				filter {
+					it.replace("mixins.chromium.compat.iris.json", "mixins.empty.iris.json")
+				}
+			}
+		}
+
+		if (sodiumCompatibility) {
+			exclude("mixins.empty.sodium.json")
+		}
+		if (irisCompatibility) {
+			exclude("mixins.empty.iris.json")
 		}
 	}
 
@@ -104,9 +159,28 @@ tasks {
 		from("LICENSE") {
 			rename { "${it}_$archivesBaseName\\_$minecraftVersion" }
 		}
+
+		if (sodiumCompatibility) {
+			from(sourceSets["sodiumCompatibility"].output) {
+				filesMatching("*refmap.json") {
+					name = "chromium-sodium-compat-refmap.json"
+				}
+			}
+		}
+		if (irisCompatibility) {
+			from(sourceSets["irisCompatibility"].output) {
+				filesMatching("*refmap.json") {
+					name = "chromium-iris-compat-refmap.json"
+				}
+			}
+		}
 	}
 
 	remapJar {
 		archiveBaseName.set(archivesBaseName)
+	}
+
+	runClient {
+		jvmArgs?.add("-Dmixin.debug.export=true")
 	}
 }
