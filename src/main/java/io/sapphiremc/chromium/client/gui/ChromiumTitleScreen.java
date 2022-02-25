@@ -199,13 +199,13 @@ public class ChromiumTitleScreen extends Screen {
         drawTexture(matrixStack, goldX, 110, 0, 0, 11, 11, 11, 11);
         this.textRenderer.drawWithShadow(matrixStack, goldAmount, goldX + 14, 112, 0xFFD700);
 
-        String modVersion = FabricLoader.getInstance().getModContainer(ChromiumMod.getModId()).get().getMetadata().getVersion().getFriendlyString();
-        boolean isBeta = modVersion.contains("beta") || modVersion.contains("pre") || modVersion.contains("rc");
+        String modVersion = FabricLoader.getInstance().getModContainer(ChromiumMod.getModId()).get().getMetadata().getVersion().getFriendlyString().toLowerCase();
+        boolean isUnstable = modVersion.contains("alpha") || modVersion.contains("beta") || modVersion.contains("pre") || modVersion.contains("rc") || modVersion.contains("snapshot");
         int chScrY = changeScreenButton.y;
-        if (isBeta) {
+        if (isUnstable) {
             if (chScrY != 15) changeScreenButton.y = 15;
             fill(matrixStack, 0, 0, width, 13, -1873784752);
-            String beta = new TranslatableText("chromium.warnings.beta").getString();
+            String beta = new TranslatableText("chromium.warnings.unstable").getString();
             this.textRenderer.drawWithShadow(matrixStack, beta, i, 3, 0xFF5555);
 
             i -= 1;
