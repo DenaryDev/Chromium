@@ -30,6 +30,6 @@ public class DummyClientWorld extends ClientWorld {
     }
 
     private DummyClientWorld() {
-        super(DummyClientPlayNetworkHandler.getInstance(), new Properties(Difficulty.EASY, false, true), RegistryKey.of(Registry.WORLD_KEY, new Identifier(ChromiumMod.getModId(), "dummy")), DUMMY_OVERWORLD, 0, 0, () -> null, null, false, 0L);
+        super(DummyClientPlayNetworkHandler.getInstance(), new Properties(Difficulty.EASY, false, true), RegistryKey.of(Registry.WORLD_KEY, new Identifier(ChromiumMod.MOD_ID, "dummy")), DUMMY_OVERWORLD, 0, 0, () -> null, null, false, 0L);
     }
 }

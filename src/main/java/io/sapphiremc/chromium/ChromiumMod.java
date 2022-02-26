@@ -35,10 +35,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class ChromiumMod implements ModInitializer {
-	@Getter
-	private static final String modId = "chromium";
-	@Getter
-	private static final Logger logger = LogManager.getLogger(modId);
+	public static final String MOD_ID = "chromium";
+	public static final Logger LOGGER = LogManager.getLogger("Chromium");
 
 	@Getter
 	private static EnvType env;
@@ -52,8 +50,7 @@ public class ChromiumMod implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		env = FabricLoader.getInstance().getEnvironmentType();
-		logger.info((env.equals(EnvType.CLIENT) ? "[Chromium] " : "") + "Initializing chromium by SapphireMC");
-		logger.info((env.equals(EnvType.CLIENT) ? "[Chromium] " : "") + "Running on " + env.name().toLowerCase() + "-side");
+		LOGGER.info("Initializing chromium by SapphireMC");
 
 		configManager = new ConfigManager();
 		managers.add(configManager);
@@ -61,7 +58,6 @@ public class ChromiumMod implements ModInitializer {
 		managers.add(skinsManager);
 
 		initializeManagers();
-		logger.info((env.equals(EnvType.CLIENT) ? "[Chromium] " : "") + "Chromium successfully initialized!");
 	}
 
 	private void initializeManagers() {

@@ -27,7 +27,7 @@ public class SkinsManager implements Manager {
 
     @Override
     public void initialize() {
-        skinsStorage = new SkinsStorage(new SkinIO(FabricLoader.getInstance().getConfigDir().resolve(ChromiumMod.getModId() + File.separator + "skins")));
+        skinsStorage = new SkinsStorage(new SkinIO(FabricLoader.getInstance().getConfigDir().resolve(ChromiumMod.MOD_ID + File.separator + "skins")));
     }
 
     public void loadPlayer(ServerPlayerEntity player) {

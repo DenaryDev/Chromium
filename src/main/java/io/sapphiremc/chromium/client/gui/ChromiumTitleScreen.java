@@ -43,13 +43,13 @@ import net.minecraft.util.math.Vec3f;
 
 public class ChromiumTitleScreen extends Screen {
 
-    private static final Identifier MORNING_BACKGROUND = new Identifier(ChromiumMod.getModId(), "textures/ui/background/morning.png");
-    private static final Identifier DAY_BACKGROUND = new Identifier(ChromiumMod.getModId(), "textures/ui/background/day.png");
-    private static final Identifier EVENING_BACKGROUND = new Identifier(ChromiumMod.getModId(), "textures/ui/background/evening.png");
-    private static final Identifier NIGHT_BACKGROUND = new Identifier(ChromiumMod.getModId(), "textures/ui/background/night.png");
+    private static final Identifier MORNING_BACKGROUND = new Identifier(ChromiumMod.MOD_ID, "textures/ui/background/morning.png");
+    private static final Identifier DAY_BACKGROUND = new Identifier(ChromiumMod.MOD_ID, "textures/ui/background/day.png");
+    private static final Identifier EVENING_BACKGROUND = new Identifier(ChromiumMod.MOD_ID, "textures/ui/background/evening.png");
+    private static final Identifier NIGHT_BACKGROUND = new Identifier(ChromiumMod.MOD_ID, "textures/ui/background/night.png");
 
-    private static final Identifier LOGO = new Identifier(ChromiumMod.getModId(), "textures/ui/logo.png");
-    private static final Identifier GOLD = new Identifier(ChromiumMod.getModId(), "textures/ui/gold.png");
+    private static final Identifier LOGO = new Identifier(ChromiumMod.MOD_ID, "textures/ui/logo.png");
+    private static final Identifier GOLD = new Identifier(ChromiumMod.MOD_ID, "textures/ui/gold.png");
 
     @Getter @Setter private boolean confirmOpened = false;
     private boolean widgetsAdded = false;
@@ -199,7 +199,7 @@ public class ChromiumTitleScreen extends Screen {
         drawTexture(matrixStack, goldX, 110, 0, 0, 11, 11, 11, 11);
         this.textRenderer.drawWithShadow(matrixStack, goldAmount, goldX + 14, 112, 0xFFD700);
 
-        String modVersion = FabricLoader.getInstance().getModContainer(ChromiumMod.getModId()).get().getMetadata().getVersion().getFriendlyString().toLowerCase();
+        String modVersion = FabricLoader.getInstance().getModContainer(ChromiumMod.MOD_ID).get().getMetadata().getVersion().getFriendlyString().toLowerCase();
         boolean isUnstable = modVersion.contains("alpha") || modVersion.contains("beta") || modVersion.contains("pre") || modVersion.contains("rc") || modVersion.contains("snapshot");
         int chScrY = changeScreenButton.y;
         if (isUnstable) {
