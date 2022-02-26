@@ -23,7 +23,7 @@ public class FileUtils {
         }
     }
 
-    public static boolean writeFile(File path, String fileName, String content) {
+    public static void writeFile(File path, String fileName, String content) {
         try {
             if (!path.exists())
                 path.mkdirs();
@@ -35,9 +35,7 @@ public class FileUtils {
             try (FileWriter writer = new FileWriter(file)) {
                 writer.write(content);
             }
-            return true;
-        } catch (IOException e) {
-            return false;
+        } catch (IOException ignored) {
         }
     }
 }

@@ -9,7 +9,6 @@ package io.sapphiremc.chromium.client;
 
 import com.google.common.io.ByteArrayDataOutput;
 import io.sapphiremc.chromium.ChromiumMod;
-import io.sapphiremc.chromium.client.dummy.DummyClientPlayerEntity;
 import io.sapphiremc.chromium.client.gui.ChromiumTitleScreen;
 import io.sapphiremc.chromium.client.gui.OptionsScreenBuilder;
 import io.sapphiremc.chromium.client.network.Packet;

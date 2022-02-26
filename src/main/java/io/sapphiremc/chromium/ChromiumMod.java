@@ -9,7 +9,6 @@ package io.sapphiremc.chromium;
 
 import io.sapphiremc.chromium.common.config.ChromiumConfig;
 import io.sapphiremc.chromium.common.config.ConfigManager;
-import io.sapphiremc.chromium.client.dummy.DummyClientPlayerEntity;
 import io.sapphiremc.chromium.common.manager.Manager;
 import io.sapphiremc.chromium.common.skins.SkinsManager;
 import java.lang.reflect.Field;
@@ -18,7 +17,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import lombok.Getter;
-import lombok.Setter;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
@@ -89,7 +87,7 @@ public class ChromiumMod implements ModInitializer {
 		int currentFps;
 
 		try {
-			fpsField = MinecraftClient.class.getDeclaredField("currentFps");
+			fpsField = MinecraftClient.class.getDeclaredField("currentFps"); // Support yarn-mapped minecraft
 		} catch (NoSuchFieldException ex) {
 			try {
 				fpsField = MinecraftClient.class.getDeclaredField("field_1738");

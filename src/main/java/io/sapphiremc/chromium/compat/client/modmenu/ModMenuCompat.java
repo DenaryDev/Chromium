@@ -9,7 +9,6 @@ package io.sapphiremc.chromium.compat.client.modmenu;
 
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
-import io.sapphiremc.chromium.ChromiumMod;
 import io.sapphiremc.chromium.client.gui.OptionsScreenBuilder;
 
 public class ModMenuCompat implements ModMenuApi {
