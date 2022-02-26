@@ -11,11 +11,7 @@ import io.sapphiremc.chromium.common.config.ChromiumConfig;
 import io.sapphiremc.chromium.common.config.ConfigManager;
 import io.sapphiremc.chromium.common.manager.Manager;
 import io.sapphiremc.chromium.common.skins.SkinsManager;
-import java.lang.reflect.Field;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import io.sapphiremc.chromium.mixin.client.MixinMinecraftClient;
 import lombok.Getter;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -33,6 +29,11 @@ import net.minecraft.world.LightType;
 import net.minecraft.world.biome.Biome;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class ChromiumMod implements ModInitializer {
 	public static final String MOD_ID = "chromium";
@@ -79,33 +80,10 @@ public class ChromiumMod implements ModInitializer {
 	@Environment(EnvType.CLIENT)
 	public static String getFpsString() {
 		MinecraftClient client = MinecraftClient.getInstance();
-		Field fpsField;
-		int currentFps;
-
-		try {
-			fpsField = MinecraftClient.class.getDeclaredField("currentFps"); // Support yarn-mapped minecraft
-		} catch (NoSuchFieldException ex) {
-			try {
-				fpsField = MinecraftClient.class.getDeclaredField("field_1738");
-			} catch (NoSuchFieldException ex2) {
-				fpsField = null;
-			}
-		}
-
-		if (fpsField != null) {
-			try {
-				fpsField.setAccessible(true);
-				currentFps = fpsField.getInt(MinecraftClient.class);
-			} catch (IllegalAccessException ex) {
-				currentFps = -1;
-			}
-		} else {
-			currentFps = -1;
-		}
 
 		String maxFPS = (double) client.options.maxFps == Option.FRAMERATE_LIMIT.getMax() ? "\u221E" : String.valueOf(client.options.maxFps);
 		String vsync = String.valueOf(client.options.enableVsync);
-		return new TranslatableText("options.chromium.fps", currentFps, maxFPS, vsync).getString();
+		return new TranslatableText("options.chromium.fps", ((MixinMinecraftClient) client).getCurrentFPS(), maxFPS, vsync).getString();
 	}
 
 	@Environment(EnvType.CLIENT)
