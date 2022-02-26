@@ -37,8 +37,8 @@
 
   "depends": {
     "fabricloader": ">=0.13.2",
-    "fabric": ">=0.46.4",
-    "minecraft": "1.18.x",
+    "fabric": "0.46.5+1.19_experimental",
+    "minecraft": "~1.19-Experimental.1",
     "java": ">=17"
   },
   "custom": {

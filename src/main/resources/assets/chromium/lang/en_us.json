@@ -1,5 +1,6 @@
 {
   "chromium.warnings.unstable": "⚠ Unstable version! If bugs bother you, please let us know and go back to the stable version!",
+  "chromium.warnings.experimental": "⚠ Experimental version! Not recommended for use! We recommend returning to the stable version!",
 
   "key.chromium.config": "Chromium Settings Menu",
 

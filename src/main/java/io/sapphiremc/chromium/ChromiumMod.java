@@ -127,7 +127,7 @@ public class ChromiumMod implements ModInitializer {
 		if (player != null && client.world != null) {
 			BlockPos blockPos = player.getBlockPos();
 			Registry<Biome> biomes = client.world.getRegistryManager().get(Registry.BIOME_KEY);
-			Biome biome = client.world.getBiome(blockPos).value();
+			Biome biome = client.world.getBiome(blockPos);
 			Identifier biomeId = biomes.getId(biome);
 			if (biomeId != null) {
 				cachedBiome = new TranslatableText("options.chromium.biome", new TranslatableText("biome.minecraft." + biomeId.getPath())).getString();

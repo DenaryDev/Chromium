@@ -201,15 +201,16 @@ public class ChromiumTitleScreen extends Screen {
 
         String modVersion = FabricLoader.getInstance().getModContainer(ChromiumMod.MOD_ID).get().getMetadata().getVersion().getFriendlyString().toLowerCase();
         boolean isUnstable = modVersion.contains("alpha") || modVersion.contains("beta") || modVersion.contains("pre") || modVersion.contains("rc") || modVersion.contains("snapshot");
+        boolean isExperimental = modVersion.contains("experimental");
         int chScrY = changeScreenButton.y;
-        if (isUnstable) {
+        if (isUnstable || isExperimental) {
             if (chScrY != 15) changeScreenButton.y = 15;
             fill(matrixStack, 0, 0, width, 13, -1873784752);
-            String beta = new TranslatableText("chromium.warnings.unstable").getString();
-            this.textRenderer.drawWithShadow(matrixStack, beta, i, 3, 0xFF5555);
+            String warning = new TranslatableText("chromium.warnings." + (isExperimental ? "experimental" : "unstable")).getString();
+            this.textRenderer.drawWithShadow(matrixStack, warning, i, 3, 0xFF5555);
 
             i -= 1;
-            if (i < (-textRenderer.getWidth(beta))) {
+            if (i < (-textRenderer.getWidth(warning))) {
                 i = width;
             }
         } else {
