@@ -62,11 +62,11 @@ public class SkinCommand {
                                                                         () -> MineSkinSkinsProvider.getSkin(StringArgumentType.getString(context, "url"), SkinVariant.SLIM))))))))
                 .then(literal("clear")
                         .executes(context ->
-                                clearSkin(Collections.singleton(context.getSource().getPlayer()), false,
-                                        () -> null))
+                                clearSkin(Collections.singleton(context.getSource().getPlayer()), false
+                                ))
                         .then(argument("targets", EntityArgumentType.players()).executes(context ->
-                                clearSkin(EntityArgumentType.getPlayers(context, "targets"), true,
-                                        () -> null))))
+                                clearSkin(EntityArgumentType.getPlayers(context, "targets"), true
+                                ))))
         );
     }
 
@@ -78,7 +78,7 @@ public class SkinCommand {
             Property skin = skinSupplier.get();
 
             for (ServerPlayerEntity player : targets) {
-                ChromiumMod.getSkinsManager().setSkin(player, skin, true);
+                ChromiumMod.getSkinsManager().setSkin(player, skin);
 
                 if (setByOperator)
                     player.sendMessage(new TranslatableText("message.chromium.skin.set.operator"), true);
@@ -90,7 +90,7 @@ public class SkinCommand {
         return targets.size();
     }
 
-    private static int clearSkin(Collection<ServerPlayerEntity> targets, boolean clearByOperator, Supplier<Property> skinSupplier) {
+    private static int clearSkin(Collection<ServerPlayerEntity> targets, boolean clearByOperator) {
         new Thread(() -> {
             for (ServerPlayerEntity player : targets) {
                 ChromiumMod.getSkinsManager().clearSkin(player);

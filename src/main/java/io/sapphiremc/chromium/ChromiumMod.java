@@ -11,11 +11,7 @@ import io.sapphiremc.chromium.common.config.ChromiumConfig;
 import io.sapphiremc.chromium.common.config.ConfigManager;
 import io.sapphiremc.chromium.common.manager.Manager;
 import io.sapphiremc.chromium.common.skins.SkinsManager;
-import java.lang.reflect.Field;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import io.sapphiremc.chromium.mixin.client.MixinMinecraftClient;
 import lombok.Getter;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -34,11 +30,14 @@ import net.minecraft.world.biome.Biome;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 public class ChromiumMod implements ModInitializer {
-	@Getter
-	private static final String modId = "chromium";
-	@Getter
-	private static final Logger logger = LoggerFactory.getLogger(modId);
+	public static final String MOD_ID = "chromium";
+	public static final Logger LOGGER = LoggerFactory.getLogger("Chromium");
 
 	@Getter
 	private static EnvType env;
@@ -52,8 +51,7 @@ public class ChromiumMod implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		env = FabricLoader.getInstance().getEnvironmentType();
-		logger.info((env.equals(EnvType.CLIENT) ? "[Chromium] " : "") + "Initializing chromium by SapphireMC");
-		logger.info((env.equals(EnvType.CLIENT) ? "[Chromium] " : "") + "Running on " + env.name().toLowerCase() + "-side");
+		LOGGER.info("Initializing chromium by SapphireMC");
 
 		configManager = new ConfigManager();
 		managers.add(configManager);
@@ -61,7 +59,6 @@ public class ChromiumMod implements ModInitializer {
 		managers.add(skinsManager);
 
 		initializeManagers();
-		logger.info((env.equals(EnvType.CLIENT) ? "[Chromium] " : "") + "Chromium successfully initialized!");
 	}
 
 	private void initializeManagers() {
@@ -83,33 +80,10 @@ public class ChromiumMod implements ModInitializer {
 	@Environment(EnvType.CLIENT)
 	public static String getFpsString() {
 		MinecraftClient client = MinecraftClient.getInstance();
-		Field fpsField;
-		int currentFps;
-
-		try {
-			fpsField = MinecraftClient.class.getDeclaredField("currentFps");
-		} catch (NoSuchFieldException ex) {
-			try {
-				fpsField = MinecraftClient.class.getDeclaredField("field_1738");
-			} catch (NoSuchFieldException ex2) {
-				fpsField = null;
-			}
-		}
-
-		if (fpsField != null) {
-			try {
-				fpsField.setAccessible(true);
-				currentFps = fpsField.getInt(MinecraftClient.class);
-			} catch (IllegalAccessException ex) {
-				currentFps = -1;
-			}
-		} else {
-			currentFps = -1;
-		}
 
 		String maxFPS = (double) client.options.maxFps == Option.FRAMERATE_LIMIT.getMax() ? "\u221E" : String.valueOf(client.options.maxFps);
 		String vsync = String.valueOf(client.options.enableVsync);
-		return new TranslatableText("options.chromium.fps", currentFps, maxFPS, vsync).getString();
+		return new TranslatableText("options.chromium.fps", ((MixinMinecraftClient) client).getCurrentFPS(), maxFPS, vsync).getString();
 	}
 
 	@Environment(EnvType.CLIENT)

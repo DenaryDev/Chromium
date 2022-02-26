@@ -32,7 +32,7 @@ public class ConfigManager implements Manager {
 
 	public ConfigManager() {
 		this.gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
-		this.configFile = new File(FabricLoader.getInstance().getConfigDir().toString() + File.separator + ChromiumMod.getModId(), "settings.json");
+		this.configFile = new File(FabricLoader.getInstance().getConfigDir().toString() + File.separator + ChromiumMod.MOD_ID, "settings.json");
 		readConfig(false);
 	}
 
