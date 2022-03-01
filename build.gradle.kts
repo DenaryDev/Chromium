@@ -13,8 +13,10 @@ val fabricVersion: String by project
 val modmenuVersion: String by project
 val clothConfigVersion: String by project
 val sodiumCompatibility: Boolean = project.properties["sodiumCompatibility"].toString().toBoolean()
+val customSodiumJar: Boolean = project.properties["customSodiumJar"].toString().toBoolean()
 val sodiumVersion: String by project
 val irisCompatibility: Boolean = project.properties["irisCompatibility"].toString().toBoolean()
+val customIrisJar: Boolean = project.properties["customSodiumJar"].toString().toBoolean()
 val irisVersion: String by project
 
 repositories {
@@ -37,11 +39,19 @@ dependencies {
 	modImplementation("net.fabricmc.fabric-api:fabric-api:$fabricVersion")
 
 	if (sodiumCompatibility) {
-		modImplementation("maven.modrinth:sodium:$sodiumVersion")
+		if (customSodiumJar) {
+			modImplementation(files("custom_jars/sodium-fabric-$sodiumVersion.jar"))
+		} else {
+			modImplementation("maven.modrinth:sodium:$sodiumVersion")
+		}
 		implementation("org.joml:joml:1.10.2")
 	}
 	if (irisCompatibility) {
-		modImplementation("maven.modrinth:iris:$irisVersion")
+		if (customIrisJar) {
+			modImplementation(files("custom_jars/iris-$irisVersion.jar"))
+		} else {
+			modImplementation("maven.modrinth:iris:$irisVersion")
+		}
 	}
 	modImplementation("com.terraformersmc:modmenu:$modmenuVersion")
 	modImplementation("me.shedaniel.cloth:cloth-config-fabric:$clothConfigVersion") {

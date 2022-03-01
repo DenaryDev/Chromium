@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 public class SodiumCompatMixinPlugin implements IMixinConfigPlugin {
-    private final List<String> allowedSodiumVersions = List.of("0.4.0-alpha6+build.14");
+    private final List<String> allowedSodiumVersions = List.of("0.4.0-alpha6+rev.7bd2b7d");
     private boolean validSodiumVersion = false;
 
     @Override
