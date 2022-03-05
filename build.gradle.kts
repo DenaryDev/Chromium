@@ -52,6 +52,7 @@ dependencies {
 		} else {
 			modImplementation("maven.modrinth:iris:$irisVersion")
 		}
+		implementation("org.anarres:jcpp:1.4.14")
 	}
 	modImplementation("com.terraformersmc:modmenu:$modmenuVersion")
 	modImplementation("me.shedaniel.cloth:cloth-config-fabric:$clothConfigVersion") {
