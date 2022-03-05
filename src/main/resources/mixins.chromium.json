@@ -14,7 +14,8 @@
     "client.MixinWindow",
     "client.MixinKeyboard",
     "client.MixinGameModeSelectionScreen",
-    "client.MixinMinecraftClient"
+    "client.MixinMinecraftClient",
+    "client.MixinMain"
   ],
   "server": [
     "server.MixinCommandManager",
