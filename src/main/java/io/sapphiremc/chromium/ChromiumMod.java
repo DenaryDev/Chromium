@@ -18,7 +18,7 @@ import net.fabricmc.api.Environment;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.option.Option;
+import net.minecraft.client.option.GameOptions;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.TranslatableText;
@@ -81,8 +81,8 @@ public class ChromiumMod implements ModInitializer {
 	public static String getFpsString() {
 		MinecraftClient client = MinecraftClient.getInstance();
 
-		String maxFPS = (double) client.options.maxFps == Option.FRAMERATE_LIMIT.getMax() ? "\u221E" : String.valueOf(client.options.maxFps);
-		String vsync = String.valueOf(client.options.enableVsync);
+		String maxFPS = (double) client.options.getMaxFps().getValue() == GameOptions.MAX_FRAMERATE ? "\u221E" : String.valueOf(client.options.getMaxFps().getValue());
+		String vsync = String.valueOf(client.options.getEnableVsync());
 		return new TranslatableText("options.chromium.fps", ((MixinMinecraftClient) client).getCurrentFPS(), maxFPS, vsync).getString();
 	}
 

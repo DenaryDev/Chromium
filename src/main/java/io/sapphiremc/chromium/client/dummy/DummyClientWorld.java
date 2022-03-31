@@ -16,6 +16,7 @@ import net.minecraft.util.registry.RegistryEntry;
 import net.minecraft.util.registry.RegistryKey;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.dimension.DimensionTypes;
 
 import java.util.OptionalLong;
 
@@ -23,7 +24,7 @@ public class DummyClientWorld extends ClientWorld {
 
     private static DummyClientWorld instance;
 
-    private static final DimensionType DUMMY_OVERWORLD = DimensionType.create(OptionalLong.empty(), true, false, false, false, 1.0, false, false, false, false, false, 0, 256, 256, BlockTags.INFINIBURN_OVERWORLD, DimensionType.OVERWORLD_ID, 1.0f);
+    private static final DimensionType DUMMY_OVERWORLD = new DimensionType(OptionalLong.empty(), true, false, false, false, 1.0, false, false, false, false, 0, 256, 256, BlockTags.INFINIBURN_OVERWORLD, DimensionTypes.OVERWORLD_ID, 1.0f);
 
     public static DummyClientWorld getInstance() {
         if (instance == null) instance = new DummyClientWorld();
