@@ -5,8 +5,8 @@ plugins {
 	id("org.cadixdev.licenser") version "0.6.1"
 }
 
-val archivesBaseName: String by project
 val minecraftVersion: String by project
+val archivesBaseName: String = project.properties["archivesBaseName"].toString() + minecraftVersion
 val yarnMappings: String by project
 val loaderVersion: String by project
 val fabricVersion: String by project
@@ -67,7 +67,6 @@ java {
 	toolchain {
 		languageVersion.set(JavaLanguageVersion.of(17))
 	}
-	withSourcesJar()
 }
 
 license {
