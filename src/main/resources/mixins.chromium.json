@@ -20,5 +20,8 @@
   "server": [
     "server.MixinCommandManager",
     "server.MixinPlayerManager"
+  ],
+  "mixins": [
+    "common.MixinHopperBlockEntity"
   ]
 }

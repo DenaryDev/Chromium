@@ -5,13 +5,11 @@
 
   "title.chromium.config": "Chromium Settings",
   "category.chromium.general": "General settings",
-  "category.chromium.screen": "Screens",
   "category.chromium.info": "Info panel",
   "category.chromium.chat": "Chat settings",
-
-  "options.chromium.changeScreenProvider": "Change title screen provider",
-  "options.chromium.screenType.chromium": "Chromium",
-  "options.chromium.screenType.minecraft": "Minecraft",
+  "category.chromium.world": "World settings",
+  "category.chromium.world.hopper": "Hoppers",
+  "category.chromium.screen": "Screens settings",
 
   "options.chromium.showFps": "Show fps",
   "options.chromium.showFps.tooltip.1": "Current frame rate, maximum",
@@ -45,6 +43,14 @@
   "options.chromium.showMessagesTime.tooltip.2": "before each message in the chat,",
   "options.chromium.showMessagesTime.tooltip.3": "and on hover you can see the",
   "options.chromium.showMessagesTime.tooltip.4": "current timezone.",
+
+  "options.chromium.world.hopperTransfer": "Transfer cooldown",
+
+  "options.chromium.world.hopperAmount": "Transfer amount",
+
+  "options.chromium.changeScreenProvider": "Change title screen provider",
+  "options.chromium.screenType.chromium": "Chromium",
+  "options.chromium.screenType.minecraft": "Minecraft",
 
   "message.chromium.skin.downloading": "Downloading skin...",
   "message.chromium.skin.set": "You need to reconnect to apply skin.",
