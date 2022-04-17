@@ -40,13 +40,5 @@
     "fabric": ">=0.46.4",
     "minecraft": "1.18.x",
     "java": ">=17"
-  },
-  "custom": {
-    "modmenu": {
-      "links": {
-        "modmenu.vkontakte": "https://vk.com/denaryworld"
-      },
-      "badges": [ "client" ]
-    }
   }
 }

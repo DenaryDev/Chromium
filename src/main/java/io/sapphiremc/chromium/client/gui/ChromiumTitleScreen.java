@@ -9,6 +9,8 @@ package io.sapphiremc.chromium.client.gui;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.terraformersmc.modmenu.api.ModMenuApi;
+import com.terraformersmc.modmenu.gui.ModsScreen;
 import io.sapphiremc.chromium.ChromiumMod;
 import io.sapphiremc.chromium.client.dummy.DummyClientPlayerEntity;
 import java.util.Calendar;
@@ -35,6 +37,7 @@ import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
@@ -92,22 +95,28 @@ public class ChromiumTitleScreen extends Screen {
         int buttonW = (this.width) / 5;
         int x = (buttonW + 64) / 2 - buttonW / 2;
         int centerY = this.height / 2 + 32;
+        int modifier = 0;
+
+        boolean hasModMenu = FabricLoader.getInstance().isModLoaded("modmenu");
+        if (hasModMenu) modifier = 14;
 
         assert this.client != null;
-        this.addDrawableChild(new ButtonWidget(x, centerY - 52, buttonW, 20, new TranslatableText("menu.singleplayer"), (element) -> {
+        this.addDrawableChild(new ButtonWidget(x, centerY - 38 - modifier, buttonW, 20, new TranslatableText("menu.singleplayer"), (element) -> {
             this.confirmOpened = false;
             this.client.setScreen(new SelectWorldScreen(this));
         }));
-        this.addDrawableChild(new ButtonWidget(x, centerY - 24, buttonW, 20, new TranslatableText("menu.multiplayer"), (element) -> {
+        this.addDrawableChild(new ButtonWidget(x, centerY - 10 - modifier, buttonW, 20, new TranslatableText("menu.multiplayer"), (element) -> {
             this.confirmOpened = false;
             Screen screen = this.client.options.skipMultiplayerWarning ? new MultiplayerScreen(this) : new MultiplayerWarningScreen(this);
             this.client.setScreen(screen);
         }));
-        this.addDrawableChild(new ButtonWidget(x, centerY + 4, buttonW, 20, new TranslatableText("menu.online"), (button) -> {
-            this.confirmOpened = false;
-            this.client.setScreen(new RealmsMainScreen(this));
-        }));
-        this.addDrawableChild(new ButtonWidget(x, centerY + 32, buttonW, 20, new TranslatableText("menu.options"), (element) -> {
+        if (hasModMenu) {
+            this.addDrawableChild(new ButtonWidget(x, centerY + 4, buttonW, 20, ModMenuApi.createModsButtonText(), (button) -> {
+                this.confirmOpened = false;
+                this.client.setScreen(new ModsScreen(this));
+            }));
+        }
+        this.addDrawableChild(new ButtonWidget(x, centerY + 18 + modifier, buttonW, 20, new TranslatableText("menu.options"), (element) -> {
             this.confirmOpened = false;
             this.client.setScreen(new OptionsScreen(this, this.client.options));
         }));
@@ -116,9 +125,14 @@ public class ChromiumTitleScreen extends Screen {
                 this.client.stop());
         this.cancelButton = new ButtonWidget(this.width / 2 - 80, this.height / 2 + 18, 160, 20, new TranslatableText("menu.chromium.cancel"), (element) ->
                 this.confirmOpened = false);
-        this.changeScreenButton = new ButtonWidget(this.width - 22, 2, 20, 20, new TranslatableText("S"), (element) ->
+        this.changeScreenButton = new ButtonWidget(this.width - 22, 2, 20, 20, new LiteralText("S"), (element) ->
                 this.client.setScreen(OptionsScreenBuilder.build()));
         this.addDrawableChild(changeScreenButton);
+
+        this.addDrawableChild(new ButtonWidget(this.width - 44, 15, 20, 20, new LiteralText("R"), (element) -> {
+            this.confirmOpened = false;
+            this.client.setScreen(new RealmsMainScreen(this));
+        }));
     }
 
     @Override
