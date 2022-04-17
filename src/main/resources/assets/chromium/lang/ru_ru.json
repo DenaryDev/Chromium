@@ -5,13 +5,11 @@
 
   "title.chromium.config": "Настройки Chromium",
   "category.chromium.general": "Основные настройки",
-  "category.chromium.screen": "Настройки меню",
   "category.chromium.info": "Панель информации",
   "category.chromium.chat": "Настройки чата",
-
-  "options.chromium.changeScreenProvider": "Провайдер главного меню",
-  "options.chromium.screenType.chromium": "Chromium",
-  "options.chromium.screenType.minecraft": "Minecraft",
+  "category.chromium.world": "Настройки мира",
+  "category.chromium.world.hopper": "Воронки",
+  "category.chromium.screen": "Настройки интерфейса",
 
   "options.chromium.showFps": "Частота кадров (FPS)",
   "options.chromium.showFps.tooltip.1": "В левом верхнем углу будут отображаться",
@@ -46,9 +44,17 @@
   "options.chromium.showMessagesTime.tooltip.3": "наведении вы сможете посмотреть",
   "options.chromium.showMessagesTime.tooltip.4": "текущий часовой пояс.",
 
-  "message.chromium.skin.downloading": "Downloading skin...",
-  "message.chromium.skin.set": "You need to reconnect to apply skin.",
-  "message.chromium.skin.set.operator": "Operator set skin for you. You need to reconnect to apply it.",
+  "options.chromium.world.hopperTransfer": "Задержка перемещения предметов",
+
+  "options.chromium.world.hopperAmount": "Кол-во перемещаемых за раз предметов",
+
+  "options.chromium.changeScreenProvider": "Провайдер главного меню",
+  "options.chromium.screenType.chromium": "Chromium",
+  "options.chromium.screenType.minecraft": "Minecraft",
+
+  "message.chromium.skin.downloading": "Скачиваю скин...",
+  "message.chromium.skin.set": "Вам нужно перезайти, чтобы скин применился.",
+  "message.chromium.skin.set.operator": "Оператор установил вам скин. Вам нужно перезайти, чтобы скин применился.",
   "message.chromium.skin.clear": "",
   "message.chromium.skin.clear.operator": "",
 
