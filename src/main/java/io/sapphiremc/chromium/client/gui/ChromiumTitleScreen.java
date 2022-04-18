@@ -64,6 +64,7 @@ public class ChromiumTitleScreen extends Screen {
     private ButtonWidget quitButton;
     private ButtonWidget cancelButton;
     private ButtonWidget changeScreenButton;
+    private ButtonWidget realmsButton;
 
     public ChromiumTitleScreen() {
         this(false);
@@ -127,12 +128,12 @@ public class ChromiumTitleScreen extends Screen {
                 this.confirmOpened = false);
         this.changeScreenButton = new ButtonWidget(this.width - 22, 2, 20, 20, new LiteralText("S"), (element) ->
                 this.client.setScreen(OptionsScreenBuilder.build()));
-        this.addDrawableChild(changeScreenButton);
-
-        this.addDrawableChild(new ButtonWidget(this.width - 44, 15, 20, 20, new LiteralText("R"), (element) -> {
+        this.realmsButton = new ButtonWidget(this.width - 44, 2, 20, 20, new LiteralText("R"), (element) -> {
             this.confirmOpened = false;
             this.client.setScreen(new RealmsMainScreen(this));
-        }));
+        });
+        this.addDrawableChild(changeScreenButton);
+        this.addDrawableChild(realmsButton);
     }
 
     @Override
@@ -216,8 +217,10 @@ public class ChromiumTitleScreen extends Screen {
         String modVersion = FabricLoader.getInstance().getModContainer(ChromiumMod.MOD_ID).get().getMetadata().getVersion().getFriendlyString().toLowerCase();
         boolean isUnstable = modVersion.contains("alpha") || modVersion.contains("beta") || modVersion.contains("pre") || modVersion.contains("rc") || modVersion.contains("snapshot");
         int chScrY = changeScreenButton.y;
+        int rmsY = realmsButton.y;
         if (isUnstable) {
             if (chScrY != 15) changeScreenButton.y = 15;
+            if (rmsY != 15) realmsButton.y = 15;
             fill(matrixStack, 0, 0, width, 13, -1873784752);
             String beta = new TranslatableText("chromium.warnings.unstable").getString();
             this.textRenderer.drawWithShadow(matrixStack, beta, i, 3, 0xFF5555);
