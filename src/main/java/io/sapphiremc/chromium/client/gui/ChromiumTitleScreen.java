@@ -122,9 +122,9 @@ public class ChromiumTitleScreen extends Screen {
             this.client.setScreen(new OptionsScreen(this, this.client.options));
         }));
 
-        this.quitButton = new ButtonWidget(this.width / 2 - 80, this.height / 2 - 10, 160, 20, new TranslatableText("menu.chromium.quit"), (element) ->
+        this.quitButton = new ButtonWidget(this.width / 2 - 50, this.height / 2 - 10, 100, 20, new TranslatableText("menu.chromium.quit"), (element) ->
                 this.client.stop());
-        this.cancelButton = new ButtonWidget(this.width / 2 - 80, this.height / 2 + 18, 160, 20, new TranslatableText("menu.chromium.cancel"), (element) ->
+        this.cancelButton = new ButtonWidget(this.width / 2 - 50, this.height / 2 + 18, 100, 20, new TranslatableText("menu.chromium.cancel"), (element) ->
                 this.confirmOpened = false);
         this.changeScreenButton = new ButtonWidget(this.width - 22, 2, 20, 20, new LiteralText("S"), (element) ->
                 this.client.setScreen(OptionsScreenBuilder.build()));
@@ -166,17 +166,17 @@ public class ChromiumTitleScreen extends Screen {
         int logoW = 90 + this.height / 11;
         drawTexture(matrixStack, (newWidth / 2) - (logoW / 2), -5, 0, 0, logoW, logoW, logoW, logoW);
 
+        ClientPlayerEntity player = DummyClientPlayerEntity.getInstance();
+        int height = this.height + 50;
+        int playerX = this.width - (int) (this.height / 3.4F);
+        drawEntity(playerX, height, (int) (this.height / 2.5F), -mouseX + playerX, -mouseY + height - (this.height / 1.535F), player);
+
         if (!this.confirmOpened) {
             if (widgetsAdded) {
                 this.remove(quitButton);
                 this.remove(cancelButton);
                 this.widgetsAdded = false;
             }
-
-            ClientPlayerEntity player = DummyClientPlayerEntity.getInstance();
-            int height = this.height + 50;
-            int playerX = this.width - (int) (this.height / 3.4F);
-            drawEntity(playerX, height, (int) (this.height / 2.5F), -mouseX + playerX, -mouseY + height - (this.height / 1.535F), player);
         } else {
             if (!this.widgetsAdded) {
                 this.addDrawableChild(quitButton);
