@@ -5,14 +5,17 @@
  * license that can be found in the LICENSE file or at
  * https://opensource.org/licenses/MIT.
  */
-package io.sapphiremc.chromium.common.skins;
+package io.sapphiremc.chromium.shared.manager;
 
-public enum SkinVariant {
-    CLASSIC,
-    SLIM;
+public interface Manager {
 
-    @Override
-    public String toString() {
-        return this.name().toLowerCase();
+    Env getEnv();
+
+    void initialize();
+
+    enum Env {
+        BOTH,
+        CLIENT,
+        SERVER
     }
 }

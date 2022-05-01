@@ -5,12 +5,12 @@
  * license that can be found in the LICENSE file or at
  * https://opensource.org/licenses/MIT.
  */
-package io.sapphiremc.chromium.common.skins;
+package io.sapphiremc.chromium.shared.skins;
 
 import com.mojang.authlib.properties.Property;
 import io.sapphiremc.chromium.ChromiumMod;
-import io.sapphiremc.chromium.common.manager.Manager;
-import io.sapphiremc.chromium.common.skins.provider.MojangSkinsProvider;
+import io.sapphiremc.chromium.shared.manager.Manager;
+import io.sapphiremc.chromium.shared.skins.provider.MojangSkinsProvider;
 import java.io.File;
 import java.util.UUID;
 import net.fabricmc.loader.api.FabricLoader;

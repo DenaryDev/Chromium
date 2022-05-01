@@ -5,7 +5,7 @@
  * license that can be found in the LICENSE file or at
  * https://opensource.org/licenses/MIT.
  */
-package io.sapphiremc.chromium.common.config;
+package io.sapphiremc.chromium.shared.config;
 
 import com.google.gson.annotations.Expose;
 import lombok.Getter;

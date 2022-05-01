@@ -7,7 +7,7 @@
  */
 package io.sapphiremc.chromium.client.gui;
 
-import io.sapphiremc.chromium.common.config.ChromiumConfig;
+import io.sapphiremc.chromium.shared.config.ChromiumConfig;
 import io.sapphiremc.chromium.ChromiumMod;
 import java.util.ArrayList;
 import java.util.List;

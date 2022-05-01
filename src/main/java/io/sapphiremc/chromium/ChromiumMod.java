@@ -7,10 +7,10 @@
  */
 package io.sapphiremc.chromium;
 
-import io.sapphiremc.chromium.common.config.ChromiumConfig;
-import io.sapphiremc.chromium.common.config.ConfigManager;
-import io.sapphiremc.chromium.common.manager.Manager;
-import io.sapphiremc.chromium.common.skins.SkinsManager;
+import io.sapphiremc.chromium.shared.config.ChromiumConfig;
+import io.sapphiremc.chromium.shared.config.ConfigManager;
+import io.sapphiremc.chromium.shared.manager.Manager;
+import io.sapphiremc.chromium.shared.skins.SkinsManager;
 import io.sapphiremc.chromium.mixin.client.MixinMinecraftClient;
 import lombok.Getter;
 import net.fabricmc.api.EnvType;

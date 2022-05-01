@@ -5,12 +5,12 @@
  * license that can be found in the LICENSE file or at
  * https://opensource.org/licenses/MIT.
  */
-package io.sapphiremc.chromium.common.config;
+package io.sapphiremc.chromium.shared.config;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.sapphiremc.chromium.ChromiumMod;
-import io.sapphiremc.chromium.common.manager.Manager;
+import io.sapphiremc.chromium.shared.manager.Manager;
 import java.nio.charset.Charset;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
