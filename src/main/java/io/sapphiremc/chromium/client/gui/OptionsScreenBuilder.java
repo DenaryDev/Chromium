@@ -7,7 +7,7 @@
  */
 package io.sapphiremc.chromium.client.gui;
 
-import io.sapphiremc.chromium.common.config.ChromiumConfig;
+import io.sapphiremc.chromium.shared.config.ChromiumConfig;
 import io.sapphiremc.chromium.ChromiumMod;
 import java.util.ArrayList;
 import java.util.List;
@@ -88,7 +88,7 @@ public class OptionsScreenBuilder {
         /*========================= Hopper settings =========================*/
         IntegerListEntry hopperTransfer = entryBuilder.startIntField(Text.translatable("options.chromium.world.hopperTransfer"), current.getHopperTransfer())
                 .setDefaultValue(defaults.getHopperTransfer())
-                .setMin(1).setMax(200)
+                .setMin(2).setMax(200)
                 .setTooltip(getTooltip("options.chromium.world.hopperTransfer"))
                 .setSaveConsumer(value -> ChromiumMod.getConfig().setHopperTransfer(value))
                 .build();

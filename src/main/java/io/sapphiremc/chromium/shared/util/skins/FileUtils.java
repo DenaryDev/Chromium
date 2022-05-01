@@ -5,7 +5,7 @@
  * license that can be found in the LICENSE file or at
  * https://opensource.org/licenses/MIT.
  */
-package io.sapphiremc.chromium.common.util.skins;
+package io.sapphiremc.chromium.shared.util.skins;
 
 import java.io.BufferedReader;
 import java.io.File;

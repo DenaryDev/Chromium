@@ -8,7 +8,7 @@
 package io.sapphiremc.chromium.compat.client.sodium.mixin.gui;
 
 import io.sapphiremc.chromium.ChromiumMod;
-import io.sapphiremc.chromium.common.config.ChromiumConfig;
+import io.sapphiremc.chromium.shared.config.ChromiumConfig;
 import me.jellysquid.mods.sodium.client.gui.SodiumGameOptionPages;
 import me.jellysquid.mods.sodium.client.gui.options.control.ControlValueFormatter;
 import net.minecraft.client.MinecraftClient;
