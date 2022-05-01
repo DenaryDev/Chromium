@@ -52,6 +52,20 @@ public class ConfigManager implements Manager {
 				if (configFile.exists()) {
 					String content = FileUtils.readFileToString(configFile, Charset.defaultCharset());
 					config = gson.fromJson(content, ChromiumConfig.class);
+
+					if (config.getHopperTransfer() < 2) {
+						ChromiumMod.LOGGER.warn("Hopper transfer must not be less than 0");
+						config.setHopperTransfer(1);
+					} else if (config.getHopperTransfer() > 200) {
+						ChromiumMod.LOGGER.warn("Hopper transfer must not be greater than 200");
+						config.setHopperTransfer(200);
+					} else if (config.getHopperAmount() < 1) {
+						ChromiumMod.LOGGER.warn("Hopper amount must not be less than 0");
+						config.setHopperAmount(1);
+					} else if (config.getHopperAmount() > 64) {
+						ChromiumMod.LOGGER.warn("Hopper amount must not be greater than 65");
+						config.setHopperAmount(64);
+					}
 				} else {
 					writeNewConfig();
 				}

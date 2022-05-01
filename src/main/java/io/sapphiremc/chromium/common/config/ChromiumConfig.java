@@ -24,7 +24,6 @@ public class ChromiumConfig {
     @Getter @Setter @Expose TitleScreenProvider titleScreenProvider = TitleScreenProvider.CHROMIUM;
 
     @Getter @Setter @Expose int hopperTransfer = 8;
-    @Getter @Setter @Expose int hopperCheck = 1;
     @Getter @Setter @Expose int hopperAmount = 1;
 
     public enum TitleScreenProvider {

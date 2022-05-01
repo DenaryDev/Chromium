@@ -89,7 +89,7 @@ public class OptionsScreenBuilder {
         /*========================= Hopper settings =========================*/
         IntegerListEntry hopperTransfer = entryBuilder.startIntField(new TranslatableText("options.chromium.world.hopperTransfer"), current.getHopperTransfer())
                 .setDefaultValue(defaults.getHopperTransfer())
-                .setMin(1).setMax(200)
+                .setMin(2).setMax(200)
                 .setTooltip(getTooltip("options.chromium.world.hopperTransfer"))
                 .setSaveConsumer(value -> ChromiumMod.getConfig().setHopperTransfer(value))
                 .build();
