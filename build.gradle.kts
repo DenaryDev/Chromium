@@ -34,7 +34,13 @@ dependencies {
 	minecraft("com.mojang:minecraft:$minecraftVersion")
 	mappings("net.fabricmc:yarn:$yarnMappings:v2")
 	modImplementation("net.fabricmc:fabric-loader:$loaderVersion")
-	modImplementation("net.fabricmc.fabric-api:fabric-api:$fabricVersion")
+	listOf(
+		"fabric-key-binding-api-v1",
+		"fabric-lifecycle-events-v1",
+		"fabric-networking-api-v1"
+	).forEach {
+		modImplementation(fabricApi.module(it, fabricVersion))?.let { it1 -> include(it1) }
+	}
 
 	if (sodiumCompatibility) {
 		if (customSodiumJar) {
@@ -53,9 +59,9 @@ dependencies {
 		implementation("org.anarres:jcpp:1.4.14")
 	}
 	modImplementation("com.terraformersmc:modmenu:$modmenuVersion")
-	modImplementation("me.shedaniel.cloth:cloth-config-fabric:$clothConfigVersion") {
+	include(modImplementation("me.shedaniel.cloth:cloth-config-fabric:$clothConfigVersion") {
 		exclude(group = "net.fabricmc.fabric-api")
-	}
+	})
 
 	compileOnly("org.projectlombok:lombok:1.18.22")
 	annotationProcessor("org.projectlombok:lombok:1.18.22")
@@ -164,9 +170,7 @@ tasks {
 	}
 
 	jar {
-		from("LICENSE") {
-			rename { "${it}_$archivesBaseName\\_$minecraftVersion" }
-		}
+		from("LICENSE")
 
 		if (sodiumCompatibility) {
 			from(sourceSets["sodiumCompatibility"].output) {
