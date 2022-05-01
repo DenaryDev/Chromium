@@ -42,7 +42,9 @@ dependencies {
 		modImplementation(fabricApi.module(it, fabricVersion))?.let { it1 -> include(it1) }
 	}
 
+	var addFabricAPI = false
 	if (sodiumCompatibility) {
+		addFabricAPI = true
 		if (customSodiumJar) {
 			modImplementation(files("custom_jars/sodium-fabric-$sodiumVersion.jar"))
 		} else {
@@ -51,6 +53,7 @@ dependencies {
 		implementation("org.joml:joml:1.10.2")
 	}
 	if (irisCompatibility) {
+		addFabricAPI = true
 		if (customIrisJar) {
 			modImplementation(files("custom_jars/iris-$irisVersion.jar"))
 		} else {
@@ -63,8 +66,18 @@ dependencies {
 		exclude(group = "net.fabricmc.fabric-api")
 	})
 
+	if (addFabricAPI) {
+		modRuntimeOnly("net.fabricmc.fabric-api:fabric-api:$fabricVersion")
+	}
+
 	compileOnly("org.projectlombok:lombok:1.18.22")
 	annotationProcessor("org.projectlombok:lombok:1.18.22")
+}
+
+loom {
+	runConfigs.configureEach {
+		vmArgs("-Xmx4G", "-Djedt.gametest=true")
+	}
 }
 
 java {
