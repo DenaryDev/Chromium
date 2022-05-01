@@ -17,7 +17,6 @@ import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Final;
@@ -55,7 +54,7 @@ public abstract class MixinTitleScreen extends Screen {
 
     @Inject(method = "init", at = @At("TAIL"))
     protected void chromium$addChromiumSettingsButton(CallbackInfo ci) {
-        addDrawableChild(new ButtonWidget(this.width - 22, 2, 20, 20, new TranslatableText("S"), (element) ->
+        addDrawableChild(new ButtonWidget(this.width - 22, 2, 20, 20, Text.literal("S"), (element) ->
                 this.client.setScreen(OptionsScreenBuilder.build())));
     }
 }

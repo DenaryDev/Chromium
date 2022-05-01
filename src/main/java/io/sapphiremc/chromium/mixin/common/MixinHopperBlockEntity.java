@@ -65,7 +65,7 @@ public class MixinHopperBlockEntity {
      * @author DenaryDev
      */
     @Overwrite
-    public boolean isDisabled() {
+    private boolean isDisabled() {
         return transferCooldown > ChromiumMod.getConfig().getHopperTransfer();
     }
 }

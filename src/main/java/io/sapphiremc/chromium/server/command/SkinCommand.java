@@ -17,12 +17,11 @@ import io.sapphiremc.chromium.common.skins.provider.MojangSkinsProvider;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.function.Supplier;
-import net.minecraft.text.TranslatableText;
 
 import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
@@ -73,7 +72,7 @@ public class SkinCommand {
     private static int setSkin(Collection<ServerPlayerEntity> targets, boolean setByOperator, Supplier<Property> skinSupplier) {
         new Thread(() -> {
             if (!setByOperator)
-                targets.stream().findFirst().get().sendMessage(new TranslatableText("message.chromium.skin.downloading"), true);
+                targets.stream().findFirst().get().sendMessage(Text.translatable("message.chromium.skin.downloading"), true);
 
             Property skin = skinSupplier.get();
 
@@ -81,9 +80,9 @@ public class SkinCommand {
                 ChromiumMod.getSkinsManager().setSkin(player, skin);
 
                 if (setByOperator)
-                    player.sendMessage(new TranslatableText("message.chromium.skin.set.operator"), true);
+                    player.sendMessage(Text.translatable("message.chromium.skin.set.operator"), true);
                 else
-                    player.sendMessage(new TranslatableText("message.chromium.skin.set"), true);
+                    player.sendMessage(Text.translatable("message.chromium.skin.set"), true);
             }
         }).start();
 
@@ -96,9 +95,9 @@ public class SkinCommand {
                 ChromiumMod.getSkinsManager().clearSkin(player);
 
                 if (clearByOperator)
-                    player.sendMessage(new LiteralText("message.chromium.skin.reset.operator"), true);
+                    player.sendMessage(Text.literal("message.chromium.skin.reset.operator"), true);
                 else
-                    player.sendMessage(new LiteralText("message.chromium.reset.set"), true);
+                    player.sendMessage(Text.literal("message.chromium.reset.set"), true);
             }
         }).start();
 

@@ -37,8 +37,7 @@ import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Quaternion;
@@ -71,7 +70,7 @@ public class ChromiumTitleScreen extends Screen {
     }
 
     public ChromiumTitleScreen(boolean doBackgroundFade) {
-        super(new TranslatableText("narrator.screen.title"));
+        super(Text.translatable("narrator.screen.title"));
         this.doBackgroundFade = doBackgroundFade;
     }
 
@@ -102,11 +101,11 @@ public class ChromiumTitleScreen extends Screen {
         if (hasModMenu) modifier = 14;
 
         assert this.client != null;
-        this.addDrawableChild(new ButtonWidget(x, centerY - 38 - modifier, buttonW, 20, new TranslatableText("menu.singleplayer"), (element) -> {
+        this.addDrawableChild(new ButtonWidget(x, centerY - 38 - modifier, buttonW, 20, Text.translatable("menu.singleplayer"), (element) -> {
             this.confirmOpened = false;
             this.client.setScreen(new SelectWorldScreen(this));
         }));
-        this.addDrawableChild(new ButtonWidget(x, centerY - 10 - modifier, buttonW, 20, new TranslatableText("menu.multiplayer"), (element) -> {
+        this.addDrawableChild(new ButtonWidget(x, centerY - 10 - modifier, buttonW, 20, Text.translatable("menu.multiplayer"), (element) -> {
             this.confirmOpened = false;
             Screen screen = this.client.options.skipMultiplayerWarning ? new MultiplayerScreen(this) : new MultiplayerWarningScreen(this);
             this.client.setScreen(screen);
@@ -117,18 +116,18 @@ public class ChromiumTitleScreen extends Screen {
                 this.client.setScreen(new ModsScreen(this));
             }));
         }
-        this.addDrawableChild(new ButtonWidget(x, centerY + 18 + modifier, buttonW, 20, new TranslatableText("menu.options"), (element) -> {
+        this.addDrawableChild(new ButtonWidget(x, centerY + 18 + modifier, buttonW, 20, Text.translatable("menu.options"), (element) -> {
             this.confirmOpened = false;
             this.client.setScreen(new OptionsScreen(this, this.client.options));
         }));
 
-        this.quitButton = new ButtonWidget(this.width / 2 - 50, this.height / 2 - 10, 100, 20, new TranslatableText("menu.chromium.quit"), (element) ->
+        this.quitButton = new ButtonWidget(this.width / 2 - 50, this.height / 2 - 10, 100, 20, Text.translatable("menu.chromium.quit"), (element) ->
                 this.client.stop());
-        this.cancelButton = new ButtonWidget(this.width / 2 - 50, this.height / 2 + 18, 100, 20, new TranslatableText("menu.chromium.cancel"), (element) ->
+        this.cancelButton = new ButtonWidget(this.width / 2 - 50, this.height / 2 + 18, 100, 20, Text.translatable("menu.chromium.cancel"), (element) ->
                 this.confirmOpened = false);
-        this.changeScreenButton = new ButtonWidget(this.width - 22, 2, 20, 20, new LiteralText("S"), (element) ->
+        this.changeScreenButton = new ButtonWidget(this.width - 22, 2, 20, 20, Text.literal("S"), (element) ->
                 this.client.setScreen(OptionsScreenBuilder.build()));
-        this.realmsButton = new ButtonWidget(this.width - 44, 2, 20, 20, new LiteralText("R"), (element) -> {
+        this.realmsButton = new ButtonWidget(this.width - 44, 2, 20, 20, Text.literal("R"), (element) -> {
             this.confirmOpened = false;
             this.client.setScreen(new RealmsMainScreen(this));
         });
@@ -184,7 +183,7 @@ public class ChromiumTitleScreen extends Screen {
                 this.widgetsAdded = true;
             }
 
-            String confirmQuit = new TranslatableText("menu.chromium.confirmQuit").getString();
+            String confirmQuit = Text.translatable("menu.chromium.confirmQuit").getString();
             int textLength = this.textRenderer.getWidth(confirmQuit);
             this.textRenderer.drawWithShadow(matrixStack, confirmQuit, this.width / 2.0F - textLength / 2.0F, this.height / 2.0F - 26.0F, -2039584);
         }
@@ -222,7 +221,7 @@ public class ChromiumTitleScreen extends Screen {
             if (chScrY != 15) changeScreenButton.y = 15;
             if (rmsY != 15) realmsButton.y = 15;
             fill(matrixStack, 0, 0, width, 13, -1873784752);
-            String beta = new TranslatableText("chromium.warnings.unstable").getString();
+            String beta = Text.translatable("chromium.warnings.unstable").getString();
             this.textRenderer.drawWithShadow(matrixStack, beta, i, 3, 0xFF5555);
 
             i -= 1;

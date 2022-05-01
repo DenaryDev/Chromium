@@ -21,7 +21,7 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
@@ -83,12 +83,12 @@ public class ChromiumMod implements ModInitializer {
 
 		String maxFPS = (double) client.options.getMaxFps().getValue() == GameOptions.MAX_FRAMERATE ? "\u221E" : String.valueOf(client.options.getMaxFps().getValue());
 		String vsync = String.valueOf(client.options.getEnableVsync());
-		return new TranslatableText("options.chromium.fps", ((MixinMinecraftClient) client).getCurrentFPS(), maxFPS, vsync).getString();
+		return Text.translatable("options.chromium.fps", ((MixinMinecraftClient) client).getCurrentFPS(), maxFPS, vsync).getString();
 	}
 
 	@Environment(EnvType.CLIENT)
 	public static String getTime() {
-		return new TranslatableText("options.chromium.time", new SimpleDateFormat("HH:mm:ss dd/MM").format(new Date())).getString();
+		return Text.translatable("options.chromium.time", new SimpleDateFormat("HH:mm:ss dd/MM").format(new Date())).getString();
 	}
 
 	@Environment(EnvType.CLIENT)
@@ -97,7 +97,7 @@ public class ChromiumMod implements ModInitializer {
 	@Environment(EnvType.CLIENT)
 	public static String getCoordsString(LivingEntity entity) {
 		if (entity != null) {
-			cachedCoords = new TranslatableText("options.chromium.coordinates", entity.getBlockX(), entity.getBlockY(), entity.getBlockZ()).getString();
+			cachedCoords = Text.translatable("options.chromium.coordinates", entity.getBlockX(), entity.getBlockY(), entity.getBlockZ()).getString();
 		}
 		return cachedCoords;
 	}
@@ -113,7 +113,7 @@ public class ChromiumMod implements ModInitializer {
 			int clientLight = client.world.getChunkManager().getLightingProvider().getLight(blockPos, 0);
 			int skyLight = client.world.getLightLevel(LightType.SKY, blockPos);
 			int blockLight = client.world.getLightLevel(LightType.BLOCK, blockPos);
-			cachedLight = new TranslatableText("options.chromium.light", clientLight, skyLight, blockLight).getString();
+			cachedLight = Text.translatable("options.chromium.light", clientLight, skyLight, blockLight).getString();
 		}
 		return cachedLight;
 	}
@@ -130,7 +130,7 @@ public class ChromiumMod implements ModInitializer {
 			Biome biome = client.world.getBiome(blockPos).value();
 			Identifier biomeId = biomes.getId(biome);
 			if (biomeId != null) {
-				cachedBiome = new TranslatableText("options.chromium.biome", new TranslatableText("biome.minecraft." + biomeId.getPath())).getString();
+				cachedBiome = Text.translatable("options.chromium.biome", Text.translatable("biome.minecraft." + biomeId.getPath())).getString();
 			}
 		}
 		return cachedBiome;
