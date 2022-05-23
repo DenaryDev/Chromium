@@ -21,7 +21,7 @@ val irisVersion: String by project
 
 repositories {
 	mavenCentral()
-	maven("http://maven.shedaniel.me/") { isAllowInsecureProtocol = true }
+	maven("https://maven.shedaniel.me/")
 	maven("https://maven.terraformersmc.com/releases")
 	maven("https://api.modrinth.com/maven") {
 		content {
