@@ -27,6 +27,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(TitleScreen.class)
 public abstract class MixinTitleScreen extends Screen {
@@ -43,14 +44,9 @@ public abstract class MixinTitleScreen extends Screen {
         super(title);
     }
 
-    /**
-     * @author DenaryDev
-     * @reason Load textures for our title screen
-     */
-    @Overwrite
-    public static @NotNull CompletableFuture<Void> loadTexturesAsync(@NotNull TextureManager textureManager, Executor executor) {
-        CompletableFuture<Void> future = CompletableFuture.allOf(textureManager.loadTextureAsync(MINECRAFT_TITLE_TEXTURE, executor), textureManager.loadTextureAsync(EDITION_TITLE_TEXTURE, executor), textureManager.loadTextureAsync(PANORAMA_OVERLAY, executor), PANORAMA_CUBE_MAP.loadTexturesAsync(textureManager, executor));
-        return CompletableFuture.allOf(future, ChromiumTitleScreen.loadTexturesAsync(textureManager, executor));
+    @Inject(method = "loadTexturesAsync", at = @At("RETURN"), cancellable = true)
+    private static void chromium$loadTexturesAsync(TextureManager textureManager, Executor executor, CallbackInfoReturnable<CompletableFuture<Void>> cir) {
+        cir.setReturnValue(CompletableFuture.allOf(cir.getReturnValue(), ChromiumTitleScreen.loadTexturesAsync(textureManager, executor)));
     }
 
     @Inject(method = "init", at = @At("TAIL"))
