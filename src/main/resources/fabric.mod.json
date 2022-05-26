@@ -14,7 +14,7 @@
     "issues": "https://github.com/SapphireMC/Chromium-Fabric/issues"
   },
 
-  "license": "GPL-3.0-only",
+  "license": "MIT",
   "icon": "assets/chromium/icon.png",
 
   "environment": "*",
