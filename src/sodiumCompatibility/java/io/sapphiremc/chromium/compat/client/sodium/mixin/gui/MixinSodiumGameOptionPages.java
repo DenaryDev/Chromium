@@ -12,7 +12,7 @@ import io.sapphiremc.chromium.shared.config.ChromiumConfig;
 import me.jellysquid.mods.sodium.client.gui.SodiumGameOptionPages;
 import me.jellysquid.mods.sodium.client.gui.options.control.ControlValueFormatter;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -44,6 +44,6 @@ public class MixinSodiumGameOptionPages {
             remap = false
     )
     private static @NotNull ControlValueFormatter chromium$getChunkUpdateThreadsText(ControlValueFormatter formatter) {
-        return ControlValueFormatter.quantityOrDisabled(new TranslatableText("sodium.options.chunk_update_threads.threads").getString(), new TranslatableText("sodium.options.chunk_update_threads.default").getString());
+        return ControlValueFormatter.quantityOrDisabled(Text.translatable("sodium.options.chunk_update_threads.threads").getString(), Text.translatable("sodium.options.chunk_update_threads.default").getString());
     }
 }

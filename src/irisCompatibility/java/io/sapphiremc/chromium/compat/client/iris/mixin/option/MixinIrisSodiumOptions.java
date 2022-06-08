@@ -10,7 +10,6 @@ package io.sapphiremc.chromium.compat.client.iris.mixin.option;
 import me.jellysquid.mods.sodium.client.gui.options.control.ControlValueFormatter;
 import net.coderbot.iris.compat.sodium.impl.options.IrisSodiumOptions;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
@@ -24,10 +23,11 @@ public class MixinIrisSodiumOptions {
             at = @At(value = "INVOKE",
                     target = "Lme/jellysquid/mods/sodium/client/gui/options/control/SliderControl;<init>(Lme/jellysquid/mods/sodium/client/gui/options/Option;IIILme/jellysquid/mods/sodium/client/gui/options/control/ControlValueFormatter;)V"
             ),
-            index = 4
+            index = 4,
+            remap = false
     )
     private static @NotNull ControlValueFormatter chromium$getChunksText(ControlValueFormatter formatter) {
-        return ControlValueFormatter.quantityOrDisabled(new TranslatableText("options.chunks").getString(), new TranslatableText("label.chromium.disabled").getString());
+        return ControlValueFormatter.quantityOrDisabled(Text.translatable("options.chunks").getString(), Text.translatable("label.chromium.disabled").getString());
     }
 
     @Contract("_ -> new")
@@ -35,9 +35,10 @@ public class MixinIrisSodiumOptions {
             at = @At(value = "INVOKE",
                     target = "Lme/jellysquid/mods/sodium/client/gui/options/control/CyclingControl;<init>(Lme/jellysquid/mods/sodium/client/gui/options/Option;Ljava/lang/Class;[Lnet/minecraft/text/Text;)V"
             ),
-            index = 2
+            index = 2,
+            remap = false
     )
     private static @NotNull Text @NotNull [] chromium$getGraphicsText(Text[] names) {
-        return new Text[]{new TranslatableText("options.graphics.fast"), new TranslatableText("options.graphics.fancy")};
+        return new Text[]{Text.translatable("options.graphics.fast"), Text.translatable("options.graphics.fancy")};
     }
 }

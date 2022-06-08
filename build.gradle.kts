@@ -7,7 +7,7 @@ plugins {
 
 val minecraftVersion: String by project
 val archivesBaseName: String = project.properties["archivesBaseName"].toString() + minecraftVersion
-val yarnMappings: String by project
+val yarnMappingsBuild: String by project
 val loaderVersion: String by project
 val fabricVersion: String by project
 val modmenuVersion: String by project
@@ -32,14 +32,14 @@ repositories {
 
 dependencies {
 	minecraft("com.mojang:minecraft:$minecraftVersion")
-	mappings("net.fabricmc:yarn:$yarnMappings:v2")
+	mappings("net.fabricmc:yarn:$minecraftVersion+build.$yarnMappingsBuild:v2")
 	modImplementation("net.fabricmc:fabric-loader:$loaderVersion")
 	listOf(
 		"fabric-key-binding-api-v1",
 		"fabric-lifecycle-events-v1",
 		"fabric-networking-api-v1"
 	).forEach {
-		modImplementation(fabricApi.module(it, fabricVersion))?.let { it1 -> include(it1) }
+		modImplementation(fabricApi.module(it, "$fabricVersion+$minecraftVersion"))?.let { it1 -> include(it1) }
 	}
 
 	var addFabricAPI = false
@@ -50,7 +50,7 @@ dependencies {
 		} else {
 			modImplementation("maven.modrinth:sodium:$sodiumVersion")
 		}
-		implementation("org.joml:joml:1.10.2")
+		implementation("org.joml:joml:1.10.4")
 	}
 	if (irisCompatibility) {
 		addFabricAPI = true
@@ -67,11 +67,11 @@ dependencies {
 	})
 
 	if (addFabricAPI) {
-		modRuntimeOnly("net.fabricmc.fabric-api:fabric-api:$fabricVersion")
+		modRuntimeOnly("net.fabricmc.fabric-api:fabric-api:$fabricVersion+$minecraftVersion")
 	}
 
-	compileOnly("org.projectlombok:lombok:1.18.22")
-	annotationProcessor("org.projectlombok:lombok:1.18.22")
+	compileOnly("org.projectlombok:lombok:1.18.24")
+	annotationProcessor("org.projectlombok:lombok:1.18.24")
 }
 
 loom {
