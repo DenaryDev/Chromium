@@ -23,20 +23,17 @@ public class MixinIrisSodiumOptions {
             at = @At(value = "INVOKE",
                     target = "Lme/jellysquid/mods/sodium/client/gui/options/control/SliderControl;<init>(Lme/jellysquid/mods/sodium/client/gui/options/Option;IIILme/jellysquid/mods/sodium/client/gui/options/control/ControlValueFormatter;)V"
             ),
-            index = 4,
-            remap = false
+            index = 4
     )
     private static @NotNull ControlValueFormatter chromium$getChunksText(ControlValueFormatter formatter) {
         return ControlValueFormatter.quantityOrDisabled(Text.translatable("options.chunks").getString(), Text.translatable("label.chromium.disabled").getString());
     }
 
-    @Contract("_ -> new")
     @ModifyArg(method = "lambda$createLimitedVideoSettingsButton$3",
             at = @At(value = "INVOKE",
                     target = "Lme/jellysquid/mods/sodium/client/gui/options/control/CyclingControl;<init>(Lme/jellysquid/mods/sodium/client/gui/options/Option;Ljava/lang/Class;[Lnet/minecraft/text/Text;)V"
             ),
-            index = 2,
-            remap = false
+            index = 2
     )
     private static @NotNull Text @NotNull [] chromium$getGraphicsText(Text[] names) {
         return new Text[]{Text.translatable("options.graphics.fast"), Text.translatable("options.graphics.fancy")};

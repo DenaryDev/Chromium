@@ -1,7 +1,7 @@
 plugins {
 	java
 	`maven-publish`
-	id("fabric-loom") version "0.11-SNAPSHOT"
+	id("fabric-loom") version "0.12-SNAPSHOT"
 	id("org.cadixdev.licenser") version "0.6.1"
 }
 

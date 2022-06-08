@@ -31,14 +31,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(TitleScreen.class)
 public abstract class MixinTitleScreen extends Screen {
 
-    @Shadow @Final private static Identifier MINECRAFT_TITLE_TEXTURE;
-
-    @Shadow @Final private static Identifier EDITION_TITLE_TEXTURE;
-
-    @Shadow @Final private static Identifier PANORAMA_OVERLAY;
-
-    @Shadow @Final public static CubeMapRenderer PANORAMA_CUBE_MAP;
-
     protected MixinTitleScreen(Text title) {
         super(title);
     }

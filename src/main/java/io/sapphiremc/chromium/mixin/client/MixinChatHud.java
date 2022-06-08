@@ -25,7 +25,7 @@ import java.util.TimeZone;
 public abstract class MixinChatHud extends DrawableHelper {
 
     @ModifyVariable(method = "addMessage(Lnet/minecraft/text/Text;IIZ)V", at = @At("HEAD"), ordinal = 0, argsOnly = true)
-    private Text sapphireclient$addMessageTimePrefix(Text message) {
+    private Text chromium$addMessageTimePrefix(Text message) {
         if (ChromiumMod.getConfig().isShowMessagesTime()) {
             Text hoverText = Text.translatable(Formatting.YELLOW + new SimpleDateFormat("dd-MM-yyyy HH:mm:ss ").format(new Date()) + TimeZone.getDefault().getID());
             Text timeText = Text.translatable(Formatting.GRAY + new SimpleDateFormat("[HH:mm:ss] ").format(new Date()) + Formatting.RESET).styled(

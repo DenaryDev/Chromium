@@ -9,6 +9,7 @@ package io.sapphiremc.chromium.mixin.server;
 
 import com.mojang.brigadier.CommandDispatcher;
 import io.sapphiremc.chromium.server.command.SkinCommand;
+import net.minecraft.command.CommandRegistryAccess;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
 import org.spongepowered.asm.mixin.Final;
@@ -24,7 +25,7 @@ public class MixinCommandManager {
     @Shadow @Final private CommandDispatcher<ServerCommandSource> dispatcher;
 
     @Inject(method = "<init>", at = @At("TAIL"))
-    private void chromium$registerCommands(CommandManager.RegistrationEnvironment environment, CallbackInfo ci) {
+    private void chromium$registerCommands(CommandManager.RegistrationEnvironment environment, CommandRegistryAccess commandRegistryAccess, CallbackInfo ci) {
         SkinCommand.register(dispatcher);
     }
 }
