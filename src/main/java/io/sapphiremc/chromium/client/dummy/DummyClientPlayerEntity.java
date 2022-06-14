@@ -13,7 +13,9 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.PlayerListEntry;
 import net.minecraft.client.render.entity.PlayerModelPart;
 import net.minecraft.client.util.DefaultSkinHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3d;
 import org.jetbrains.annotations.Nullable;
 
 public class DummyClientPlayerEntity extends ClientPlayerEntity {
@@ -71,5 +73,20 @@ public class DummyClientPlayerEntity extends ClientPlayerEntity {
     @Override
     public boolean isCreative() {
         return true;
+    }
+
+    @Override
+    public double squaredDistanceTo(Vec3d vector) {
+        return 0;
+    }
+
+    @Override
+    public double squaredDistanceTo(Entity entity) {
+        return 0;
+    }
+
+    @Override
+    public double squaredDistanceTo(double x, double y, double z) {
+        return 0;
     }
 }
