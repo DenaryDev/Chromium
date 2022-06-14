@@ -16,7 +16,10 @@ import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 public class SodiumCompatMixinPlugin implements IMixinConfigPlugin {
-    private final List<String> allowedSodiumVersions = List.of("0.4.2+build.16");
+    private final List<AllowedSodiumVersion> allowedSodiumVersions = List.of(
+            new AllowedSodiumVersion("0.4.2+build.16", false),
+            new AllowedSodiumVersion("0.4.2+replaymod", true)
+    );
     private boolean validSodiumVersion = false;
 
     @Override
@@ -25,7 +28,7 @@ public class SodiumCompatMixinPlugin implements IMixinConfigPlugin {
         validSodiumVersion = FabricLoader.getInstance().getModContainer("sodium").map(sodium -> {
             String version = sodium.getMetadata().getVersion().getFriendlyString();
 
-            return allowedSodiumVersions.contains(version);
+            return isAllowedVersion(version);
         }).orElse(false);
 
         if (!validSodiumVersion) {
@@ -61,5 +64,26 @@ public class SodiumCompatMixinPlugin implements IMixinConfigPlugin {
     @Override
     public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
 
+    }
+
+    private boolean isAllowedVersion(String version) {
+        for (AllowedSodiumVersion allowed : allowedSodiumVersions) {
+            if (allowed.matches(version)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private record AllowedSodiumVersion(String version, boolean prefix) {
+
+        private boolean matches(String candidate) {
+            if (prefix) {
+                return candidate.startsWith(version);
+            } else {
+                return candidate.equals(version);
+            }
+        }
     }
 }
