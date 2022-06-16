@@ -15,6 +15,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
 
 import java.text.SimpleDateFormat;
@@ -23,6 +25,11 @@ import java.util.TimeZone;
 
 @Mixin(ChatHud.class)
 public abstract class MixinChatHud extends DrawableHelper {
+
+    @ModifyConstant(method = "addMessage(Lnet/minecraft/text/Text;IIZ)V", constant = @Constant(intValue = 100))
+    private int chromium$getMaxMessages(int max) {
+        return ChromiumMod.getConfig().getMaxMessages();
+    }
 
     @ModifyVariable(method = "addMessage(Lnet/minecraft/text/Text;IIZ)V", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private Text chromium$addMessageTimePrefix(Text message) {

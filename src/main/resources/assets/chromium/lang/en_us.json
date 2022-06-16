@@ -38,11 +38,13 @@
   "options.chromium.showBiome.tooltip.2": "displayed in the top left corner.",
   "options.chromium.biome": "Biome: %s",
 
-  "options.chromium.showMessagesTime": "Show messages time in chat",
+  "options.chromium.showMessagesTime": "Timestamp prefix before messages",
   "options.chromium.showMessagesTime.tooltip.1": "Current time will be displayed",
   "options.chromium.showMessagesTime.tooltip.2": "before each message in the chat,",
   "options.chromium.showMessagesTime.tooltip.3": "and on hover you can see the",
   "options.chromium.showMessagesTime.tooltip.4": "current timezone.",
+
+  "options.chromium.maxMessages": "Max messages",
 
   "options.chromium.world.hopperTransfer": "Transfer cooldown",
 

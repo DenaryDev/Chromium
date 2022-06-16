@@ -38,11 +38,13 @@
   "options.chromium.showBiome.tooltip.2": "тот биом, в котором вы находитесь.",
   "options.chromium.biome": "Биом: %s",
 
-  "options.chromium.showMessagesTime": "Время сообщений в чате",
+  "options.chromium.showMessagesTime": "Время отправки сообщений",
   "options.chromium.showMessagesTime.tooltip.1": "Перед каждым сообщением в чате будет",
   "options.chromium.showMessagesTime.tooltip.2": "отображаться текущее время, а при",
   "options.chromium.showMessagesTime.tooltip.3": "наведении вы сможете посмотреть",
   "options.chromium.showMessagesTime.tooltip.4": "текущий часовой пояс.",
+
+  "options.chromium.maxMessages": "Максимальное кол-во сообщений",
 
   "options.chromium.world.hopperTransfer": "Задержка перемещения предметов",
 

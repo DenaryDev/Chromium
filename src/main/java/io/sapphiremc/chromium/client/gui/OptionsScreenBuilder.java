@@ -84,6 +84,12 @@ public class OptionsScreenBuilder {
                 .setSaveConsumer(value -> ChromiumMod.getConfig().setShowMessagesTime(value))
                 .setYesNoTextSupplier(yesNoSupplier)
                 .build();
+        IntegerListEntry maxMessages = entryBuilder.startIntField(Text.translatable("options.chromium.maxMessages"), current.getMaxMessages())
+                .setDefaultValue(defaults.getMaxMessages())
+                .setMin(50).setMax(500)
+                .setTooltip(getTooltip("options.chromium.maxMessages"))
+                .setSaveConsumer(value -> ChromiumMod.getConfig().setMaxMessages(value))
+                .build();
 
         /*========================= Hopper settings =========================*/
         IntegerListEntry hopperTransfer = entryBuilder.startIntField(Text.translatable("options.chromium.world.hopperTransfer"), current.getHopperTransfer())
@@ -119,6 +125,7 @@ public class OptionsScreenBuilder {
 
         SubCategoryBuilder chat = entryBuilder.startSubCategory(Text.translatable("category.chromium.chat"));
         chat.add(toggleMessagesTime);
+        chat.add(maxMessages);
 
         SubCategoryBuilder world = entryBuilder.startSubCategory(Text.translatable("category.chromium.world"));
 
