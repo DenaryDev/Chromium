@@ -39,7 +39,7 @@ dependencies {
 		"fabric-lifecycle-events-v1",
 		"fabric-networking-api-v1"
 	).forEach {
-		modImplementation(fabricApi.module(it, "$fabricVersion+$minecraftVersion"))?.let { it1 -> include(it1) }
+		modImplementation(fabricApi.module(it, fabricVersion))?.let { it1 -> include(it1) }
 	}
 
 	var addFabricAPI = false
@@ -67,7 +67,7 @@ dependencies {
 	})
 
 	if (addFabricAPI) {
-		modRuntimeOnly("net.fabricmc.fabric-api:fabric-api:$fabricVersion+$minecraftVersion")
+		modRuntimeOnly("net.fabricmc.fabric-api:fabric-api:$fabricVersion")
 	}
 
 	compileOnly("org.projectlombok:lombok:1.18.24")
