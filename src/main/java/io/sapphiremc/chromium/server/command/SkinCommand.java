@@ -11,9 +11,9 @@ import com.mojang.authlib.properties.Property;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import io.sapphiremc.chromium.ChromiumMod;
-import io.sapphiremc.chromium.shared.skins.SkinVariant;
-import io.sapphiremc.chromium.shared.skins.provider.MineSkinSkinsProvider;
-import io.sapphiremc.chromium.shared.skins.provider.MojangSkinsProvider;
+import io.sapphiremc.chromium.server.skins.SkinVariant;
+import io.sapphiremc.chromium.server.skins.provider.MineSkinSkinsProvider;
+import io.sapphiremc.chromium.server.skins.provider.MojangSkinsProvider;
 import net.minecraft.command.argument.EntityArgumentType;
 import net.minecraft.server.command.ServerCommandSource;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -95,9 +95,9 @@ public class SkinCommand {
                 ChromiumMod.getSkinsManager().clearSkin(player);
 
                 if (clearByOperator)
-                    player.sendMessage(Text.literal("message.chromium.skin.reset.operator"), true);
+                    player.sendMessage(Text.literal("message.chromium.skin.clear.operator"), true);
                 else
-                    player.sendMessage(Text.literal("message.chromium.reset.set"), true);
+                    player.sendMessage(Text.literal("message.chromium.skin.clear"), true);
             }
         }).start();
 

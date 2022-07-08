@@ -5,28 +5,21 @@
  * license that can be found in the LICENSE file or at
  * https://opensource.org/licenses/MIT.
  */
-package io.sapphiremc.chromium.shared.skins;
+package io.sapphiremc.chromium.server.skins;
 
 import com.mojang.authlib.properties.Property;
 import io.sapphiremc.chromium.ChromiumMod;
-import io.sapphiremc.chromium.shared.manager.Manager;
-import io.sapphiremc.chromium.shared.skins.provider.MojangSkinsProvider;
+import io.sapphiremc.chromium.server.skins.provider.MojangSkinsProvider;
 import java.io.File;
 import java.util.UUID;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.server.network.ServerPlayerEntity;
 
-public class SkinsManager implements Manager {
+public class SkinsManager {
 
-    private SkinsStorage skinsStorage;
+    private final SkinsStorage skinsStorage;
 
-    @Override
-    public Env getEnv(){
-        return Env.SERVER;
-    }
-
-    @Override
-    public void initialize() {
+    public SkinsManager() {
         skinsStorage = new SkinsStorage(new SkinIO(FabricLoader.getInstance().getConfigDir().resolve(ChromiumMod.MOD_ID + File.separator + "skins")));
     }
 

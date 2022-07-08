@@ -10,7 +10,6 @@ package io.sapphiremc.chromium.shared.config;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.sapphiremc.chromium.ChromiumMod;
-import io.sapphiremc.chromium.shared.manager.Manager;
 import java.nio.charset.Charset;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
@@ -20,7 +19,7 @@ import lombok.Getter;
 import net.fabricmc.loader.api.FabricLoader;
 import org.apache.commons.io.FileUtils;
 
-public class ConfigManager implements Manager {
+public class ConfigManager {
 
 	@Getter
 	private ChromiumConfig config;
@@ -36,16 +35,6 @@ public class ConfigManager implements Manager {
 		readConfig(false);
 	}
 
-	@Override
-	public Env getEnv(){
-		return Env.BOTH;
-	}
-
-	@Override
-	public void initialize() {
-		// Do nothing
-	}
-
 	public void readConfig(boolean async) {
 		Runnable task = () -> {
 			try {
@@ -54,16 +43,16 @@ public class ConfigManager implements Manager {
 					config = gson.fromJson(content, ChromiumConfig.class);
 
 					if (config.getHopperTransfer() < 2) {
-						ChromiumMod.LOGGER.warn("Hopper transfer must not be less than 0");
-						config.setHopperTransfer(1);
+						ChromiumMod.LOGGER.warn("Hopper transfer must not be less than 2");
+						config.setHopperTransfer(2);
 					} else if (config.getHopperTransfer() > 200) {
 						ChromiumMod.LOGGER.warn("Hopper transfer must not be greater than 200");
 						config.setHopperTransfer(200);
 					} else if (config.getHopperAmount() < 1) {
-						ChromiumMod.LOGGER.warn("Hopper amount must not be less than 0");
+						ChromiumMod.LOGGER.warn("Hopper amount must not be less than 1");
 						config.setHopperAmount(1);
 					} else if (config.getHopperAmount() > 64) {
-						ChromiumMod.LOGGER.warn("Hopper amount must not be greater than 65");
+						ChromiumMod.LOGGER.warn("Hopper amount must not be greater than 64");
 						config.setHopperAmount(64);
 					}
 				} else {
