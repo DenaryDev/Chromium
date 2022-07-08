@@ -1,0 +1,35 @@
+[versions]
+# Fabric dependencies
+# The latest versions are available at https://fabricmc.net/develop
+minecraft = "1.19"
+mappings = "1.19+build.4"
+loader = "0.14.8"
+fabric = "0.57.0+1.19"
+
+# Fabric loom
+loom = "0.12-SNAPSHOT"
+
+# Mod dependencies
+sodium = "mc1.19-0.4.2"
+iris = "1.19.x-v1.2.5"
+cloth_config = "7.0.72"
+modmenu = "4.0.0"
+
+[libraries]
+# Minecraft
+minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
+
+# Fabric
+fabric_mappings = { module = "net.fabricmc:yarn", version.ref = "mappings" }
+fabric_loader = { module = "net.fabricmc:fabric-loader", version.ref = "loader" }
+fabric_api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric" }
+
+# Mod dependencies
+mod_sodium = { module = "maven.modrinth:sodium", version.ref = "sodium" }
+mod_iris = { module = "maven.modrinth:iris", version.ref = "iris" }
+mod_cloth_config = { module = "me.shedaniel.cloth:cloth-config-fabric", version.ref = "cloth_config" }
+mod_modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
+
+[plugins]
+loom = { id = "fabric-loom", version.ref = "loom" }
+licenser = { id = "org.cadixdev.licenser", version = "0.6.1" }
