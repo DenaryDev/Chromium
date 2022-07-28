@@ -15,17 +15,17 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 @Mixin(Main.class)
 public class MixinMain {
 
-    @ModifyArg(method = "method_44604",
+    @ModifyArg(method = "main([Ljava/lang/String;Z)V",
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/client/WindowSettings;<init>(IILjava/util/OptionalInt;Ljava/util/OptionalInt;Z)V"
             ),
             index = 0
     )
     private static int chromium$getWidth(int width) {
-        return Math.max(width, 1000);
+        return Math.max(width, 960);
     }
 
-    @ModifyArg(method = "method_44604",
+    @ModifyArg(method = "main([Ljava/lang/String;Z)V",
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/client/WindowSettings;<init>(IILjava/util/OptionalInt;Ljava/util/OptionalInt;Z)V"
             ),

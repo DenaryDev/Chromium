@@ -34,21 +34,22 @@ dependencies {
 
 	if (sodiumCompatibility) {
 		modImplementation(libs.mod.sodium)
-		implementation("org.joml:joml:1.10.4")
+		implementation(libs.joml)
 	}
 	if (irisCompatibility) {
 		modImplementation(libs.mod.iris)
-		implementation("org.anarres:jcpp:1.4.14")
+		implementation(libs.jccp)
 	}
-	modImplementation("com.terraformersmc:modmenu:4.0.0")
-	include(modImplementation("me.shedaniel.cloth:cloth-config-fabric:7.0.72") {
+	modImplementation(libs.mod.modmenu)
+	modImplementation(libs.mod.clothconfig) {
 		exclude(group = "net.fabricmc.fabric-api")
-	})
+		include(this)
+	}
 
 	modRuntimeOnly(libs.fabric.api)
 
-	compileOnly("org.projectlombok:lombok:1.18.24")
-	annotationProcessor("org.projectlombok:lombok:1.18.24")
+	compileOnly(libs.lombok)
+	annotationProcessor(libs.lombok)
 }
 
 java {

@@ -1,19 +1,24 @@
 [versions]
 # Fabric dependencies
 # The latest versions are available at https://fabricmc.net/develop
-minecraft = "1.19"
-mappings = "1.19+build.4"
+minecraft = "1.19.1"
+mappings = "1.19.1+build.1"
 loader = "0.14.8"
-fabric = "0.57.0+1.19"
+fabric = "0.58.5+1.19.1"
 
 # Fabric loom
 loom = "0.12-SNAPSHOT"
 
 # Mod dependencies
 sodium = "mc1.19-0.4.2"
-iris = "1.19.x-v1.2.5"
-cloth_config = "7.0.72"
-modmenu = "4.0.0"
+iris = "1.19.x-v1.2.6"
+clothconfig = "7.0.73"
+modmenu = "4.0.5"
+
+# Other dependencies
+joml = "1.10.4"
+jccp = "1.4.14"
+lombok = "1.18.24"
 
 [libraries]
 # Minecraft
@@ -27,8 +32,13 @@ fabric_api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fab
 # Mod dependencies
 mod_sodium = { module = "maven.modrinth:sodium", version.ref = "sodium" }
 mod_iris = { module = "maven.modrinth:iris", version.ref = "iris" }
-mod_cloth_config = { module = "me.shedaniel.cloth:cloth-config-fabric", version.ref = "cloth_config" }
+mod_clothconfig = { module = "me.shedaniel.cloth:cloth-config-fabric", version.ref = "clothconfig" }
 mod_modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
+
+# Other dependencies
+joml = { module = "org.joml:joml", version.ref = "joml" }
+jccp = { module = "org.anarres:jcpp", version.ref = "jccp" }
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
 
 [plugins]
 loom = { id = "fabric-loom", version.ref = "loom" }

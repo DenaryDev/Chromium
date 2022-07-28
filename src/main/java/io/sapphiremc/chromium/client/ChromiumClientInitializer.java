@@ -21,12 +21,14 @@ import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
 public class ChromiumClientInitializer implements ClientModInitializer {
 
     private KeyBinding configKey;
+    private KeyBinding temp;
 
     private final int protocolId = 0;
     private final Identifier hello = new Identifier("sapphiremc", "chromium");
@@ -40,6 +42,13 @@ public class ChromiumClientInitializer implements ClientModInitializer {
                 "Chromium"
         ));
 
+        temp = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key.chromium.temp",
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_B,
+                "Chromium"
+        ));
+
         ClientPlayConnectionEvents.JOIN.register(((handler, sender, client) -> {
             if (!client.isInSingleplayer()) {
                 ByteArrayDataOutput out = Packet.out();
@@ -50,6 +59,12 @@ public class ChromiumClientInitializer implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (configKey.isPressed()) {
                 client.setScreen(OptionsScreenBuilder.build());
+            } else {
+                if (temp.isPressed()) {
+                    for (int i = 1; i <= 400; i++) {
+                        client.player.sendMessage(Text.literal("Message #" + i));
+                    }
+                }
             }
         });
         ScreenEvents.BEFORE_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
