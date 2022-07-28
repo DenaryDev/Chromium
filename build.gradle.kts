@@ -1,23 +1,13 @@
 plugins {
 	java
 	`maven-publish`
-	id("fabric-loom") version "0.12-SNAPSHOT"
-	id("org.cadixdev.licenser") version "0.6.1"
+	alias(libs.plugins.loom)
+	alias(libs.plugins.licenser)
 }
 
-val minecraftVersion: String by project
-val archivesBaseName: String = project.properties["archivesBaseName"].toString() + minecraftVersion
-val yarnMappingsBuild: String by project
-val loaderVersion: String by project
-val fabricVersion: String by project
-val modmenuVersion: String by project
-val clothConfigVersion: String by project
-val sodiumCompatibility: Boolean = project.properties["sodiumCompatibility"].toString().toBoolean()
-val customSodiumJar: Boolean = project.properties["customSodiumJar"].toString().toBoolean()
-val sodiumVersion: String by project
-val irisCompatibility: Boolean = project.properties["irisCompatibility"].toString().toBoolean()
-val customIrisJar: Boolean = project.properties["customSodiumJar"].toString().toBoolean()
-val irisVersion: String by project
+val archivesBaseName = project.properties["archivesBaseName"].toString() + libs.versions.minecraft.get()
+val sodiumCompatibility = project.properties["sodiumCompatibility"].toString().toBoolean()
+val irisCompatibility = project.properties["irisCompatibility"].toString().toBoolean()
 
 repositories {
 	mavenCentral()
@@ -31,53 +21,34 @@ repositories {
 }
 
 dependencies {
-	minecraft("com.mojang:minecraft:$minecraftVersion")
-	mappings("net.fabricmc:yarn:$minecraftVersion+build.$yarnMappingsBuild:v2")
-	modImplementation("net.fabricmc:fabric-loader:$loaderVersion")
+	minecraft(libs.minecraft)
+	mappings(libs.fabric.mappings) { artifact { classifier = "v2" } }
+	modImplementation(libs.fabric.loader)
 	listOf(
 		"fabric-key-binding-api-v1",
 		"fabric-lifecycle-events-v1",
 		"fabric-networking-api-v1"
 	).forEach {
-		modImplementation(fabricApi.module(it, fabricVersion))?.let { it1 -> include(it1) }
+		modImplementation(fabricApi.module(it, libs.versions.fabric.get()))?.let { it1 -> include(it1) }
 	}
 
-	var addFabricAPI = false
 	if (sodiumCompatibility) {
-		addFabricAPI = true
-		if (customSodiumJar) {
-			modImplementation(files("custom_jars/sodium-fabric-$sodiumVersion.jar"))
-		} else {
-			modImplementation("maven.modrinth:sodium:$sodiumVersion")
-		}
+		modImplementation(libs.mod.sodium)
 		implementation("org.joml:joml:1.10.4")
 	}
 	if (irisCompatibility) {
-		addFabricAPI = true
-		if (customIrisJar) {
-			modImplementation(files("custom_jars/iris-$irisVersion.jar"))
-		} else {
-			modImplementation("maven.modrinth:iris:$irisVersion")
-		}
+		modImplementation(libs.mod.iris)
 		implementation("org.anarres:jcpp:1.4.14")
 	}
-	modImplementation("com.terraformersmc:modmenu:$modmenuVersion")
-	include(modImplementation("me.shedaniel.cloth:cloth-config-fabric:$clothConfigVersion") {
+	modImplementation("com.terraformersmc:modmenu:4.0.0")
+	include(modImplementation("me.shedaniel.cloth:cloth-config-fabric:7.0.72") {
 		exclude(group = "net.fabricmc.fabric-api")
 	})
 
-	if (addFabricAPI) {
-		modRuntimeOnly("net.fabricmc.fabric-api:fabric-api:$fabricVersion")
-	}
+	modRuntimeOnly(libs.fabric.api)
 
 	compileOnly("org.projectlombok:lombok:1.18.24")
 	annotationProcessor("org.projectlombok:lombok:1.18.24")
-}
-
-loom {
-	runConfigs.configureEach {
-		vmArgs("-Xmx4G", "-Djedt.gametest=true")
-	}
 }
 
 java {
@@ -91,21 +62,6 @@ license {
 
 	header(project.file("HEADER"))
 	newLine(false)
-}
-
-publishing {
-	publications.create<MavenPublication>("maven") {
-		from(components["java"])
-	}
-
-	repositories {
-		maven {
-			name = "SapphireMC"
-			url = uri("http://repo.denaryworld.ru/snapshots")
-			isAllowInsecureProtocol = true
-			credentials(PasswordCredentials::class)
-		}
-	}
 }
 
 sourceSets {
@@ -156,6 +112,10 @@ tasks {
 		archiveBaseName.set(archivesBaseName)
 	}
 
+	remapJar {
+		archiveBaseName.set(archivesBaseName)
+	}
+
 	processResources {
 		inputs.property("version", project.version)
 
@@ -199,10 +159,6 @@ tasks {
 				}
 			}
 		}
-	}
-
-	remapJar {
-		archiveBaseName.set(archivesBaseName)
 	}
 
 	runClient {

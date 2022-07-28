@@ -62,7 +62,7 @@ public class ChromiumTitleScreen extends Screen {
 
     private ButtonWidget quitButton;
     private ButtonWidget cancelButton;
-    private ButtonWidget changeScreenButton;
+    private ButtonWidget settingsButton;
     private ButtonWidget realmsButton;
 
     public ChromiumTitleScreen() {
@@ -125,13 +125,13 @@ public class ChromiumTitleScreen extends Screen {
                 this.client.stop());
         this.cancelButton = new ButtonWidget(this.width / 2 - 50, this.height / 2 + 18, 100, 20, Text.translatable("menu.chromium.cancel"), (element) ->
                 this.confirmOpened = false);
-        this.changeScreenButton = new ButtonWidget(this.width - 22, 2, 20, 20, Text.literal("S"), (element) ->
+        this.settingsButton = new ButtonWidget(this.width - 22, 2, 20, 20, Text.literal("S"), (element) ->
                 this.client.setScreen(OptionsScreenBuilder.build()));
         this.realmsButton = new ButtonWidget(this.width - 44, 2, 20, 20, Text.literal("R"), (element) -> {
             this.confirmOpened = false;
             this.client.setScreen(new RealmsMainScreen(this));
         });
-        this.addDrawableChild(changeScreenButton);
+        this.addDrawableChild(settingsButton);
         this.addDrawableChild(realmsButton);
     }
 
@@ -196,30 +196,30 @@ public class ChromiumTitleScreen extends Screen {
         super.render(matrixStack, mouseX, mouseY, delta);
 
         String userName = this.client.getSession().getUsername();
-        String goldAmount = "2022";
+       // String goldAmount = "2022";
 
         int centerX = newWidth / 2;
         int nameLength = this.textRenderer.getWidth(userName);
-        int amountLength = this.textRenderer.getWidth(goldAmount);
+       // int amountLength = this.textRenderer.getWidth(goldAmount);
 
         this.textRenderer.drawWithShadow(matrixStack, userName, centerX - (nameLength / 2F), 96, -2039584);
 
-        RenderSystem.enableBlend();
-        RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
-        RenderSystem.setShaderTexture(0, GOLD);
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+       // RenderSystem.enableBlend();
+       // RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
+       // RenderSystem.setShaderTexture(0, GOLD);
+       // RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
-        int goldX = centerX - (amountLength + 14) / 2;
-        drawTexture(matrixStack, goldX, 110, 0, 0, 11, 11, 11, 11);
-        this.textRenderer.drawWithShadow(matrixStack, goldAmount, goldX + 14, 112, 0xFFD700);
+       // int goldX = centerX - (amountLength + 14) / 2;
+       // drawTexture(matrixStack, goldX, 110, 0, 0, 11, 11, 11, 11);
+       // this.textRenderer.drawWithShadow(matrixStack, goldAmount, goldX + 14, 112, 0xFFD700);
 
         String modVersion = FabricLoader.getInstance().getModContainer(ChromiumMod.MOD_ID).get().getMetadata().getVersion().getFriendlyString().toLowerCase();
         boolean isUnstable = modVersion.contains("alpha") || modVersion.contains("beta") || modVersion.contains("pre") || modVersion.contains("rc") || modVersion.contains("snapshot");
-        int chScrY = changeScreenButton.y;
-        int rmsY = realmsButton.y;
+        int settingsButtonY = settingsButton.y;
+        int realmsButtonY = realmsButton.y;
         if (isUnstable) {
-            if (chScrY != 15) changeScreenButton.y = 15;
-            if (rmsY != 15) realmsButton.y = 15;
+            if (settingsButtonY != 15) settingsButton.y = 15;
+            if (realmsButtonY != 15) realmsButton.y = 15;
             fill(matrixStack, 0, 0, width, 13, -1873784752);
             String beta = Text.translatable("chromium.warnings.unstable").getString();
             this.textRenderer.drawWithShadow(matrixStack, beta, i, 3, 0xFF5555);
@@ -229,7 +229,7 @@ public class ChromiumTitleScreen extends Screen {
                 i = width;
             }
         } else {
-            if (chScrY != 2) changeScreenButton.y = 2;
+            if (settingsButtonY != 2) settingsButton.y = 2;
         }
     }
 

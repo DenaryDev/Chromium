@@ -9,8 +9,7 @@ package io.sapphiremc.chromium;
 
 import io.sapphiremc.chromium.shared.config.ChromiumConfig;
 import io.sapphiremc.chromium.shared.config.ConfigManager;
-import io.sapphiremc.chromium.shared.manager.Manager;
-import io.sapphiremc.chromium.shared.skins.SkinsManager;
+import io.sapphiremc.chromium.server.skins.SkinsManager;
 import io.sapphiremc.chromium.mixin.client.MixinMinecraftClient;
 import lombok.Getter;
 import net.fabricmc.api.EnvType;
@@ -31,9 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class ChromiumMod implements ModInitializer {
 	public static final String MOD_ID = "chromium";
@@ -42,7 +39,6 @@ public class ChromiumMod implements ModInitializer {
 	@Getter
 	private static EnvType env;
 
-	private final List<Manager> managers = new ArrayList<>();
 	@Getter
 	private static ConfigManager configManager;
 	@Getter
@@ -54,22 +50,9 @@ public class ChromiumMod implements ModInitializer {
 		LOGGER.info("Initializing chromium by SapphireMC");
 
 		configManager = new ConfigManager();
-		managers.add(configManager);
-		skinsManager = new SkinsManager();
-		managers.add(skinsManager);
 
-		initializeManagers();
-	}
-
-	private void initializeManagers() {
-		for (Manager manager : managers) {
-			if (manager.getEnv().equals(Manager.Env.BOTH)) {
-				manager.initialize();
-			} else if (manager.getEnv().equals(Manager.Env.CLIENT) && env.equals(EnvType.CLIENT)) {
-				manager.initialize();
-			} else if (manager.getEnv().equals(Manager.Env.SERVER) && env.equals(EnvType.SERVER)) {
-				manager.initialize();
-			}
+		if (env == EnvType.SERVER) {
+			skinsManager = new SkinsManager();
 		}
 	}
 
@@ -81,8 +64,8 @@ public class ChromiumMod implements ModInitializer {
 	public static String getFpsString() {
 		MinecraftClient client = MinecraftClient.getInstance();
 
-		String maxFPS = (double) client.options.getMaxFps().getValue() == GameOptions.MAX_FRAMERATE ? "\u221E" : String.valueOf(client.options.getMaxFps().getValue());
-		String vsync = String.valueOf(client.options.getEnableVsync());
+		String maxFPS = (double) client.options.getMaxFps().getValue() == GameOptions.MAX_FRAMERATE ? "\u221E" : client.options.getMaxFps().getValue().toString();
+		String vsync = client.options.getEnableVsync().getValue().toString();
 		return Text.translatable("options.chromium.fps", ((MixinMinecraftClient) client).getCurrentFPS(), maxFPS, vsync).getString();
 	}
 

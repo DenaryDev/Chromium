@@ -13,7 +13,6 @@ import io.sapphiremc.chromium.client.gui.ChromiumTitleScreen;
 import io.sapphiremc.chromium.client.gui.OptionsScreenBuilder;
 import io.sapphiremc.chromium.client.network.Packet;
 import io.sapphiremc.chromium.shared.config.ChromiumConfig;
-import io.sapphiremc.chromium.shared.util.MultiplayerConstants;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -22,11 +21,15 @@ import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
 public class ChromiumClientInitializer implements ClientModInitializer {
 
     private KeyBinding configKey;
+
+    private final int protocolId = 0;
+    private final Identifier hello = new Identifier("sapphiremc", "chromium");
 
     @Override
     public void onInitializeClient() {
@@ -40,8 +43,8 @@ public class ChromiumClientInitializer implements ClientModInitializer {
         ClientPlayConnectionEvents.JOIN.register(((handler, sender, client) -> {
             if (!client.isInSingleplayer()) {
                 ByteArrayDataOutput out = Packet.out();
-                out.writeInt(MultiplayerConstants.PROTOCOL_ID);
-                Packet.send(MultiplayerConstants.HELLO, out);
+                out.writeInt(protocolId);
+                Packet.send(hello, out);
             }
         }));
         ClientTickEvents.END_CLIENT_TICK.register(client -> {

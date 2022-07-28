@@ -5,7 +5,7 @@
  * license that can be found in the LICENSE file or at
  * https://opensource.org/licenses/MIT.
  */
-package io.sapphiremc.chromium.shared.skins;
+package io.sapphiremc.chromium.server.skins;
 
 import com.mojang.authlib.properties.Property;
 import java.util.HashMap;
