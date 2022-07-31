@@ -7,6 +7,7 @@
   "category.chromium.general": "General settings",
   "category.chromium.info": "Info panel",
   "category.chromium.chat": "Chat settings",
+  "category.chromium.render": "Render settings",
   "category.chromium.world": "World settings",
   "category.chromium.world.hopper": "Hoppers",
   "category.chromium.screen": "Screens settings",
@@ -45,6 +46,11 @@
   "options.chromium.showMessagesTime.tooltip.4": "current timezone.",
 
   "options.chromium.maxMessages": "Max messages",
+
+  "options.chromium.render.tileEntityViewDistance": "Block entities max view distance",
+  "options.chromium.render.tileEntityViewDistance.tooltip.1": "This setting controls the distance",
+  "options.chromium.render.tileEntityViewDistance.tooltip.2": "at which blocks such as",
+  "options.chromium.render.tileEntityViewDistance.tooltip.3": "banners, signs, chests, etc. are visible.",
 
   "options.chromium.world.hopperTransfer": "Transfer cooldown",
 

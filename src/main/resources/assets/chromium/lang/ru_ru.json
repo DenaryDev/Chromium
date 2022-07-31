@@ -7,6 +7,7 @@
   "category.chromium.general": "Основные настройки",
   "category.chromium.info": "Панель информации",
   "category.chromium.chat": "Настройки чата",
+  "category.chromium.render": "Настройки рендера",
   "category.chromium.world": "Настройки мира",
   "category.chromium.world.hopper": "Воронки",
   "category.chromium.screen": "Настройки интерфейса",
@@ -45,6 +46,11 @@
   "options.chromium.showMessagesTime.tooltip.4": "текущий часовой пояс.",
 
   "options.chromium.maxMessages": "Максимальное кол-во сообщений",
+
+  "options.chromium.render.tileEntityViewDistance": "Прорисовка блоков-сущностей",
+  "options.chromium.render.tileEntityViewDistance.tooltip.1": "Эта настройка управляет расстоянием,",
+  "options.chromium.render.tileEntityViewDistance.tooltip.2": "на котором видны такие блоки,",
+  "options.chromium.render.tileEntityViewDistance.tooltip.3": "как флаги, таблички, сундуки и тд.",
 
   "options.chromium.world.hopperTransfer": "Задержка перемещения предметов",
 

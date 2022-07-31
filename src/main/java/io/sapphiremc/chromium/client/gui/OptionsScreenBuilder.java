@@ -91,6 +91,14 @@ public class OptionsScreenBuilder {
                 .setSaveConsumer(value -> ChromiumMod.getConfig().setMaxMessages(value))
                 .build();
 
+        /*========================= Render settings =========================*/
+        IntegerListEntry tileEntityViewDistance = entryBuilder.startIntField(Text.translatable("options.chromium.render.tileEntityViewDistance"), current.getTileEntityViewDistance())
+                .setDefaultValue(defaults.getTileEntityViewDistance())
+                .setMin(16).setMax(1024)
+                .setTooltip(getTooltip("options.chromium.render.tileEntityViewDistance"))
+                .setSaveConsumer(value -> ChromiumMod.getConfig().setTileEntityViewDistance(value))
+                .build();
+
         /*========================= Hopper settings =========================*/
         IntegerListEntry hopperTransfer = entryBuilder.startIntField(Text.translatable("options.chromium.world.hopperTransfer"), current.getHopperTransfer())
                 .setDefaultValue(defaults.getHopperTransfer())
@@ -127,6 +135,9 @@ public class OptionsScreenBuilder {
         chat.add(toggleMessagesTime);
         chat.add(maxMessages);
 
+        SubCategoryBuilder render = entryBuilder.startSubCategory(Text.translatable("category.chromium.render"));
+        render.add(tileEntityViewDistance);
+
         SubCategoryBuilder world = entryBuilder.startSubCategory(Text.translatable("category.chromium.world"));
 
         SubCategoryBuilder hopper = entryBuilder.startSubCategory(Text.translatable("category.chromium.world.hopper"));
@@ -140,6 +151,7 @@ public class OptionsScreenBuilder {
 
         category.addEntry(info.build());
         category.addEntry(chat.build());
+        category.addEntry(render.build());
         category.addEntry(world.build());
         category.addEntry(screen.build());
 

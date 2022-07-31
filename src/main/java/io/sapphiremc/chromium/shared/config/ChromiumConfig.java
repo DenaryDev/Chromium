@@ -27,6 +27,8 @@ public class ChromiumConfig {
     @Getter @Setter @Expose int hopperTransfer = 8;
     @Getter @Setter @Expose int hopperAmount = 1;
 
+    @Getter @Setter @Expose int tileEntityViewDistance = 64;
+
     public enum TitleScreenProvider {
         CHROMIUM,
         MINECRAFT
