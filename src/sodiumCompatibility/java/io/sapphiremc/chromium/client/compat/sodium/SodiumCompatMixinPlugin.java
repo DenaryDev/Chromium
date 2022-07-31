@@ -5,7 +5,7 @@
  * license that can be found in the LICENSE file or at
  * https://opensource.org/licenses/MIT.
  */
-package io.sapphiremc.chromium.compat.client.sodium;
+package io.sapphiremc.chromium.client.compat.sodium;
 
 import java.util.List;
 import java.util.Set;
