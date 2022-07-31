@@ -8,6 +8,7 @@
   "category.chromium.info": "Панель информации",
   "category.chromium.chat": "Настройки чата",
   "category.chromium.render": "Настройки рендера",
+  "category.chromium.render.te": "Блоки-сущности",
   "category.chromium.world": "Настройки мира",
   "category.chromium.world.hopper": "Воронки",
   "category.chromium.screen": "Настройки интерфейса",
@@ -47,10 +48,16 @@
 
   "options.chromium.maxMessages": "Максимальное кол-во сообщений",
 
-  "options.chromium.render.tileEntityViewDistance": "Прорисовка блоков-сущностей",
-  "options.chromium.render.tileEntityViewDistance.tooltip.1": "Эта настройка управляет расстоянием,",
-  "options.chromium.render.tileEntityViewDistance.tooltip.2": "на котором видны такие блоки,",
-  "options.chromium.render.tileEntityViewDistance.tooltip.3": "как флаги, таблички, сундуки и тд.",
+  "options.chromium.render.te.bannerRenderDistance": "Расстояние видимости флагов",
+  "options.chromium.render.te.bannerRenderDistance.tooltip.1": "Значение указано в блоках, не в чанках!",
+  "options.chromium.render.te.chestRenderDistance": "Расстояние видимости сундуков",
+  "options.chromium.render.te.chestRenderDistance.tooltip.1": "Значение указано в блоках, не в чанках!",
+  "options.chromium.render.te.shulkerBoxRenderDistance": "Расстояние видимости шулькербоксов",
+  "options.chromium.render.te.shulkerBoxRenderDistance.tooltip.1": "Значение указано в блоках, не в чанках!",
+  "options.chromium.render.te.signRenderDistance": "Расстояние видимости табличек",
+  "options.chromium.render.te.signRenderDistance.tooltip.1": "Значение указано в блоках, не в чанках!",
+  "options.chromium.render.te.skullRenderDistance": "Расстояние видимости голов",
+  "options.chromium.render.te.skullRenderDistance.tooltip.1": "Значение указано в блоках, не в чанках!",
 
   "options.chromium.world.hopperTransfer": "Задержка перемещения предметов",
 

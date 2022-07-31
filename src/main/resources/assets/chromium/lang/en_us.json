@@ -8,6 +8,7 @@
   "category.chromium.info": "Info panel",
   "category.chromium.chat": "Chat settings",
   "category.chromium.render": "Render settings",
+  "category.chromium.render.te": "Block entities",
   "category.chromium.world": "World settings",
   "category.chromium.world.hopper": "Hoppers",
   "category.chromium.screen": "Screens settings",
@@ -47,10 +48,16 @@
 
   "options.chromium.maxMessages": "Max messages",
 
-  "options.chromium.render.tileEntityViewDistance": "Block entities max view distance",
-  "options.chromium.render.tileEntityViewDistance.tooltip.1": "This setting controls the distance",
-  "options.chromium.render.tileEntityViewDistance.tooltip.2": "at which blocks such as",
-  "options.chromium.render.tileEntityViewDistance.tooltip.3": "banners, signs, chests, etc. are visible.",
+  "options.chromium.render.te.bannerRenderDistance": "Banners max render distance",
+  "options.chromium.render.te.bannerRenderDistance.tooltip.1": "The value is in blocks, not chunks!",
+  "options.chromium.render.te.chestRenderDistance": "Chests max render distance",
+  "options.chromium.render.te.chestRenderDistance.tooltip.1": "The value is in blocks, not chunks!",
+  "options.chromium.render.te.shulkerBoxRenderDistance": "Shulker Boxes max render distance",
+  "options.chromium.render.te.shulkerBoxRenderDistance.tooltip.1": "The value is in blocks, not chunks!",
+  "options.chromium.render.te.signRenderDistance": "Signs max render distance",
+  "options.chromium.render.te.signRenderDistance.tooltip.1": "The value is in blocks, not chunks!",
+  "options.chromium.render.te.skullRenderDistance": "Skull max render distance",
+  "options.chromium.render.te.skullRenderDistance.tooltip.1": "The value is in blocks, not chunks!",
 
   "options.chromium.world.hopperTransfer": "Transfer cooldown",
 

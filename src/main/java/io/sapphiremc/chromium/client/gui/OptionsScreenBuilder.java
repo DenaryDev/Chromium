@@ -91,12 +91,43 @@ public class OptionsScreenBuilder {
                 .setSaveConsumer(value -> ChromiumMod.getConfig().setMaxMessages(value))
                 .build();
 
-        /*========================= Render settings =========================*/
-        IntegerListEntry tileEntityViewDistance = entryBuilder.startIntField(Text.translatable("options.chromium.render.tileEntityViewDistance"), current.getTileEntityViewDistance())
-                .setDefaultValue(defaults.getTileEntityViewDistance())
+        /*========================= Tile entities view distance settings =========================*/
+        IntegerListEntry bannerRenderDistance = entryBuilder.startIntField(Text.translatable("options.chromium.render.te.bannerRenderDistance"),
+                        current.getBannerRenderDistance())
+                .setDefaultValue(defaults.getBannerRenderDistance())
                 .setMin(16).setMax(1024)
-                .setTooltip(getTooltip("options.chromium.render.tileEntityViewDistance"))
-                .setSaveConsumer(value -> ChromiumMod.getConfig().setTileEntityViewDistance(value))
+                .setTooltip(getTooltip("options.chromium.render.te.bannerRenderDistance"))
+                .setSaveConsumer(value -> ChromiumMod.getConfig().setBannerRenderDistance(value))
+                .build();
+
+        IntegerListEntry chestRenderDistance = entryBuilder.startIntField(Text.translatable("options.chromium.render.te.chestRenderDistance"),
+                        current.getChestRenderDistance())
+                .setDefaultValue(defaults.getChestRenderDistance())
+                .setMin(16).setMax(1024)
+                .setTooltip(getTooltip("options.chromium.render.te.chestRenderDistance"))
+                .setSaveConsumer(value -> ChromiumMod.getConfig().setChestRenderDistance(value))
+                .build();
+
+        IntegerListEntry shulkerBoxRenderDistance = entryBuilder.startIntField(Text.translatable("options.chromium.render.te.shulkerBoxRenderDistance"),
+                        current.getShulkerBoxRenderDistance())
+                .setDefaultValue(defaults.getShulkerBoxRenderDistance())
+                .setMin(16).setMax(1024)
+                .setTooltip(getTooltip("options.chromium.render.te.shulkerBoxRenderDistance"))
+                .setSaveConsumer(value -> ChromiumMod.getConfig().setShulkerBoxRenderDistance(value))
+                .build();
+        IntegerListEntry signRenderDistance = entryBuilder.startIntField(Text.translatable("options.chromium.render.te.signRenderDistance"),
+                        current.getSignRenderDistance())
+                .setDefaultValue(defaults.getSignRenderDistance())
+                .setMin(16).setMax(1024)
+                .setTooltip(getTooltip("options.chromium.render.te.signRenderDistance"))
+                .setSaveConsumer(value -> ChromiumMod.getConfig().setSignRenderDistance(value))
+                .build();
+        IntegerListEntry skullRenderDistance = entryBuilder.startIntField(Text.translatable("options.chromium.render.te.skullRenderDistance"),
+                        current.getSkullRenderDistance())
+                .setDefaultValue(defaults.getSkullRenderDistance())
+                .setMin(16).setMax(1024)
+                .setTooltip(getTooltip("options.chromium.render.te.skullRenderDistance"))
+                .setSaveConsumer(value -> ChromiumMod.getConfig().setSkullRenderDistance(value))
                 .build();
 
         /*========================= Hopper settings =========================*/
@@ -136,7 +167,14 @@ public class OptionsScreenBuilder {
         chat.add(maxMessages);
 
         SubCategoryBuilder render = entryBuilder.startSubCategory(Text.translatable("category.chromium.render"));
-        render.add(tileEntityViewDistance);
+
+        SubCategoryBuilder te = entryBuilder.startSubCategory(Text.translatable("category.chromium.render.te"));
+        te.add(bannerRenderDistance);
+        te.add(chestRenderDistance);
+        te.add(shulkerBoxRenderDistance);
+        te.add(signRenderDistance);
+        te.add(skullRenderDistance);
+        render.add(te.build());
 
         SubCategoryBuilder world = entryBuilder.startSubCategory(Text.translatable("category.chromium.world"));
 
