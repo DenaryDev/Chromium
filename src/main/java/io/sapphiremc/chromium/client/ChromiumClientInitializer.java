@@ -30,7 +30,7 @@ public class ChromiumClientInitializer implements ClientModInitializer {
     private KeyBinding configKey;
 
     private final int protocolId = 0;
-    private final Identifier hello = new Identifier("sapphiremc", "chromium");
+    private final Identifier hello = new Identifier("chromium", "client");
 
     @Override
     public void onInitializeClient() {
