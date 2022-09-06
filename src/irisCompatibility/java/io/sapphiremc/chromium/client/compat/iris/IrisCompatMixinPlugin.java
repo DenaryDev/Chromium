@@ -16,7 +16,11 @@ import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 public class IrisCompatMixinPlugin implements IMixinConfigPlugin {
-    private final List<String> allowedIrisVersions = List.of("1.2.6");
+    private final List<AllowedIrisVersion> allowedIrisVersions = List.of(
+            new AllowedIrisVersion("1.2.6", true),
+            new AllowedIrisVersion("1.2.7", true),
+            new AllowedIrisVersion("1.2.8", true)
+    );
     private boolean validIrisVersion = false;
 
     @Override
@@ -25,7 +29,7 @@ public class IrisCompatMixinPlugin implements IMixinConfigPlugin {
         validIrisVersion = FabricLoader.getInstance().getModContainer("iris").map(iris -> {
             String version = iris.getMetadata().getVersion().getFriendlyString();
 
-            return allowedIrisVersions.contains(version);
+            return isAllowedVersion(version);
         }).orElse(false);
 
         if (!validIrisVersion) {
@@ -61,5 +65,26 @@ public class IrisCompatMixinPlugin implements IMixinConfigPlugin {
     @Override
     public void postApply(String targetClassName, ClassNode targetClass, String mixinClassName, IMixinInfo mixinInfo) {
 
+    }
+
+    private boolean isAllowedVersion(String version) {
+        for (AllowedIrisVersion allowed : allowedIrisVersions) {
+            if (allowed.matches(version)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private record AllowedIrisVersion(String version, boolean prefix) {
+
+        private boolean matches(String candidate) {
+            if (prefix) {
+                return candidate.startsWith(version);
+            } else {
+                return candidate.equals(version);
+            }
+        }
     }
 }
