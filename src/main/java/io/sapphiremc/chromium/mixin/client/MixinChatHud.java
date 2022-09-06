@@ -8,13 +8,16 @@
 package io.sapphiremc.chromium.mixin.client;
 
 import io.sapphiremc.chromium.ChromiumMod;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.text.HoverEvent;
 import net.minecraft.text.OrderedText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Constant;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
@@ -23,10 +26,11 @@ import org.spongepowered.asm.mixin.injection.ModifyConstant;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
-import java.util.regex.Pattern;
 
 @Mixin(ChatHud.class)
 public abstract class MixinChatHud extends DrawableHelper {
+
+    @Shadow @Final private MinecraftClient client;
 
     @ModifyConstant(
             method = "addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;ILnet/minecraft/client/gui/hud/MessageIndicator;Z)V",
@@ -34,6 +38,15 @@ public abstract class MixinChatHud extends DrawableHelper {
     )
     private int chromium$getMaxMessages(int max) {
         return ChromiumMod.getConfig().getMaxMessages();
+    }
+
+    @ModifyArg(
+            method = "addMessage(Lnet/minecraft/text/Text;Lnet/minecraft/network/message/MessageSignatureData;ILnet/minecraft/client/gui/hud/MessageIndicator;Z)V",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/util/ChatMessages;breakRenderedChatMessageLines(Lnet/minecraft/text/StringVisitable;ILnet/minecraft/client/font/TextRenderer;)Ljava/util/List;"),
+            index = 1
+    )
+    private int chromium$getLineLenght(int width) {
+        return ChromiumMod.getConfig().isShowMessagesTime() ? width - this.client.textRenderer.getWidth("[HH:mm:ss] ") : width;
     }
 
     /*@ModifyVariable(
