@@ -11,8 +11,8 @@ loom = "0.12-SNAPSHOT"
 
 # Mod dependencies
 sodium = "mc1.19.2-0.4.4"
-iris = "1.19.x-v1.2.8"
-clothconfig = "8.0.75"
+iris = "1.19.x-v1.3.0"
+clothconfig = "8.2.88"
 modmenu = "4.0.6"
 
 # Other dependencies
