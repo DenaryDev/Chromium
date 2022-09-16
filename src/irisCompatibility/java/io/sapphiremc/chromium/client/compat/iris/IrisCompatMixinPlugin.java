@@ -20,7 +20,8 @@ public class IrisCompatMixinPlugin implements IMixinConfigPlugin {
             new AllowedIrisVersion("1.2.6", true),
             new AllowedIrisVersion("1.2.7", true),
             new AllowedIrisVersion("1.2.8", true),
-            new AllowedIrisVersion("1.3.0", true)
+            new AllowedIrisVersion("1.3.0", true),
+            new AllowedIrisVersion("1.3.1", true)
     );
     private boolean validIrisVersion = false;
 
