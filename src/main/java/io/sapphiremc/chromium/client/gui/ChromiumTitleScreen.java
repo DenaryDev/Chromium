@@ -234,14 +234,14 @@ public class ChromiumTitleScreen extends Screen {
     }
 
     private Identifier getBackground() {
-        int hours = Calendar.getInstance().getTime().getHours();
-        if (hours >= 6 && hours < 12) {
+        int hours = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        if (hours >= 6 && hours < 10) {
             return MORNING_BACKGROUND;
         }
-        if (hours >= 12 && hours < 18) {
+        if (hours >= 10 && hours < 16) {
             return DAY_BACKGROUND;
         }
-        if (hours >= 18 && hours < 23) {
+        if (hours >= 16 && hours < 20) {
             return EVENING_BACKGROUND;
         }
         return NIGHT_BACKGROUND;
