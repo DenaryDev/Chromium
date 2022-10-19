@@ -2,22 +2,23 @@
 # Fabric dependencies
 # The latest versions are available at https://fabricmc.net/develop
 minecraft = "1.19.2"
-mappings = "1.19.2+build.9"
+mappings = "1.19.2+build.28"
 loader = "0.14.9"
-fabric = "0.60.0+1.19.2"
+fabric = "0.64.0+1.19.2"
 
 # Fabric loom
-loom = "0.12-SNAPSHOT"
+loom = "1.0-SNAPSHOT"
 
 # Mod dependencies
 sodium = "mc1.19.2-0.4.4"
-iris = "1.19.x-v1.3.1"
+iris = "1.19.x-v1.4.0"
 clothconfig = "8.2.88"
 modmenu = "4.0.6"
 
 # Other dependencies
 joml = "1.10.4"
 jccp = "1.4.14"
+glsl = "1.0.1"
 lombok = "1.18.24"
 
 [libraries]
@@ -38,6 +39,7 @@ mod_modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
 # Other dependencies
 joml = { module = "org.joml:joml", version.ref = "joml" }
 jccp = { module = "org.anarres:jcpp", version.ref = "jccp" }
+glsl = { module = "io.github.douira:glsl-transformer", version.ref = "glsl" }
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
 
 [plugins]

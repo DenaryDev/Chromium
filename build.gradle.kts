@@ -34,11 +34,12 @@ dependencies {
 
 	if (sodiumCompatibility) {
 		modImplementation(libs.mod.sodium)
-		implementation(libs.joml)
+		runtimeOnly(libs.joml)
 	}
 	if (irisCompatibility) {
 		modImplementation(libs.mod.iris)
-		implementation(libs.jccp)
+		runtimeOnly(libs.jccp)
+		runtimeOnly(libs.glsl)
 	}
 	modImplementation(libs.mod.modmenu)
 	modImplementation(libs.mod.clothconfig) {
