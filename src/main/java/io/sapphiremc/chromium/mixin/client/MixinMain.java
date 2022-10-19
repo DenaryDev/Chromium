@@ -22,7 +22,7 @@ public class MixinMain {
             index = 0
     )
     private static int chromium$getWidth(int width) {
-        return Math.max(width, 1000);
+        return Math.max(width, 960);
     }
 
     @ModifyArg(method = "main",

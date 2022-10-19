@@ -29,7 +29,7 @@ public abstract class MixinWindow {
 
     @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lorg/lwjgl/glfw/GLFW;glfwMakeContextCurrent(J)V"))
     private void chromium$setMinimumWindowSize(WindowEventHandler eventHandler, MonitorTracker monitorTracker, WindowSettings settings, @Nullable String videoMode, String title, CallbackInfo callbackInfo) {
-        GLFW.glfwSetWindowSizeLimits(handle, 1000, 700, GLFW.GLFW_DONT_CARE, GLFW.GLFW_DONT_CARE);
+        GLFW.glfwSetWindowSizeLimits(handle, 960, 700, GLFW.GLFW_DONT_CARE, GLFW.GLFW_DONT_CARE);
     }
 
     @Inject(method = "toggleFullscreen", at = @At("HEAD"))
