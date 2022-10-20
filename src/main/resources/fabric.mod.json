@@ -39,5 +39,14 @@
     "fabricloader": ">=0.14.3",
     "minecraft": "1.19.x",
     "java": ">=17"
+  },
+
+  "custom": {
+    "multiconnect": {
+      "custom_payloads": {
+        "allowed_clientbound": "chromium:client",
+        "allowed_serverbound": "chromium:client"
+      }
+    }
   }
 }
