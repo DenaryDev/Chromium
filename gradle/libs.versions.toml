@@ -14,6 +14,7 @@ sodium = "mc1.19.2-0.4.4"
 iris = "1.19.x-v1.4.0"
 clothconfig = "8.2.88"
 modmenu = "4.1.0"
+ias = "8.0.1-fabric1.19"
 
 # Other dependencies
 joml = "1.10.4"
@@ -35,6 +36,7 @@ mod_sodium = { module = "maven.modrinth:sodium", version.ref = "sodium" }
 mod_iris = { module = "maven.modrinth:iris", version.ref = "iris" }
 mod_clothconfig = { module = "me.shedaniel.cloth:cloth-config-fabric", version.ref = "clothconfig" }
 mod_modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
+mod_ias = { module = "maven.modrinth:In-Game-Account-Switcher", version.ref = "ias" }
 
 # Other dependencies
 joml = { module = "org.joml:joml", version.ref = "joml" }

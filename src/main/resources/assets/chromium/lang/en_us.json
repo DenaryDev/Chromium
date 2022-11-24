@@ -76,6 +76,7 @@
   "menu.chromium.confirmQuit": "Quit the game?",
   "menu.chromium.quit": "Quit",
   "menu.chromium.cancel": "Cancel",
+  "menu.chromium.accounts": "Accounts",
 
   "label.chromium.on": "\u00A7aOn",
   "label.chromium.off": "\u00A7eOff",
