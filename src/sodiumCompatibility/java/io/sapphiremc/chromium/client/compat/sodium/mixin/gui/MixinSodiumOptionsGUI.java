@@ -29,7 +29,6 @@ public class MixinSodiumOptionsGUI {
     @ModifyVariable(method = "renderOptionTooltip",
             ordinal = 2,
             at = @At(value = "STORE"),
-            require = 1,
             remap = false
     )
     public int chromium$getTooltipWidth(int value) {
