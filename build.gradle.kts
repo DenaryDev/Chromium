@@ -8,12 +8,14 @@ plugins {
 val archivesBaseName = project.properties["archivesBaseName"].toString() + libs.versions.minecraft.get()
 val sodiumCompatibility = project.properties["sodiumCompatibility"].toString().toBoolean()
 val irisCompatibility = project.properties["irisCompatibility"].toString().toBoolean()
+val ldlCompatibility = project.properties["ldlCompatibility"].toString().toBoolean()
 
 repositories {
 	mavenCentral()
 	maven("https://maven.shedaniel.me/")
-	maven("https://maven.terraformersmc.com/releases")
-	maven("https://api.modrinth.com/maven") {
+	maven("https://maven.terraformersmc.com/releases/")
+	maven("https://maven.gegy.dev/")
+	maven("https://api.modrinth.com/maven/") {
 		content {
 			includeGroup("maven.modrinth")
 		}
@@ -40,6 +42,10 @@ dependencies {
 		modImplementation(libs.mod.iris)
 		runtimeOnly(libs.jccp)
 		runtimeOnly(libs.glsl)
+	}
+	if (ldlCompatibility) {
+		modImplementation(libs.mod.ldl)
+		modImplementation(libs.mod.ldl.spruceui)
 	}
 	modImplementation(libs.mod.modmenu)
 	modImplementation(libs.mod.ias)
@@ -84,6 +90,14 @@ sourceSets {
 			}
 		}
 	}
+	if (ldlCompatibility) {
+		create("ldlCompatibility") {
+			java {
+				compileClasspath += main.get().compileClasspath
+				compileClasspath += main.get().output
+			}
+		}
+	}
 
 	main {
 		java {
@@ -92,6 +106,9 @@ sourceSets {
 			}
 			if (irisCompatibility) {
 				runtimeClasspath += getByName("irisCompatibility").output
+			}
+			if (ldlCompatibility) {
+				runtimeClasspath += getByName("ldlCompatibility").output
 			}
 		}
 	}
@@ -135,6 +152,11 @@ tasks {
 					it.replace("mixins.chromium.compat.iris.json", "mixins.empty.iris.json")
 				}
 			}
+			if (!ldlCompatibility) {
+				filter {
+					it.replace("mixins.chromium.compat.ldl.json", "mixins.empty.ldl.json")
+				}
+			}
 		}
 
 		if (sodiumCompatibility) {
@@ -142,6 +164,9 @@ tasks {
 		}
 		if (irisCompatibility) {
 			exclude("mixins.empty.iris.json")
+		}
+		if (ldlCompatibility) {
+			exclude("mixins.empty.ldl.json")
 		}
 	}
 
@@ -159,6 +184,13 @@ tasks {
 			from(sourceSets["irisCompatibility"].output) {
 				filesMatching("*refmap.json") {
 					name = "chromium-iris-compat-refmap.json"
+				}
+			}
+		}
+		if (ldlCompatibility) {
+			from(sourceSets["ldlCompatibility"].output) {
+				filesMatching("*refmap.json") {
+					name = "chromium-ldl-compat-refmap.json"
 				}
 			}
 		}

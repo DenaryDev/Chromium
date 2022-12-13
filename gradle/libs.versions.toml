@@ -15,6 +15,8 @@ iris = "1.19.2-v1.4.3"
 clothconfig = "8.2.88"
 modmenu = "4.1.1"
 ias = "8.0.1-fabric1.19"
+ldl = "2.1.2+1.19"
+spruceui = "4.0.0+1.19"
 
 # Other dependencies
 joml = "1.10.4"
@@ -37,6 +39,8 @@ mod_iris = { module = "maven.modrinth:iris", version.ref = "iris" }
 mod_clothconfig = { module = "me.shedaniel.cloth:cloth-config-fabric", version.ref = "clothconfig" }
 mod_modmenu = { module = "com.terraformersmc:modmenu", version.ref = "modmenu" }
 mod_ias = { module = "maven.modrinth:In-Game-Account-Switcher", version.ref = "ias" }
+mod_ldl = { module = "maven.modrinth:lambdynamiclights", version.ref = "ldl" }
+mod_ldl_spruceui = { module = "dev.lambdaurora:spruceui", version.ref = "spruceui" }
 
 # Other dependencies
 joml = { module = "org.joml:joml", version.ref = "joml" }
