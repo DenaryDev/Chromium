@@ -7,9 +7,8 @@
  */
 package io.sapphiremc.chromium;
 
-import io.sapphiremc.chromium.shared.config.ChromiumConfig;
-import io.sapphiremc.chromium.shared.config.ConfigManager;
-import io.sapphiremc.chromium.server.skins.SkinsManager;
+import io.sapphiremc.chromium.config.ChromiumConfig;
+import io.sapphiremc.chromium.config.ConfigManager;
 import io.sapphiremc.chromium.mixin.client.MixinMinecraftClient;
 import lombok.Getter;
 import net.fabricmc.api.EnvType;
@@ -41,8 +40,6 @@ public class ChromiumMod implements ModInitializer {
 
 	@Getter
 	private static ConfigManager configManager;
-	@Getter
-	private static SkinsManager skinsManager;
 
 	@Override
 	public void onInitialize() {
@@ -50,10 +47,6 @@ public class ChromiumMod implements ModInitializer {
 		LOGGER.info("Initializing chromium by SapphireMC");
 
 		configManager = new ConfigManager();
-
-		if (env == EnvType.SERVER) {
-			skinsManager = new SkinsManager();
-		}
 	}
 
 	public static ChromiumConfig getConfig() {

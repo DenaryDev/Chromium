@@ -9,7 +9,7 @@ package io.sapphiremc.chromium.mixin.client;
 
 import com.google.common.base.Strings;
 import io.sapphiremc.chromium.ChromiumMod;
-import io.sapphiremc.chromium.shared.config.ChromiumConfig;
+import io.sapphiremc.chromium.config.ChromiumConfig;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.gui.hud.InGameHud;

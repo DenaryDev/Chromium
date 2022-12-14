@@ -8,7 +8,7 @@
 package io.sapphiremc.chromium.mixin.client;
 
 import io.sapphiremc.chromium.ChromiumMod;
-import io.sapphiremc.chromium.shared.config.ChromiumConfig;
+import io.sapphiremc.chromium.config.ChromiumConfig;
 import net.minecraft.block.entity.BannerBlockEntity;
 import net.minecraft.block.entity.BeaconBlockEntity;
 import net.minecraft.block.entity.BlockEntity;

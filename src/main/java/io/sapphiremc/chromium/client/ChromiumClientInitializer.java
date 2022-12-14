@@ -12,17 +12,15 @@ import io.sapphiremc.chromium.ChromiumMod;
 import io.sapphiremc.chromium.client.gui.ChromiumTitleScreen;
 import io.sapphiremc.chromium.client.gui.OptionsScreenBuilder;
 import io.sapphiremc.chromium.client.network.Packet;
-import io.sapphiremc.chromium.shared.config.ChromiumConfig;
+import io.sapphiremc.chromium.config.ChromiumConfig;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
-import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.client.util.Session;
 import net.minecraft.util.Identifier;
 import org.lwjgl.glfw.GLFW;
 
