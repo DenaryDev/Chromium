@@ -22,6 +22,7 @@ import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.Util;
 import org.lwjgl.glfw.GLFW;
 
 import java.io.IOException;
@@ -35,6 +36,13 @@ public class ChromiumClientInitializer implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
+        if (Boolean.getBoolean("chromium.killmclauncher") && Util.getOperatingSystem().equals(Util.OperatingSystem.WINDOWS)) {
+            try {
+                Runtime.getRuntime().exec("taskkill /F /IM Minecraft.exe");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         configKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
                 "key.chromium.config",
                 InputUtil.Type.KEYSYM,
@@ -55,11 +63,6 @@ public class ChromiumClientInitializer implements ClientModInitializer {
             }
         });
         ScreenEvents.BEFORE_INIT.register((client, screen, scaledWidth, scaledHeight) -> {
-            try {
-                Runtime.getRuntime().exec("taskkill /F /IM Minecraft.exe");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             if (screen instanceof TitleScreen && ChromiumMod.getConfig().getTitleScreenProvider().equals(ChromiumConfig.TitleScreenProvider.CHROMIUM)) {
                 client.setScreen(new ChromiumTitleScreen());
             }
