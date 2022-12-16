@@ -245,6 +245,7 @@ public class ChromiumTitleScreen extends Screen {
             }
         } else {
             if (settingsButtonY != 2) settingsButton.y = 2;
+            if (realmsButtonY != 2) realmsButton.y = 2;
         }
     }
 
