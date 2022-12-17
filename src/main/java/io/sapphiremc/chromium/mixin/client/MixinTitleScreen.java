@@ -42,7 +42,8 @@ public abstract class MixinTitleScreen extends Screen {
 
     @Inject(method = "init", at = @At("TAIL"))
     protected void chromium$addChromiumSettingsButton(CallbackInfo ci) {
-        addDrawableChild(new ButtonWidget(this.width - 22, 2, 20, 20, Text.literal("S"), (element) ->
-                this.client.setScreen(OptionsScreenBuilder.build())));
+        addDrawableChild(ButtonWidget.builder(Text.literal("S"), (element) -> this.client.setScreen(OptionsScreenBuilder.build()))
+                .dimensions(this.width - 22, 2, 20, 20)
+                .build());
     }
 }

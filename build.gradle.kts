@@ -48,7 +48,7 @@ dependencies {
 		modImplementation(libs.mod.ldl.spruceui)
 	}
 	modImplementation(libs.mod.modmenu)
-	modImplementation(libs.mod.ias)
+	//modImplementation(libs.mod.ias)
 	modImplementation(libs.mod.clothconfig) {
 		exclude(group = "net.fabricmc.fabric-api")
 		include(this)

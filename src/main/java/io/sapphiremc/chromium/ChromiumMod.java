@@ -19,10 +19,11 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.option.GameOptions;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.registry.Registry;
+import net.minecraft.registry.RegistryKeys;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.LightType;
 import net.minecraft.world.biome.Biome;
 import org.slf4j.Logger;
@@ -102,7 +103,7 @@ public class ChromiumMod implements ModInitializer {
 		MinecraftClient client = MinecraftClient.getInstance();
 		if (player != null && client.world != null) {
 			BlockPos blockPos = player.getBlockPos();
-			Registry<Biome> biomes = client.world.getRegistryManager().get(Registry.BIOME_KEY);
+			Registry<Biome> biomes = client.world.getRegistryManager().get(RegistryKeys.BIOME);
 			Biome biome = client.world.getBiome(blockPos).value();
 			Identifier biomeId = biomes.getId(biome);
 			if (biomeId != null) {

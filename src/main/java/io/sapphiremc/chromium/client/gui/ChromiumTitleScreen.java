@@ -29,7 +29,6 @@ import net.minecraft.client.gui.screen.world.SelectWorldScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.realms.gui.screen.RealmsMainScreen;
 import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.render.VertexConsumerProvider;
@@ -40,10 +39,7 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Quaternion;
-import net.minecraft.util.math.Vec3f;
-import the_fireplace.ias.IAS;
-import the_fireplace.ias.gui.AccountListScreen;
+import org.joml.Quaternionf;
 
 public class ChromiumTitleScreen extends Screen {
 
@@ -93,61 +89,67 @@ public class ChromiumTitleScreen extends Screen {
 
     @Override
     public void init() {
-        DummyClientPlayerEntity.getInstance().updateSkin();
+        //DummyClientPlayerEntity.getInstance().updateSkin();
         int buttonW = (this.width) / 5;
         int x = (buttonW + 64) / 2 - buttonW / 2;
         int centerY = this.height / 2 + 32;
         int modifier = 0;
 
         final var hasModMenu = FabricLoader.getInstance().isModLoaded("modmenu");
-        final var hasIas = FabricLoader.getInstance().isModLoaded("ias");
+        /*final var hasIas = FabricLoader.getInstance().isModLoaded("ias");
         if (hasModMenu && hasIas) {
             modifier = 28;
-        } else if (hasModMenu) {
+        } else */if (hasModMenu) {
             modifier = 14;
-        } else if (hasIas) {
+        }/* else if (hasIas) {
             modifier = 14;
-        }
+        }*/
 
         assert this.client != null;
-        this.addDrawableChild(new ButtonWidget(x, centerY - 38 - modifier, buttonW, 20, Text.translatable("menu.singleplayer"), (element) -> {
+        this.addDrawableChild(createButton(x, centerY - 38 - modifier, buttonW, 20, Text.translatable("menu.singleplayer"), (element) -> {
             this.confirmOpened = false;
             this.client.setScreen(new SelectWorldScreen(this));
         }));
-        this.addDrawableChild(new ButtonWidget(x, centerY - 10 - modifier, buttonW, 20, Text.translatable("menu.multiplayer"), (element) -> {
+        this.addDrawableChild(createButton(x, centerY - 10 - modifier, buttonW, 20, Text.translatable("menu.multiplayer"), (element) -> {
             this.confirmOpened = false;
             Screen screen = this.client.options.skipMultiplayerWarning ? new MultiplayerScreen(this) : new MultiplayerWarningScreen(this);
             this.client.setScreen(screen);
         }));
         if (hasModMenu) {
-            this.addDrawableChild(new ButtonWidget(x, centerY + 4 - (modifier - 14), buttonW, 20, ModMenuApi.createModsButtonText(), (button) -> {
+            this.addDrawableChild(createButton(x, centerY + 4 - (modifier - 14), buttonW, 20, ModMenuApi.createModsButtonText(), (button) -> {
                 this.confirmOpened = false;
                 this.client.setScreen(new ModsScreen(this));
             }));
         }
-        if (hasIas) {
-            this.addDrawableChild(new ButtonWidget(x, centerY + 4 + (modifier - 14), buttonW, 20, Text.translatable("menu.chromium.accounts"), (button -> {
+        /*if (hasIas) {
+            this.addDrawableChild(createButton(x, centerY + 4 + (modifier - 14), buttonW, 20, Text.translatable("menu.chromium.accounts"), (button -> {
                 this.confirmOpened = false;
-                this.client.setScreen(new AccountListScreen(this));
+                this.client.setScreen(new the_fireplace.ias.gui.AccountListScreen(this));
             })));
-        }
-        this.addDrawableChild(new ButtonWidget(x, centerY + 18 + modifier, buttonW, 20, Text.translatable("menu.options"), (element) -> {
+        }*/
+        this.addDrawableChild(createButton(x, centerY + 18 + modifier, buttonW, 20, Text.translatable("menu.options"), (element) -> {
             this.confirmOpened = false;
             this.client.setScreen(new OptionsScreen(this, this.client.options));
         }));
 
-        this.quitButton = new ButtonWidget(this.width / 2 - 50, this.height / 2 - 10, 100, 20, Text.translatable("menu.chromium.quit"), (element) ->
+        this.quitButton = createButton(this.width / 2 - 50, this.height / 2 - 10, 100, 20, Text.translatable("menu.chromium.quit"), (element) ->
                 this.client.stop());
-        this.cancelButton = new ButtonWidget(this.width / 2 - 50, this.height / 2 + 18, 100, 20, Text.translatable("menu.chromium.cancel"), (element) ->
+        this.cancelButton = createButton(this.width / 2 - 50, this.height / 2 + 18, 100, 20, Text.translatable("menu.chromium.cancel"), (element) ->
                 this.confirmOpened = false);
-        this.settingsButton = new ButtonWidget(this.width - 22, 2, 20, 20, Text.literal("S"), (element) ->
+        this.settingsButton = createButton(this.width - 22, 2, 20, 20, Text.literal("S"), (element) ->
                 this.client.setScreen(OptionsScreenBuilder.build()));
-        this.realmsButton = new ButtonWidget(this.width - 44, 2, 20, 20, Text.literal("R"), (element) -> {
+        this.realmsButton = createButton(this.width - 44, 2, 20, 20, Text.literal("R"), (element) -> {
             this.confirmOpened = false;
             this.client.setScreen(new ChromiumTitleScreen());
         });
         this.addDrawableChild(settingsButton);
         this.addDrawableChild(realmsButton);
+    }
+
+    private ButtonWidget createButton(int x, int y, int width, int height, Text text, ButtonWidget.PressAction pressAction) {
+        return ButtonWidget.builder(text, pressAction)
+                .dimensions(x, y, width, height)
+                .build();
     }
 
     @Override
@@ -159,7 +161,7 @@ public class ChromiumTitleScreen extends Screen {
         assert this.client != null;
         float f = this.doBackgroundFade ? (float) (System.currentTimeMillis() - this.backgroundFadeStart) / 1000.0F : 1.0F;
         GlStateManager._disableDepthTest();
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderTexture(0, getBackground());
         RenderSystem.enableBlend();
         RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
@@ -174,16 +176,16 @@ public class ChromiumTitleScreen extends Screen {
         int newWidth = ((this.width) / 5) + 64;
         // fill(matrixStack, 0, 13, newWidth, height, -1873784752);
 
-        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderTexture(0, LOGO);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, g);
         int logoW = 90 + this.height / 11;
         drawTexture(matrixStack, (newWidth / 2) - (logoW / 2), -5, 0, 0, logoW, logoW, logoW, logoW);
 
-        ClientPlayerEntity player = DummyClientPlayerEntity.getInstance();
+        //ClientPlayerEntity player = DummyClientPlayerEntity.getInstance();
         int height = this.height + 50;
         int playerX = this.width - (int) (this.height / 3.4F);
-        drawEntity(playerX, height, (int) (this.height / 2.5F), -mouseX + playerX, -mouseY + height - (this.height / 1.535F), player);
+        //drawEntity(playerX, height, (int) (this.height / 2.5F), -mouseX + playerX, -mouseY + height - (this.height / 1.535F), player);
 
         if (!this.confirmOpened) {
             if (widgetsAdded) {
@@ -230,11 +232,11 @@ public class ChromiumTitleScreen extends Screen {
 
         String modVersion = FabricLoader.getInstance().getModContainer(ChromiumMod.MOD_ID).get().getMetadata().getVersion().getFriendlyString().toLowerCase();
         boolean isUnstable = modVersion.contains("alpha") || modVersion.contains("beta") || modVersion.contains("pre") || modVersion.contains("rc") || modVersion.contains("snapshot");
-        int settingsButtonY = settingsButton.y;
-        int realmsButtonY = realmsButton.y;
+        int settingsButtonY = settingsButton.getY();
+        int realmsButtonY = realmsButton.getY();
         if (isUnstable) {
-            if (settingsButtonY != 15) settingsButton.y = 15;
-            if (realmsButtonY != 15) realmsButton.y = 15;
+            if (settingsButtonY != 15) settingsButton.setY(15);
+            if (realmsButtonY != 15) realmsButton.setY(15);
             fill(matrixStack, 0, 0, width, 13, -1873784752);
             String beta = Text.translatable("chromium.warnings.unstable").getString();
             this.textRenderer.drawWithShadow(matrixStack, beta, i, 3, 0xFF5555);
@@ -244,8 +246,8 @@ public class ChromiumTitleScreen extends Screen {
                 i = width;
             }
         } else {
-            if (settingsButtonY != 2) settingsButton.y = 2;
-            if (realmsButtonY != 2) realmsButton.y = 2;
+            if (settingsButtonY != 2) settingsButton.setY(2);
+            if (realmsButtonY != 2) realmsButton.setY(2);
         }
     }
 
@@ -292,10 +294,10 @@ public class ChromiumTitleScreen extends Screen {
         MatrixStack matrixStack2 = new MatrixStack();
         matrixStack2.translate(0.0D, 0.0D, 1000.0D);
         matrixStack2.scale((float)size, (float)size, (float)size);
-        Quaternion quaternion = Vec3f.POSITIVE_Z.getDegreesQuaternion(180.0F);
-        Quaternion quaternion2 = Vec3f.POSITIVE_X.getDegreesQuaternion(g * 20.0F);
-        quaternion.hamiltonProduct(quaternion2);
-        matrixStack2.multiply(quaternion);
+        Quaternionf quaternionf = new Quaternionf().rotateZ((float) Math.PI);
+        Quaternionf quaternionf2 = new Quaternionf().rotateX(g * 20.0F * ((float) (Math.PI / 180.0)));
+        quaternionf.mul(quaternionf2);
+        matrixStack2.multiply(quaternionf);
         float h = player.bodyYaw;
         float i = player.getYaw();
         float j = player.getPitch();
@@ -308,8 +310,8 @@ public class ChromiumTitleScreen extends Screen {
         player.prevHeadYaw = player.getYaw();
         DiffuseLighting.method_34742();
         EntityRenderDispatcher entityRenderDispatcher = MinecraftClient.getInstance().getEntityRenderDispatcher();
-        quaternion2.conjugate();
-        entityRenderDispatcher.setRotation(quaternion2);
+        quaternionf2.conjugate();
+        entityRenderDispatcher.setRotation(quaternionf2);
         entityRenderDispatcher.setRenderShadows(false);
         VertexConsumerProvider.Immediate immediate = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
         RenderSystem.runAsFancy(() -> entityRenderDispatcher.render(player, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, matrixStack2, immediate, 15728880));

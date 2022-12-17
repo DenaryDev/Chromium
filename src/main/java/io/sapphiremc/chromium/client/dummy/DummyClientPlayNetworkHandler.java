@@ -22,6 +22,6 @@ public class DummyClientPlayNetworkHandler extends ClientPlayNetworkHandler {
     }
 
     private DummyClientPlayNetworkHandler() {
-        super(MinecraftClient.getInstance(), null, new ClientConnection(NetworkSide.CLIENTBOUND), MinecraftClient.getInstance().getSession().getProfile(), null);
+        super(MinecraftClient.getInstance(), null, new ClientConnection(NetworkSide.CLIENTBOUND), null, MinecraftClient.getInstance().getSession().getProfile(), null);
     }
 }
