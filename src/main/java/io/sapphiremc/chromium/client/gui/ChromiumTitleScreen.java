@@ -96,14 +96,14 @@ public class ChromiumTitleScreen extends Screen {
         int modifier = 0;
 
         final var hasModMenu = FabricLoader.getInstance().isModLoaded("modmenu");
-        /*final var hasIas = FabricLoader.getInstance().isModLoaded("ias");
+        final var hasIas = FabricLoader.getInstance().isModLoaded("ias");
         if (hasModMenu && hasIas) {
             modifier = 28;
-        } else */if (hasModMenu) {
+        } else if (hasModMenu) {
             modifier = 14;
-        }/* else if (hasIas) {
+        } else if (hasIas) {
             modifier = 14;
-        }*/
+        }
 
         assert this.client != null;
         this.addDrawableChild(createButton(x, centerY - 38 - modifier, buttonW, 20, Text.translatable("menu.singleplayer"), (element) -> {
@@ -121,12 +121,12 @@ public class ChromiumTitleScreen extends Screen {
                 this.client.setScreen(new ModsScreen(this));
             }));
         }
-        /*if (hasIas) {
-            this.addDrawableChild(createButton(x, centerY + 4 + (modifier - 14), buttonW, 20, Text.translatable("menu.chromium.accounts"), (button -> {
+        if (hasIas) {
+            this.addDrawableChild(createButton(x, centerY + 4 + (modifier - 14), buttonW, 20, Text.translatable("menu.chromium.accounts"), (button) -> {
                 this.confirmOpened = false;
                 this.client.setScreen(new the_fireplace.ias.gui.AccountListScreen(this));
-            })));
-        }*/
+            }));
+        }
         this.addDrawableChild(createButton(x, centerY + 18 + modifier, buttonW, 20, Text.translatable("menu.options"), (element) -> {
             this.confirmOpened = false;
             this.client.setScreen(new OptionsScreen(this, this.client.options));
@@ -174,7 +174,7 @@ public class ChromiumTitleScreen extends Screen {
         }
 
         int newWidth = ((this.width) / 5) + 64;
-        // fill(matrixStack, 0, 13, newWidth, height, -1873784752);
+        fill(matrixStack, 0, 13, newWidth, height, -1873784752);
 
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderTexture(0, LOGO);

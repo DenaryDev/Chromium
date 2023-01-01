@@ -45,7 +45,7 @@ public class DummyClientWorld extends ClientWorld {
     }
 
     private DummyClientWorld() {
-        super(DummyClientPlayNetworkHandler.getInstance(), new Properties(Difficulty.EASY, false, true), WORLD_KEY, new RegistryEntry.Direct<>(DUMMY), 0, 0, () -> null, null, false, 0L);
+        super(DummyClientPlayNetworkHandler.getInstance(), new Properties(Difficulty.PEACEFUL, false, true), WORLD_KEY, new DummyDirect<>(DUMMY_TYPE_KEY, DUMMY), 0, 0, () -> null, null, false, 0L);
     }
 
     private record DummyDirect<T>(RegistryKey<T> key, T value) implements RegistryEntry<T> {
