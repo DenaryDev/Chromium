@@ -174,7 +174,7 @@ public class ChromiumTitleScreen extends Screen {
         }
 
         int newWidth = ((this.width) / 5) + 64;
-        fill(matrixStack, 0, 13, newWidth, height, -1873784752);
+        //fill(matrixStack, 0, 13, newWidth, height, -1873784752);
 
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderTexture(0, LOGO);

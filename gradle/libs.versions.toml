@@ -4,14 +4,14 @@
 minecraft = "1.19.3"
 mappings = "1.19.3+build.5"
 loader = "0.14.12"
-fabric = "0.70.0+1.19.3"
+fabric = "0.72.0+1.19.3"
 
 # Fabric loom
 loom = "1.0-SNAPSHOT"
 
 # Mod dependencies
-sodium = "mc1.19.3-0.4.6"
-iris = "1.19.3-v1.4.6"
+sodium = "mc1.19.3-0.4.8"
+iris = "1.5.1+1.19.3"
 clothconfig = "9.0.94"
 modmenu = "5.0.2"
 ias = "8.0.1.1-fabric1.19"
@@ -21,7 +21,7 @@ spruceui = "4.1.0+1.19.3"
 # Other dependencies
 joml = "1.10.4"
 jccp = "1.4.14"
-glsl = "1.0.1"
+glsl = "2.0.0-pre8"
 lombok = "1.18.24"
 
 [libraries]

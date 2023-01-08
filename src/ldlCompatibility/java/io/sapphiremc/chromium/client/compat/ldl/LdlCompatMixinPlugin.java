@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 public class LdlCompatMixinPlugin implements IMixinConfigPlugin {
     private final List<AllowedVersion> allowedVersions = List.of(
-            new AllowedVersion("2.1.2", true)
+            new AllowedVersion("2.2.0", true)
     );
     private boolean isVersionValid = false;
 

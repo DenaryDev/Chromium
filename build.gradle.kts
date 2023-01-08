@@ -36,7 +36,6 @@ dependencies {
 
 	if (sodiumCompatibility) {
 		modImplementation(libs.mod.sodium)
-		runtimeOnly(libs.joml)
 	}
 	if (irisCompatibility) {
 		modImplementation(libs.mod.iris)
