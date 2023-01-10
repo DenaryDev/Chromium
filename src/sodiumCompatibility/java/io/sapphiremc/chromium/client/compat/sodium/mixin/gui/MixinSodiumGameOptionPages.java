@@ -36,7 +36,7 @@ public class MixinSodiumGameOptionPages {
         }
     }
 
-    @ModifyArg(method = "lambda$performance$52",
+    @ModifyArg(method = "lambda$performance$51",
             at = @At(value = "INVOKE",
                     target = "Lme/jellysquid/mods/sodium/client/gui/options/control/SliderControl;<init>(Lme/jellysquid/mods/sodium/client/gui/options/Option;IIILme/jellysquid/mods/sodium/client/gui/options/control/ControlValueFormatter;)V"
             ),
