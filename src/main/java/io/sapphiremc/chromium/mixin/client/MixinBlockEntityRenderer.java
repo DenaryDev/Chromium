@@ -37,7 +37,7 @@ public interface MixinBlockEntityRenderer<T extends BlockEntity> {
     }
 
     default double getRenderDistance(T blockEntity) {
-        ChromiumConfig config = ChromiumMod.getConfig();
+        final var config = ChromiumMod.getConfig();
 
         if (blockEntity instanceof BannerBlockEntity) {
             return config.getBannerRenderDistance();

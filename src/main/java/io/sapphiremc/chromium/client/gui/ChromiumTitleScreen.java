@@ -12,10 +12,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import com.terraformersmc.modmenu.gui.ModsScreen;
 import io.sapphiremc.chromium.ChromiumMod;
-import io.sapphiremc.chromium.client.dummy.DummyClientPlayerEntity;
-import java.util.Calendar;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.Executor;
 import lombok.Getter;
 import lombok.Setter;
 import net.fabricmc.loader.api.FabricLoader;
@@ -31,8 +27,6 @@ import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.DiffuseLighting;
 import net.minecraft.client.render.GameRenderer;
-import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.math.MatrixStack;
@@ -40,6 +34,10 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import org.joml.Quaternionf;
+
+import java.util.Calendar;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executor;
 
 public class ChromiumTitleScreen extends Screen {
 
@@ -51,7 +49,9 @@ public class ChromiumTitleScreen extends Screen {
     private static final Identifier LOGO = new Identifier(ChromiumMod.MOD_ID, "textures/ui/logo.png");
     private static final Identifier GOLD = new Identifier(ChromiumMod.MOD_ID, "textures/ui/gold.png");
 
-    @Getter @Setter private boolean confirmOpened = false;
+    @Getter
+    @Setter
+    private boolean confirmOpened = false;
     private boolean widgetsAdded = false;
 
     private int i = width;
@@ -90,13 +90,13 @@ public class ChromiumTitleScreen extends Screen {
     @Override
     public void init() {
         //DummyClientPlayerEntity.getInstance().updateSkin();
-        int buttonW = (this.width) / 5;
-        int x = (buttonW + 64) / 2 - buttonW / 2;
-        int centerY = this.height / 2 + 32;
+        final int buttonW = (this.width) / 5;
+        final int x = (buttonW + 64) / 2 - buttonW / 2;
+        final int centerY = this.height / 2 + 32;
         int modifier = 0;
 
-        final var hasModMenu = FabricLoader.getInstance().isModLoaded("modmenu");
-        final var hasIas = FabricLoader.getInstance().isModLoaded("ias");
+        final boolean hasModMenu = FabricLoader.getInstance().isModLoaded("modmenu");
+        final boolean hasIas = FabricLoader.getInstance().isModLoaded("ias");
         if (hasModMenu && hasIas) {
             modifier = 28;
         } else if (hasModMenu) {
@@ -159,7 +159,7 @@ public class ChromiumTitleScreen extends Screen {
         }
 
         assert this.client != null;
-        float f = this.doBackgroundFade ? (float) (System.currentTimeMillis() - this.backgroundFadeStart) / 1000.0F : 1.0F;
+        final float f = this.doBackgroundFade ? (float) (System.currentTimeMillis() - this.backgroundFadeStart) / 1000.0F : 1.0F;
         GlStateManager._disableDepthTest();
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderTexture(0, getBackground());
@@ -167,24 +167,24 @@ public class ChromiumTitleScreen extends Screen {
         RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.doBackgroundFade ? (float) MathHelper.ceil(MathHelper.clamp(f, 0.0F, 1.0F)) : 1.0F);
         drawTexture(matrixStack, 0, 0, this.width, this.height, 0.0F, 0.0F, 16, 128, 16, 128);
-        float g = this.doBackgroundFade ? MathHelper.clamp(f - 1.0f, 0.0f, 1.0f) : 1.0f;
-        int l = MathHelper.ceil(g * 255.0f) << 24;
+        final float g = this.doBackgroundFade ? MathHelper.clamp(f - 1.0f, 0.0f, 1.0f) : 1.0f;
+        final int l = MathHelper.ceil(g * 255.0f) << 24;
         if ((l & 0xFC000000) == 0) {
             return;
         }
 
-        int newWidth = ((this.width) / 5) + 64;
+        final int newWidth = ((this.width) / 5) + 64;
         //fill(matrixStack, 0, 13, newWidth, height, -1873784752);
 
         RenderSystem.setShader(GameRenderer::getPositionTexProgram);
         RenderSystem.setShaderTexture(0, LOGO);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, g);
-        int logoW = 90 + this.height / 11;
+        final int logoW = 90 + this.height / 11;
         drawTexture(matrixStack, (newWidth / 2) - (logoW / 2), -5, 0, 0, logoW, logoW, logoW, logoW);
 
         //ClientPlayerEntity player = DummyClientPlayerEntity.getInstance();
-        int height = this.height + 50;
-        int playerX = this.width - (int) (this.height / 3.4F);
+        //int height = this.height + 50;
+        //int playerX = this.width - (int) (this.height / 3.4F);
         //drawEntity(playerX, height, (int) (this.height / 2.5F), -mouseX + playerX, -mouseY + height - (this.height / 1.535F), player);
 
         if (!this.confirmOpened) {
@@ -200,45 +200,45 @@ public class ChromiumTitleScreen extends Screen {
                 this.widgetsAdded = true;
             }
 
-            String confirmQuit = Text.translatable("menu.chromium.confirmQuit").getString();
-            int textLength = this.textRenderer.getWidth(confirmQuit);
+            final var confirmQuit = Text.translatable("menu.chromium.confirmQuit").getString();
+            final int textLength = this.textRenderer.getWidth(confirmQuit);
             this.textRenderer.drawWithShadow(matrixStack, confirmQuit, this.width / 2.0F - textLength / 2.0F, this.height / 2.0F - 26.0F, -2039584);
         }
 
         for (Element element : this.children()) {
             if (!(element instanceof ClickableWidget)) continue;
-            ((ClickableWidget)element).setAlpha(g);
+            ((ClickableWidget) element).setAlpha(g);
         }
 
         super.render(matrixStack, mouseX, mouseY, delta);
 
-        String userName = this.client.getSession().getUsername();
-       // String goldAmount = "2022";
+        final var userName = this.client.getSession().getUsername();
+        //String goldAmount = "2022";
 
-        int centerX = newWidth / 2;
-        int nameLength = this.textRenderer.getWidth(userName);
-       // int amountLength = this.textRenderer.getWidth(goldAmount);
+        final int centerX = newWidth / 2;
+        final int nameLength = this.textRenderer.getWidth(userName);
+        //int amountLength = this.textRenderer.getWidth(goldAmount);
 
         this.textRenderer.drawWithShadow(matrixStack, userName, centerX - (nameLength / 2F), 96, -2039584);
 
-       // RenderSystem.enableBlend();
-       // RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
-       // RenderSystem.setShaderTexture(0, GOLD);
-       // RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        //RenderSystem.enableBlend();
+        //RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
+        //RenderSystem.setShaderTexture(0, GOLD);
+        //RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
 
-       // int goldX = centerX - (amountLength + 14) / 2;
-       // drawTexture(matrixStack, goldX, 110, 0, 0, 11, 11, 11, 11);
-       // this.textRenderer.drawWithShadow(matrixStack, goldAmount, goldX + 14, 112, 0xFFD700);
+        //int goldX = centerX - (amountLength + 14) / 2;
+        //drawTexture(matrixStack, goldX, 110, 0, 0, 11, 11, 11, 11);
+        //this.textRenderer.drawWithShadow(matrixStack, goldAmount, goldX + 14, 112, 0xFFD700);
 
-        String modVersion = FabricLoader.getInstance().getModContainer(ChromiumMod.MOD_ID).get().getMetadata().getVersion().getFriendlyString().toLowerCase();
-        boolean isUnstable = modVersion.contains("alpha") || modVersion.contains("beta") || modVersion.contains("pre") || modVersion.contains("rc") || modVersion.contains("snapshot");
-        int settingsButtonY = settingsButton.getY();
-        int realmsButtonY = realmsButton.getY();
+        final var modVersion = FabricLoader.getInstance().getModContainer(ChromiumMod.MOD_ID).get().getMetadata().getVersion().getFriendlyString().toLowerCase();
+        final boolean isUnstable = modVersion.contains("alpha") || modVersion.contains("beta") || modVersion.contains("pre") || modVersion.contains("rc") || modVersion.contains("snapshot");
+        final int settingsButtonY = settingsButton.getY();
+        final int realmsButtonY = realmsButton.getY();
         if (isUnstable) {
             if (settingsButtonY != 15) settingsButton.setY(15);
             if (realmsButtonY != 15) realmsButton.setY(15);
             fill(matrixStack, 0, 0, width, 13, -1873784752);
-            String beta = Text.translatable("chromium.warnings.unstable").getString();
+            final var beta = Text.translatable("chromium.warnings.unstable").getString();
             this.textRenderer.drawWithShadow(matrixStack, beta, i, 3, 0xFF5555);
 
             i -= 1;
@@ -252,7 +252,7 @@ public class ChromiumTitleScreen extends Screen {
     }
 
     private Identifier getBackground() {
-        int hours = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        final int hours = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
         if (hours >= 6 && hours < 10) {
             return MORNING_BACKGROUND;
         }
@@ -267,7 +267,7 @@ public class ChromiumTitleScreen extends Screen {
 
     private float yaw = 190.0F;
 
-    private void drawEntity(int x, int y, int size, float mouseX, float mouseY, ClientPlayerEntity player) {
+    private void drawEntity(int x, int y, int size, float mouseX, float mouseY, ClientPlayerEntity player) { //TODO: Fix dummy player logic
         assert this.client != null;
         float finalYaw = yaw;
         if (InputUtil.isKeyPressed(client.getWindow().getHandle(), 342)) {
@@ -284,36 +284,36 @@ public class ChromiumTitleScreen extends Screen {
             this.yaw = 190.0F;
         }
 
-        float f = (float)Math.atan(mouseX / 400.0F);
-        float g = (float)Math.atan(mouseY / 400.0F);
-        MatrixStack matrixStack = RenderSystem.getModelViewStack();
+        final float f = (float) Math.atan(mouseX / 400.0F);
+        final float g = (float) Math.atan(mouseY / 400.0F);
+        final var matrixStack = RenderSystem.getModelViewStack();
         matrixStack.push();
         matrixStack.translate(x, y, 1050.0D);
         matrixStack.scale(1.0F, 1.0F, -1.0F);
         RenderSystem.applyModelViewMatrix();
-        MatrixStack matrixStack2 = new MatrixStack();
+        final var matrixStack2 = new MatrixStack();
         matrixStack2.translate(0.0D, 0.0D, 1000.0D);
-        matrixStack2.scale((float)size, (float)size, (float)size);
-        Quaternionf quaternionf = new Quaternionf().rotateZ((float) Math.PI);
-        Quaternionf quaternionf2 = new Quaternionf().rotateX(g * 20.0F * ((float) (Math.PI / 180.0)));
+        matrixStack2.scale((float) size, (float) size, (float) size);
+        final var quaternionf = new Quaternionf().rotateZ((float) Math.PI);
+        final var quaternionf2 = new Quaternionf().rotateX(g * 20.0F * ((float) (Math.PI / 180.0)));
         quaternionf.mul(quaternionf2);
         matrixStack2.multiply(quaternionf);
-        float h = player.bodyYaw;
-        float i = player.getYaw();
-        float j = player.getPitch();
-        float k = player.prevHeadYaw;
-        float l = player.headYaw;
+        final float h = player.bodyYaw;
+        final float i = player.getYaw();
+        final float j = player.getPitch();
+        final float k = player.prevHeadYaw;
+        final float l = player.headYaw;
         player.bodyYaw = finalYaw + f * 20.0F;
         player.setYaw(yaw + f * 40.0F);
         player.setPitch(-g * 20.0F);
         player.headYaw = player.getYaw();
         player.prevHeadYaw = player.getYaw();
         DiffuseLighting.method_34742();
-        EntityRenderDispatcher entityRenderDispatcher = MinecraftClient.getInstance().getEntityRenderDispatcher();
+        final var entityRenderDispatcher = MinecraftClient.getInstance().getEntityRenderDispatcher();
         quaternionf2.conjugate();
         entityRenderDispatcher.setRotation(quaternionf2);
         entityRenderDispatcher.setRenderShadows(false);
-        VertexConsumerProvider.Immediate immediate = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
+        final var immediate = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
         RenderSystem.runAsFancy(() -> entityRenderDispatcher.render(player, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, matrixStack2, immediate, 15728880));
         immediate.draw();
         entityRenderDispatcher.setRenderShadows(true);

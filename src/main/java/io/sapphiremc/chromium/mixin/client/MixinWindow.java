@@ -27,7 +27,10 @@ public abstract class MixinWindow {
 
     @Shadow @Final private long handle;
 
-    @Inject(method = "<init>", at = @At(value = "INVOKE", target = "Lorg/lwjgl/glfw/GLFW;glfwMakeContextCurrent(J)V"), remap = false)
+    @Inject(method = "<init>",
+            at = @At(value = "INVOKE", target = "Lorg/lwjgl/glfw/GLFW;glfwMakeContextCurrent(J)V"),
+            remap = false
+    )
     private void chromium$setMinimumWindowSize(WindowEventHandler eventHandler, MonitorTracker monitorTracker, WindowSettings settings, @Nullable String videoMode, String title, CallbackInfo callbackInfo) {
         GLFW.glfwSetWindowSizeLimits(handle, 960, 700, GLFW.GLFW_DONT_CARE, GLFW.GLFW_DONT_CARE);
     }

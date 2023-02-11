@@ -17,8 +17,7 @@ import org.spongepowered.asm.mixin.injection.ModifyVariable;
 public class MixinSodiumOptionsGUI {
 
     @ModifyArg(method = "rebuildGUIOptions",
-            at = @At(value = "INVOKE",
-                    target = "Lme/jellysquid/mods/sodium/client/util/Dim2i;<init>(IIII)V"),
+            at = @At(value = "INVOKE", target = "Lme/jellysquid/mods/sodium/client/util/Dim2i;<init>(IIII)V"),
             index = 2,
             remap = false
     )

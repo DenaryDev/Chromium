@@ -25,7 +25,7 @@ public class IrisCompatMixinPlugin implements IMixinConfigPlugin {
     public void onLoad(String mixinPackage) {
         if (FabricLoader.getInstance().getEnvironmentType().equals(EnvType.SERVER)) return;
         validIrisVersion = FabricLoader.getInstance().getModContainer("iris").map(iris -> {
-            String version = iris.getMetadata().getVersion().getFriendlyString();
+            final var version = iris.getMetadata().getVersion().getFriendlyString();
 
             return isAllowedVersion(version);
         }).orElse(false);
@@ -66,7 +66,7 @@ public class IrisCompatMixinPlugin implements IMixinConfigPlugin {
     }
 
     private boolean isAllowedVersion(String version) {
-        for (AllowedIrisVersion allowed : allowedIrisVersions) {
+        for (final var allowed : allowedIrisVersions) {
             if (allowed.matches(version)) {
                 return true;
             }

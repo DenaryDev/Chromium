@@ -29,7 +29,9 @@ public abstract class MixinKeyboard {
         cachedKey = key;
     }
 
-    @Redirect(method = "processF3", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasPermissionLevel(I)Z"))
+    @Redirect(method = "processF3",
+            at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/ClientPlayerEntity;hasPermissionLevel(I)Z")
+    )
     public boolean chromium$checkPermissionLevel(ClientPlayerEntity player, int level) {
         if (cachedKey == 293) {
             return client.getCurrentServerEntry() != null || player.hasPermissionLevel(level);
