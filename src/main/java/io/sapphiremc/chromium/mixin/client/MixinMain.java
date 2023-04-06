@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 @Mixin(Main.class)
 public class MixinMain {
 
-    @ModifyArg(method = "main([Ljava/lang/String;Z)V",
+    @ModifyArg(method = "main",
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/client/WindowSettings;<init>(IILjava/util/OptionalInt;Ljava/util/OptionalInt;Z)V"
             ),
@@ -25,7 +25,7 @@ public class MixinMain {
         return Math.max(width, 960);
     }
 
-    @ModifyArg(method = "main([Ljava/lang/String;Z)V",
+    @ModifyArg(method = "main",
             at = @At(value = "INVOKE",
                     target = "Lnet/minecraft/client/WindowSettings;<init>(IILjava/util/OptionalInt;Ljava/util/OptionalInt;Z)V"
             ),
