@@ -29,7 +29,8 @@ dependencies {
 	listOf(
 		"fabric-key-binding-api-v1",
 		"fabric-lifecycle-events-v1",
-		"fabric-networking-api-v1"
+		"fabric-networking-api-v1",
+		"fabric-screen-api-v1"
 	).forEach {
 		modImplementation(fabricApi.module(it, libs.versions.fabric.get()))?.let { it1 -> include(it1) }
 	}

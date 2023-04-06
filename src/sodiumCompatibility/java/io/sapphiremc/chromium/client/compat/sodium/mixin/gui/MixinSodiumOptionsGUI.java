@@ -22,7 +22,7 @@ public class MixinSodiumOptionsGUI {
             remap = false
     )
     public int chromium$getElementWidth(int value) {
-        return 242;
+        return 232;
     }
 
     @ModifyVariable(method = "renderOptionTooltip",
@@ -31,6 +31,6 @@ public class MixinSodiumOptionsGUI {
             remap = false
     )
     public int chromium$getTooltipWidth(int value) {
-        return 242;
+        return 232;
     }
 }
