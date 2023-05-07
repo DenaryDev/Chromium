@@ -10,8 +10,9 @@ package io.sapphiremc.chromium.client.gui;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.terraformersmc.modmenu.api.ModMenuApi;
-import com.terraformersmc.modmenu.gui.ModsScreen;
 import io.sapphiremc.chromium.ChromiumMod;
+import io.sapphiremc.chromium.client.compat.IASCompat;
+import io.sapphiremc.chromium.client.compat.ModMenuCompat;
 import lombok.Getter;
 import lombok.Setter;
 import net.fabricmc.loader.api.FabricLoader;
@@ -73,7 +74,7 @@ public class ChromiumTitleScreen extends Screen {
     }
 
     public static CompletableFuture<Void> loadTexturesAsync(TextureManager textureManager, Executor executor) {
-        return CompletableFuture.allOf(textureManager.loadTextureAsync(MORNING_BACKGROUND, executor), textureManager.loadTextureAsync(DAY_BACKGROUND, executor), textureManager.loadTextureAsync(EVENING_BACKGROUND, executor), textureManager.loadTextureAsync(NIGHT_BACKGROUND, executor), textureManager.loadTextureAsync(LOGO, executor), textureManager.loadTextureAsync(GOLD, executor));
+        return CompletableFuture.allOf(textureManager.loadTextureAsync(MORNING_BACKGROUND, executor), textureManager.loadTextureAsync(DAY_BACKGROUND, executor), textureManager.loadTextureAsync(EVENING_BACKGROUND, executor), textureManager.loadTextureAsync(NIGHT_BACKGROUND, executor), textureManager.loadTextureAsync(LOGO, executor));
     }
 
     @Override
@@ -118,13 +119,13 @@ public class ChromiumTitleScreen extends Screen {
         if (hasModMenu) {
             this.addDrawableChild(createButton(x, centerY + 4 - (modifier - 14), buttonW, 20, ModMenuApi.createModsButtonText(), (button) -> {
                 this.confirmOpened = false;
-                this.client.setScreen(new ModsScreen(this));
+                ModMenuCompat.openModsList(this.client, this);
             }));
         }
         if (hasIas) {
             this.addDrawableChild(createButton(x, centerY + 4 + (modifier - 14), buttonW, 20, Text.translatable("menu.chromium.accounts"), (button) -> {
                 this.confirmOpened = false;
-                this.client.setScreen(new the_fireplace.ias.gui.AccountListScreen(this));
+                IASCompat.openAccountsList(this.client, this);
             }));
         }
         this.addDrawableChild(createButton(x, centerY + 18 + modifier, buttonW, 20, Text.translatable("menu.options"), (element) -> {

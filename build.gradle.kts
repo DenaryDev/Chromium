@@ -2,7 +2,6 @@ plugins {
 	java
 	`maven-publish`
 	alias(libs.plugins.loom)
-	alias(libs.plugins.licenser)
 }
 
 val archivesBaseName = project.properties["archivesBaseName"].toString() + libs.versions.minecraft.get()
@@ -64,13 +63,6 @@ java {
 	toolchain {
 		languageVersion.set(JavaLanguageVersion.of(17))
 	}
-}
-
-license {
-	include("**/io/sapphiremc/chromium/**")
-
-	header(project.file("HEADER"))
-	newLine(false)
 }
 
 sourceSets {
