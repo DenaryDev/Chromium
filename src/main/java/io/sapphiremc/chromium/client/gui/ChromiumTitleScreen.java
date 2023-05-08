@@ -74,7 +74,13 @@ public class ChromiumTitleScreen extends Screen {
     }
 
     public static CompletableFuture<Void> loadTexturesAsync(TextureManager textureManager, Executor executor) {
-        return CompletableFuture.allOf(textureManager.loadTextureAsync(MORNING_BACKGROUND, executor), textureManager.loadTextureAsync(DAY_BACKGROUND, executor), textureManager.loadTextureAsync(EVENING_BACKGROUND, executor), textureManager.loadTextureAsync(NIGHT_BACKGROUND, executor), textureManager.loadTextureAsync(LOGO, executor));
+        return CompletableFuture.allOf(
+                textureManager.loadTextureAsync(MORNING_BACKGROUND, executor),
+                textureManager.loadTextureAsync(DAY_BACKGROUND, executor),
+                textureManager.loadTextureAsync(EVENING_BACKGROUND, executor),
+                textureManager.loadTextureAsync(NIGHT_BACKGROUND, executor),
+                textureManager.loadTextureAsync(LOGO, executor)
+        );
     }
 
     @Override
@@ -214,7 +220,7 @@ public class ChromiumTitleScreen extends Screen {
         super.render(matrixStack, mouseX, mouseY, delta);
 
         final var userName = this.client.getSession().getUsername();
-        //String goldAmount = "2022";
+        //String goldAmount = "2022"; //TODO: Get player gold using launcher meta server
 
         final int centerX = newWidth / 2;
         final int nameLength = this.textRenderer.getWidth(userName);
@@ -257,10 +263,10 @@ public class ChromiumTitleScreen extends Screen {
         if (hours >= 6 && hours < 10) {
             return MORNING_BACKGROUND;
         }
-        if (hours >= 10 && hours < 16) {
+        if (hours >= 10 && hours < 19) {
             return DAY_BACKGROUND;
         }
-        if (hours >= 16 && hours < 20) {
+        if (hours >= 19 && hours < 21) {
             return EVENING_BACKGROUND;
         }
         return NIGHT_BACKGROUND;
