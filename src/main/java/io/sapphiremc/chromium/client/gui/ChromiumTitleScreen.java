@@ -13,11 +13,11 @@ import com.terraformersmc.modmenu.api.ModMenuApi;
 import io.sapphiremc.chromium.ChromiumMod;
 import io.sapphiremc.chromium.client.compat.IASCompat;
 import io.sapphiremc.chromium.client.compat.ModMenuCompat;
+import io.sapphiremc.chromium.client.dummy.DummyClientPlayerEntity;
 import lombok.Getter;
 import lombok.Setter;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.Element;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerWarningScreen;
@@ -48,7 +48,7 @@ public class ChromiumTitleScreen extends Screen {
     private static final Identifier NIGHT_BACKGROUND = new Identifier(ChromiumMod.MOD_ID, "textures/ui/background/night.png");
 
     private static final Identifier LOGO = new Identifier(ChromiumMod.MOD_ID, "textures/ui/logo.png");
-    private static final Identifier GOLD = new Identifier(ChromiumMod.MOD_ID, "textures/ui/gold.png");
+    //private static final Identifier GOLD = new Identifier(ChromiumMod.MOD_ID, "textures/ui/gold.png");
 
     @Getter
     @Setter
@@ -96,7 +96,7 @@ public class ChromiumTitleScreen extends Screen {
 
     @Override
     public void init() {
-        //DummyClientPlayerEntity.getInstance().updateSkin();
+        DummyClientPlayerEntity.getInstance().getSkinTexture(); // Load skin texture
         final int buttonW = (this.width) / 5;
         final int x = (buttonW + 64) / 2 - buttonW / 2;
         final int centerY = this.height / 2 + 32;
@@ -189,10 +189,10 @@ public class ChromiumTitleScreen extends Screen {
         final int logoW = 90 + this.height / 11;
         drawTexture(matrixStack, (newWidth / 2) - (logoW / 2), -5, 0, 0, logoW, logoW, logoW, logoW);
 
-        //ClientPlayerEntity player = DummyClientPlayerEntity.getInstance();
-        //int height = this.height + 50;
-        //int playerX = this.width - (int) (this.height / 3.4F);
-        //drawEntity(playerX, height, (int) (this.height / 2.5F), -mouseX + playerX, -mouseY + height - (this.height / 1.535F), player);
+        final var player = DummyClientPlayerEntity.getInstance();
+        final int height = this.height + 50;
+        final int playerX = this.width - (int) (this.height / 3.4F);
+        drawEntity(playerX, height, (int) (this.height / 2.5F), -mouseX + playerX, -mouseY + height - (this.height / 1.535F), player);
 
         if (!this.confirmOpened) {
             if (widgetsAdded) {
@@ -212,7 +212,7 @@ public class ChromiumTitleScreen extends Screen {
             this.textRenderer.drawWithShadow(matrixStack, confirmQuit, this.width / 2.0F - textLength / 2.0F, this.height / 2.0F - 26.0F, -2039584);
         }
 
-        for (Element element : this.children()) {
+        for (final var element : this.children()) {
             if (!(element instanceof ClickableWidget)) continue;
             ((ClickableWidget) element).setAlpha(g);
         }
@@ -274,62 +274,55 @@ public class ChromiumTitleScreen extends Screen {
 
     private float yaw = 190.0F;
 
-    private void drawEntity(int x, int y, int size, float mouseX, float mouseY, ClientPlayerEntity player) { //TODO: Fix dummy player logic
+    private void drawEntity(int x, int y, int size, float mouseX, float mouseY, ClientPlayerEntity player) {
         assert this.client != null;
-        float finalYaw = yaw;
-        if (InputUtil.isKeyPressed(client.getWindow().getHandle(), 342)) {
-            finalYaw = this.yaw++;
-            if (finalYaw > 359.0F) {
+        if (InputUtil.isKeyPressed(client.getWindow().getHandle(), InputUtil.GLFW_KEY_LEFT_ALT)) {
+            if (this.yaw++ > 359.0F) {
                 this.yaw = 0;
             }
-        } else if (InputUtil.isKeyPressed(client.getWindow().getHandle(), 346)) {
-            finalYaw = this.yaw--;
-            if (finalYaw < 1.0F) {
+        } else if (InputUtil.isKeyPressed(client.getWindow().getHandle(), InputUtil.GLFW_KEY_RIGHT_ALT)) {
+            if (this.yaw-- < 1.0F) {
                 this.yaw = 360;
             }
-        } else if (InputUtil.isKeyPressed(client.getWindow().getHandle(), 345)) {
+        } else if (InputUtil.isKeyPressed(client.getWindow().getHandle(), InputUtil.GLFW_KEY_RIGHT_CONTROL)) {
             this.yaw = 190.0F;
         }
 
-        final float f = (float) Math.atan(mouseX / 400.0F);
-        final float g = (float) Math.atan(mouseY / 400.0F);
-        final var matrixStack = RenderSystem.getModelViewStack();
-        matrixStack.push();
-        matrixStack.translate(x, y, 1050.0D);
-        matrixStack.scale(1.0F, 1.0F, -1.0F);
+        final float rotationSide = (float) Math.atan(mouseX / 400.0F);
+        final float rotationUp = (float) Math.atan(mouseY / 400.0F);
+        final var viewMatrices = RenderSystem.getModelViewStack();
+        viewMatrices.push();
+        viewMatrices.translate(x, y, 1050.0D);
+        viewMatrices.scale(1.0F, 1.0F, -1.0F);
         RenderSystem.applyModelViewMatrix();
-        final var matrixStack2 = new MatrixStack();
-        matrixStack2.translate(0.0D, 0.0D, 1000.0D);
-        matrixStack2.scale((float) size, (float) size, (float) size);
-        final var quaternionf = new Quaternionf().rotateZ((float) Math.PI);
-        final var quaternionf2 = new Quaternionf().rotateX(g * 20.0F * ((float) (Math.PI / 180.0)));
-        quaternionf.mul(quaternionf2);
-        matrixStack2.multiply(quaternionf);
-        final float h = player.bodyYaw;
-        final float i = player.getYaw();
-        final float j = player.getPitch();
-        final float k = player.prevHeadYaw;
-        final float l = player.headYaw;
-        player.bodyYaw = finalYaw + f * 20.0F;
-        player.setYaw(yaw + f * 40.0F);
-        player.setPitch(-g * 20.0F);
+        final var sizeMatrices = new MatrixStack();
+        sizeMatrices.translate(0.0D, 0.0D, 1000.0D);
+        sizeMatrices.scale((float) size, (float) size, (float) size);
+        final var rotatedZ = new Quaternionf().rotateZ((float) Math.PI);
+        sizeMatrices.multiply(rotatedZ);
+        final float bodyYaw = player.bodyYaw;
+        final float playerYaw = player.getYaw();
+        final float playerPitch = player.getPitch();
+        final float prevHeadYaw = player.prevHeadYaw;
+        final float headYaw = player.headYaw;
+        player.bodyYaw = yaw + rotationSide * 20.0F;
+        player.setYaw(yaw + rotationSide * 40.0F);
+        player.setPitch(-rotationUp * 20.0F);
         player.headYaw = player.getYaw();
         player.prevHeadYaw = player.getYaw();
         DiffuseLighting.method_34742();
-        final var entityRenderDispatcher = MinecraftClient.getInstance().getEntityRenderDispatcher();
-        quaternionf2.conjugate();
-        entityRenderDispatcher.setRotation(quaternionf2);
-        entityRenderDispatcher.setRenderShadows(false);
-        final var immediate = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
-        RenderSystem.runAsFancy(() -> entityRenderDispatcher.render(player, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, matrixStack2, immediate, 15728880));
-        immediate.draw();
-        entityRenderDispatcher.setRenderShadows(true);
-        player.bodyYaw = h;
-        player.setYaw(i);
-        player.setPitch(j);
-        player.prevHeadYaw = k;
-        player.headYaw = l;
-        matrixStack.pop();
+        final var dispatcher = MinecraftClient.getInstance().getEntityRenderDispatcher();
+        dispatcher.setRenderShadows(false);
+        final var consumers = MinecraftClient.getInstance().getBufferBuilders().getEntityVertexConsumers();
+        RenderSystem.runAsFancy(() -> dispatcher.render(player, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F, sizeMatrices, consumers, 15728880));
+        consumers.draw();
+        dispatcher.setRenderShadows(true);
+        player.bodyYaw = bodyYaw;
+        player.setYaw(playerYaw);
+        player.setPitch(playerPitch);
+        player.prevHeadYaw = prevHeadYaw;
+        player.headYaw = headYaw;
+        viewMatrices.pop();
         RenderSystem.applyModelViewMatrix();
         DiffuseLighting.enableGuiDepthLighting();
     }

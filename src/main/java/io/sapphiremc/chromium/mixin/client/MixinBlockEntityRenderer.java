@@ -8,7 +8,6 @@
 package io.sapphiremc.chromium.mixin.client;
 
 import io.sapphiremc.chromium.ChromiumMod;
-import io.sapphiremc.chromium.config.ChromiumConfig;
 import net.minecraft.block.entity.BannerBlockEntity;
 import net.minecraft.block.entity.BeaconBlockEntity;
 import net.minecraft.block.entity.BlockEntity;
@@ -32,8 +31,8 @@ public interface MixinBlockEntityRenderer<T extends BlockEntity> {
     @Overwrite
     default boolean isInRenderDistance(T blockEntity, Vec3d pos) {
         return blockEntity instanceof BeaconBlockEntity ?
-        Vec3d.ofCenter(blockEntity.getPos()).multiply(1.0, 0.0, 1.0).isInRange(pos.multiply(1.0, 0.0, 1.0), this.getRenderDistance(blockEntity)) :
-        Vec3d.ofCenter(blockEntity.getPos()).isInRange(pos, this.getRenderDistance(blockEntity));
+                Vec3d.ofCenter(blockEntity.getPos()).multiply(1.0, 0.0, 1.0).isInRange(pos.multiply(1.0, 0.0, 1.0), this.getRenderDistance(blockEntity)) :
+                Vec3d.ofCenter(blockEntity.getPos()).isInRange(pos, this.getRenderDistance(blockEntity));
     }
 
     default double getRenderDistance(T blockEntity) {

@@ -96,12 +96,12 @@ public class ChromiumMod implements ModInitializer {
 
     @Environment(EnvType.CLIENT)
     public static String getBiomeString(PlayerEntity player) {
-		final var client = MinecraftClient.getInstance();
+        final var client = MinecraftClient.getInstance();
         if (player != null && client.world != null) {
-			final var blockPos = player.getBlockPos();
-			final var biomes = client.world.getRegistryManager().get(RegistryKeys.BIOME);
-			final var biome = client.world.getBiome(blockPos).value();
-			final var biomeId = biomes.getId(biome);
+            final var blockPos = player.getBlockPos();
+            final var biomes = client.world.getRegistryManager().get(RegistryKeys.BIOME);
+            final var biome = client.world.getBiome(blockPos).value();
+            final var biomeId = biomes.getId(biome);
             if (biomeId != null) {
                 cachedBiome = Text.translatable("options.chromium.biome", Text.translatable("biome.minecraft." + biomeId.getPath())).getString();
             }
