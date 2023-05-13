@@ -11,8 +11,8 @@ import com.google.common.base.Strings;
 import io.sapphiremc.chromium.ChromiumMod;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.hud.InGameHud;
-import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.player.PlayerEntity;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -33,7 +33,7 @@ public abstract class MixinInGameHud {
     @Shadow protected abstract PlayerEntity getCameraPlayer();
 
     @Inject(method = "render", at = @At("TAIL"))
-    private void chromium$renderInfoPanel(MatrixStack matrices, float tickDelta, CallbackInfo callbackInfo) {
+    private void chromium$renderInfoPanel(DrawContext context, float tickDelta, CallbackInfo callbackInfo) {
         boolean flag = this.client.world != null && (!this.client.options.hudHidden || this.client.currentScreen != null) && !this.client.options.debugEnabled;
         if (flag) {
             final var config = ChromiumMod.getConfig();
@@ -64,7 +64,7 @@ public abstract class MixinInGameHud {
                 for (int i = 0; i < info.size(); i++) {
                     final var s = info.get(i);
                     if (Strings.isNullOrEmpty(s)) continue;
-                    this.getTextRenderer().drawWithShadow(matrices, s, 2, 2 + (i * 9), 0xE0E0E0);
+                    context.drawTextWithShadow(this.getTextRenderer(), s, 2, 2 + (i * 9), 0xE0E0E0);
                 }
             }
         }

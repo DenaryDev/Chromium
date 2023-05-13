@@ -9,10 +9,10 @@ package io.sapphiremc.chromium.client.compat;
 
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
-import the_fireplace.ias.gui.AccountListScreen;
+//import the_fireplace.ias.gui.AccountListScreen;
 
 public class IASCompat {
     public static void openAccountsList(MinecraftClient client, Screen prev) {
-        client.setScreen(new AccountListScreen(prev));
+//        client.setScreen(new AccountListScreen(prev));
     }
 }

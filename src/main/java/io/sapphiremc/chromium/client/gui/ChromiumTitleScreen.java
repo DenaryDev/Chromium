@@ -7,7 +7,6 @@
  */
 package io.sapphiremc.chromium.client.gui;
 
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import io.sapphiremc.chromium.ChromiumMod;
@@ -18,6 +17,7 @@ import lombok.Getter;
 import lombok.Setter;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerScreen;
 import net.minecraft.client.gui.screen.multiplayer.MultiplayerWarningScreen;
@@ -27,7 +27,6 @@ import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.DiffuseLighting;
-import net.minecraft.client.render.GameRenderer;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.math.MatrixStack;
@@ -160,20 +159,16 @@ public class ChromiumTitleScreen extends Screen {
     }
 
     @Override
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float delta) {
+    public void render(DrawContext context, int mouseX, int mouseY, float delta) {
         if (this.backgroundFadeStart == 0L && this.doBackgroundFade) {
             this.backgroundFadeStart = System.currentTimeMillis();
         }
 
         assert this.client != null;
         final float f = this.doBackgroundFade ? (float) (System.currentTimeMillis() - this.backgroundFadeStart) / 1000.0F : 1.0F;
-        GlStateManager._disableDepthTest();
-        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
-        RenderSystem.setShaderTexture(0, getBackground());
         RenderSystem.enableBlend();
-        RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, this.doBackgroundFade ? (float) MathHelper.ceil(MathHelper.clamp(f, 0.0F, 1.0F)) : 1.0F);
-        drawTexture(matrixStack, 0, 0, this.width, this.height, 0.0F, 0.0F, 16, 128, 16, 128);
+        context.drawTexture(getBackground(), 0, 0, this.width, this.height, 0.0F, 0.0F, 16, 128, 16, 128);
         final float g = this.doBackgroundFade ? MathHelper.clamp(f - 1.0f, 0.0f, 1.0f) : 1.0f;
         final int l = MathHelper.ceil(g * 255.0f) << 24;
         if ((l & 0xFC000000) == 0) {
@@ -183,11 +178,9 @@ public class ChromiumTitleScreen extends Screen {
         final int newWidth = ((this.width) / 5) + 64;
         //fill(matrixStack, 0, 13, newWidth, height, -1873784752);
 
-        RenderSystem.setShader(GameRenderer::getPositionTexProgram);
-        RenderSystem.setShaderTexture(0, LOGO);
         RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, g);
         final int logoW = 90 + this.height / 11;
-        drawTexture(matrixStack, (newWidth / 2) - (logoW / 2), -5, 0, 0, logoW, logoW, logoW, logoW);
+        context.drawTexture(LOGO, (newWidth / 2) - (logoW / 2), -5, 0, 0, logoW, logoW, logoW, logoW);
 
         final var player = DummyClientPlayerEntity.getInstance();
         final int height = this.height + 50;
@@ -209,7 +202,7 @@ public class ChromiumTitleScreen extends Screen {
 
             final var confirmQuit = Text.translatable("menu.chromium.confirmQuit").getString();
             final int textLength = this.textRenderer.getWidth(confirmQuit);
-            this.textRenderer.drawWithShadow(matrixStack, confirmQuit, this.width / 2.0F - textLength / 2.0F, this.height / 2.0F - 26.0F, -2039584);
+            context.drawTextWithShadow(this.textRenderer, confirmQuit, this.width / 2 - textLength / 2, this.height / 2 - 26, -2039584);
         }
 
         for (final var element : this.children()) {
@@ -217,7 +210,7 @@ public class ChromiumTitleScreen extends Screen {
             ((ClickableWidget) element).setAlpha(g);
         }
 
-        super.render(matrixStack, mouseX, mouseY, delta);
+        super.render(context, mouseX, mouseY, delta);
 
         final var userName = this.client.getSession().getUsername();
         //String goldAmount = "2022"; //TODO: Get player gold using launcher meta server
@@ -226,7 +219,7 @@ public class ChromiumTitleScreen extends Screen {
         final int nameLength = this.textRenderer.getWidth(userName);
         //int amountLength = this.textRenderer.getWidth(goldAmount);
 
-        this.textRenderer.drawWithShadow(matrixStack, userName, centerX - (nameLength / 2F), 96, -2039584);
+        context.drawTextWithShadow(this.textRenderer, userName, centerX - (nameLength / 2), 96, -2039584);
 
         //RenderSystem.enableBlend();
         //RenderSystem.blendFunc(GlStateManager.SrcFactor.SRC_ALPHA, GlStateManager.DstFactor.ONE_MINUS_SRC_ALPHA);
@@ -244,9 +237,9 @@ public class ChromiumTitleScreen extends Screen {
         if (isUnstable) {
             if (settingsButtonY != 15) settingsButton.setY(15);
             if (realmsButtonY != 15) realmsButton.setY(15);
-            fill(matrixStack, 0, 0, width, 13, -1873784752);
+            context.fill(0, 0, width, 13, -1873784752);
             final var beta = Text.translatable("chromium.warnings.unstable").getString();
-            this.textRenderer.drawWithShadow(matrixStack, beta, i, 3, 0xFF5555);
+            context.drawTextWithShadow(this.textRenderer, beta, i, 3, 0xFF5555);
 
             i -= 1;
             if (i < (-textRenderer.getWidth(beta))) {

@@ -31,7 +31,7 @@ public class DummyClientWorld extends ClientWorld {
 
     private static DummyClientWorld instance;
 
-    private static final DimensionType DUMMY = new DimensionType(OptionalLong.empty(), true, false, false, false, 1.0, false, false, 0, 256, 256, BlockTags.INFINIBURN_OVERWORLD, new Identifier(ChromiumMod.MOD_ID, "dummy_type"), 1.0f, new DimensionType.MonsterSettings(false, false, ConstantIntProvider.create(0), 0));
+    private static final DimensionType DUMMY = new DimensionType(OptionalLong.empty(), true, false, false, false, 1.0, false, false, 0, 256, 256, BlockTags.INFINIBURN_OVERWORLD, new Identifier(ChromiumMod.MOD_ID, "dummy_type"), 1, new DimensionType.MonsterSettings(false, false, ConstantIntProvider.create(0), 0));
     private static final RegistryKey<DimensionType> DUMMY_TYPE_KEY = RegistryKey.of(RegistryKeys.DIMENSION_TYPE, new Identifier(ChromiumMod.MOD_ID, "dummy_type"));
     private static final RegistryKey<World> WORLD_KEY = RegistryKey.of(RegistryKeys.WORLD, new Identifier(ChromiumMod.MOD_ID, "dummy"));
 
@@ -41,7 +41,7 @@ public class DummyClientWorld extends ClientWorld {
     }
 
     private DummyClientWorld() {
-        super(DummyClientPlayNetworkHandler.getInstance(), new Properties(Difficulty.PEACEFUL, false, true), WORLD_KEY, new DummyDirect<>(DUMMY_TYPE_KEY, DUMMY), 0, 0, () -> null, null, false, 0L);
+        super(DummyClientPlayNetworkHandler.getInstance(), new Properties(Difficulty.PEACEFUL, false, true), WORLD_KEY, new DummyDirect<>(DUMMY_TYPE_KEY, DUMMY), 0, 0, () -> null, null, false, 0);
     }
 
     private record DummyDirect<T>(RegistryKey<T> key, T value) implements RegistryEntry<T> {

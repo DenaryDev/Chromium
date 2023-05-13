@@ -9,7 +9,6 @@ package io.sapphiremc.chromium.mixin.client;
 
 import io.sapphiremc.chromium.ChromiumMod;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.DrawableHelper;
 import net.minecraft.client.gui.hud.ChatHud;
 import net.minecraft.text.HoverEvent;
 import net.minecraft.text.OrderedText;
@@ -28,7 +27,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 @Mixin(ChatHud.class)
-public abstract class MixinChatHud extends DrawableHelper {
+public abstract class MixinChatHud {
 
     @Shadow @Final private MinecraftClient client;
 
