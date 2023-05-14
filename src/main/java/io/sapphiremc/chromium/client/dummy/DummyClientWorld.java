@@ -9,31 +9,32 @@ package io.sapphiremc.chromium.client.dummy;
 
 import com.mojang.datafixers.util.Either;
 import io.sapphiremc.chromium.ChromiumMod;
-import net.minecraft.client.world.ClientWorld;
-import net.minecraft.registry.RegistryKey;
-import net.minecraft.registry.RegistryKeys;
-import net.minecraft.registry.entry.RegistryEntry;
-import net.minecraft.registry.entry.RegistryEntryOwner;
-import net.minecraft.registry.tag.BlockTags;
-import net.minecraft.registry.tag.TagKey;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.math.intprovider.ConstantIntProvider;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderOwner;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.Difficulty;
-import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.dimension.DimensionType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 import java.util.OptionalLong;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class DummyClientWorld extends ClientWorld {
+public class DummyClientWorld extends ClientLevel {
 
     private static DummyClientWorld instance;
 
-    private static final DimensionType DUMMY = new DimensionType(OptionalLong.empty(), true, false, false, false, 1.0, false, false, 0, 256, 256, BlockTags.INFINIBURN_OVERWORLD, new Identifier(ChromiumMod.MOD_ID, "dummy_type"), 1, new DimensionType.MonsterSettings(false, false, ConstantIntProvider.create(0), 0));
-    private static final RegistryKey<DimensionType> DUMMY_TYPE_KEY = RegistryKey.of(RegistryKeys.DIMENSION_TYPE, new Identifier(ChromiumMod.MOD_ID, "dummy_type"));
-    private static final RegistryKey<World> WORLD_KEY = RegistryKey.of(RegistryKeys.WORLD, new Identifier(ChromiumMod.MOD_ID, "dummy"));
+    private static final DimensionType DUMMY = new DimensionType(OptionalLong.empty(), true, false, false, false, 1.0, false, false, 0, 256, 256, BlockTags.INFINIBURN_OVERWORLD, new ResourceLocation(ChromiumMod.MOD_ID, "dummy_type"), 1, new DimensionType.MonsterSettings(false, false, ConstantInt.of(0), 0));
+    private static final ResourceKey<DimensionType> DUMMY_TYPE_KEY = ResourceKey.create(Registries.DIMENSION_TYPE, new ResourceLocation(ChromiumMod.MOD_ID, "dummy_type"));
+    private static final ResourceKey<Level> WORLD_KEY = ResourceKey.create(Registries.DIMENSION, new ResourceLocation(ChromiumMod.MOD_ID, "dummy"));
 
     public static DummyClientWorld getInstance() {
         if (instance == null) instance = new DummyClientWorld();
@@ -41,63 +42,67 @@ public class DummyClientWorld extends ClientWorld {
     }
 
     private DummyClientWorld() {
-        super(DummyClientPlayNetworkHandler.getInstance(), new Properties(Difficulty.PEACEFUL, false, true), WORLD_KEY, new DummyDirect<>(DUMMY_TYPE_KEY, DUMMY), 0, 0, () -> null, null, false, 0);
+        super(DummyClientPacketListener.getInstance(), new ClientLevelData(Difficulty.PEACEFUL, false, true), WORLD_KEY, new DummyDirect<>(DUMMY_TYPE_KEY, DUMMY), 0, 0, () -> null, null, false, 0);
     }
 
-    private record DummyDirect<T>(RegistryKey<T> key, T value) implements RegistryEntry<T> {
+    private record DummyDirect<T>(ResourceKey<T> key, T value) implements Holder<T> {
         @Override
-        public boolean hasKeyAndValue() {
+        public boolean isBound() {
             return key != null && value != null;
         }
 
         @Override
-        public boolean matchesId(Identifier id) {
-            return key.getValue().equals(id);
+        public boolean is(ResourceLocation id) {
+            return key.location().equals(id);
         }
 
         @Override
-        public boolean matchesKey(RegistryKey<T> key) {
+        public boolean is(ResourceKey<T> key) {
             return key.equals(this.key);
         }
 
         @Override
-        public boolean matches(Predicate<RegistryKey<T>> predicate) {
+        public boolean is(Predicate<ResourceKey<T>> predicate) {
             return predicate.test(key);
         }
 
         @Override
-        public boolean isIn(TagKey<T> tag) {
+        public boolean is(TagKey<T> tag) {
             return false;
         }
 
+        @NotNull
         @Override
-        public Either<RegistryKey<T>, T> getKeyOrValue() {
+        public Stream<TagKey<T>> tags() {
+            return Stream.of();
+        }
+
+        @NotNull
+        @Override
+        public Either<ResourceKey<T>, T> unwrap() {
             return Either.right(this.value);
         }
 
+        @NotNull
         @Override
-        public Optional<RegistryKey<T>> getKey() {
+        public Optional<ResourceKey<T>> unwrapKey() {
             return Optional.of(key);
         }
 
+        @NotNull
         @Override
-        public Type getType() {
-            return RegistryEntry.Type.DIRECT;
+        public Kind kind() {
+            return Kind.DIRECT;
         }
 
         @Override
-        public boolean ownerEquals(RegistryEntryOwner<T> owner) {
+        public boolean canSerializeIn(HolderOwner<T> owner) {
             return false;
         }
 
         @Override
         public String toString() {
             return "DummyDirect{" + this.value + "}";
-        }
-
-        @Override
-        public Stream<TagKey<T>> streamTags() {
-            return Stream.of();
         }
     }
 }

@@ -1,6 +1,7 @@
 {
   "chromium.warnings.unstable": "⚠ Unstable version! If bugs bother you, please let us know and go back to the stable version!",
 
+  "key.chromium.category": "Chromium",
   "key.chromium.config": "Chromium Settings Menu",
 
   "title.chromium.config": "Chromium Settings",

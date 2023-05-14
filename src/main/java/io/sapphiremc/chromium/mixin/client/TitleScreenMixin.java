@@ -9,11 +9,11 @@ package io.sapphiremc.chromium.mixin.client;
 
 import io.sapphiremc.chromium.client.gui.ChromiumTitleScreen;
 import io.sapphiremc.chromium.client.gui.OptionsScreenBuilder;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.gui.screen.TitleScreen;
-import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.texture.TextureManager;
-import net.minecraft.text.Text;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.TitleScreen;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -24,21 +24,22 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
 @Mixin(TitleScreen.class)
-public abstract class MixinTitleScreen extends Screen {
+public abstract class TitleScreenMixin extends Screen {
 
-    protected MixinTitleScreen(Text title) {
+    protected TitleScreenMixin(Component title) {
         super(title);
     }
 
-    @Inject(method = "loadTexturesAsync", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "preloadResources", at = @At("RETURN"), cancellable = true)
     private static void chromium$loadTexturesAsync(TextureManager textureManager, Executor executor, CallbackInfoReturnable<CompletableFuture<Void>> cir) {
-        cir.setReturnValue(CompletableFuture.allOf(cir.getReturnValue(), ChromiumTitleScreen.loadTexturesAsync(textureManager, executor)));
+        cir.setReturnValue(CompletableFuture.allOf(cir.getReturnValue(), ChromiumTitleScreen.preloadResources(textureManager, executor)));
     }
 
     @Inject(method = "init", at = @At("TAIL"))
     protected void chromium$addChromiumSettingsButton(CallbackInfo ci) {
-        addDrawableChild(ButtonWidget.builder(Text.literal("S"), (element) -> this.client.setScreen(OptionsScreenBuilder.build()))
-                .dimensions(this.width - 22, -10, 20, 20)
+        assert this.minecraft != null;
+        addRenderableWidget(Button.builder(Component.literal("S"), (element) -> this.minecraft.setScreen(OptionsScreenBuilder.build()))
+                .bounds(this.width - 22, -10, 20, 20)
                 .build());
     }
 }

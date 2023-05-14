@@ -10,4 +10,4 @@ if (JavaVersion.current().ordinal + 1 < 17) {
     throw IllegalStateException("Please run gradle with Java 17+!")
 }
 
-rootProject.name = "chromium-fabric"
+rootProject.name = "chromium"

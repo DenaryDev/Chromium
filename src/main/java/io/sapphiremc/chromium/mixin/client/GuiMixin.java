@@ -9,11 +9,11 @@ package io.sapphiremc.chromium.mixin.client;
 
 import com.google.common.base.Strings;
 import io.sapphiremc.chromium.ChromiumMod;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.font.TextRenderer;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.hud.InGameHud;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -23,18 +23,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.ArrayList;
 
-@Mixin(InGameHud.class)
-public abstract class MixinInGameHud {
+@Mixin(Gui.class)
+public abstract class GuiMixin {
 
-    @Shadow @Final private MinecraftClient client;
+    @Shadow @Final private Minecraft minecraft;
 
-    @Shadow public abstract TextRenderer getTextRenderer();
+    @Shadow public abstract Font getFont();
 
-    @Shadow protected abstract PlayerEntity getCameraPlayer();
+    @Shadow protected abstract Player getCameraPlayer();
 
     @Inject(method = "render", at = @At("TAIL"))
-    private void chromium$renderInfoPanel(DrawContext context, float tickDelta, CallbackInfo callbackInfo) {
-        boolean flag = this.client.world != null && (!this.client.options.hudHidden || this.client.currentScreen != null) && !this.client.options.debugEnabled;
+    private void chromium$renderInfoPanel(GuiGraphics context, float tickDelta, CallbackInfo callbackInfo) {
+        boolean flag = this.minecraft.level != null && (!this.minecraft.options.hideGui || this.minecraft.screen != null) && !this.minecraft.options.renderDebug;
         if (flag) {
             final var config = ChromiumMod.getConfig();
             final var player = getCameraPlayer();
@@ -64,7 +64,7 @@ public abstract class MixinInGameHud {
                 for (int i = 0; i < info.size(); i++) {
                     final var s = info.get(i);
                     if (Strings.isNullOrEmpty(s)) continue;
-                    context.drawTextWithShadow(this.getTextRenderer(), s, 2, 2 + (i * 9), 0xE0E0E0);
+                    context.drawString(this.getFont(), s, 2, 2 + (i * 9), 0xE0E0E0);
                 }
             }
         }

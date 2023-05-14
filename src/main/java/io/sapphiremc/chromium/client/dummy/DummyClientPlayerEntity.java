@@ -7,13 +7,13 @@
  */
 package io.sapphiremc.chromium.client.dummy;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
-import net.minecraft.client.network.PlayerListEntry;
-import net.minecraft.client.render.entity.PlayerModelPart;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.PlayerInfo;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.entity.player.PlayerModelPart;
 import org.jetbrains.annotations.Nullable;
 
-public class DummyClientPlayerEntity extends ClientPlayerEntity {
+public class DummyClientPlayerEntity extends LocalPlayer {
     private static DummyClientPlayerEntity instance;
 
     public static DummyClientPlayerEntity getInstance() {
@@ -22,17 +22,17 @@ public class DummyClientPlayerEntity extends ClientPlayerEntity {
     }
 
     private DummyClientPlayerEntity() {
-        super(MinecraftClient.getInstance(), DummyClientWorld.getInstance(), DummyClientPlayNetworkHandler.getInstance(), null, null, false, false);
+        super(Minecraft.getInstance(), DummyClientWorld.getInstance(), DummyClientPacketListener.getInstance(), null, null, false, false);
     }
 
     @Override
-    public boolean isPartVisible(PlayerModelPart modelPart) {
+    public boolean isModelPartShown(PlayerModelPart modelPart) {
         return true;
     }
 
     @Nullable
     @Override
-    protected PlayerListEntry getPlayerListEntry() {
-        return networkHandler.getPlayerListEntry(getUuid());
+    protected PlayerInfo getPlayerInfo() {
+        return connection.getPlayerInfo(getUUID());
     }
 }

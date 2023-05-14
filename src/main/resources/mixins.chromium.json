@@ -7,18 +7,18 @@
     "defaultRequire": 1
   },
   "client": [
-    "client.MixinChatHud",
-    "client.MixinInGameHud",
-    "client.MixinLivingEntityRenderer",
-    "client.MixinTitleScreen",
-    "client.MixinWindow",
-    "client.MixinKeyboard",
-    "client.MixinGameModeSelectionScreen",
-    "client.MixinMinecraftClient",
-    "client.MixinMain",
-    "client.MixinBlockEntityRenderer"
+    "client.ChatComponentMixin",
+    "client.GuiMixin",
+    "client.LivingEntityRendererMixin",
+    "client.TitleScreenMixin",
+    "client.WindowMixin",
+    "client.KeyboardMixin",
+    "client.GameModeSwitcherScreenMixin",
+    "client.accessors.MinecraftAccessor",
+    "client.MainMixin",
+    "client.BlockEntityRendererMixin"
   ],
   "mixins": [
-    "shared.MixinHopperBlockEntity"
+    "shared.HopperBlockEntityMixin"
   ]
 }

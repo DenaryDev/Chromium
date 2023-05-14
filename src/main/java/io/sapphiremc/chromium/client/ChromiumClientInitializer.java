@@ -8,6 +8,7 @@
 package io.sapphiremc.chromium.client;
 
 import com.google.common.io.ByteArrayDataOutput;
+import com.mojang.blaze3d.platform.InputConstants;
 import io.sapphiremc.chromium.ChromiumMod;
 import io.sapphiremc.chromium.client.gui.ChromiumTitleScreen;
 import io.sapphiremc.chromium.client.gui.OptionsScreenBuilder;
@@ -18,47 +19,46 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.screen.v1.ScreenEvents;
-import net.minecraft.client.gui.screen.TitleScreen;
-import net.minecraft.client.option.KeyBinding;
-import net.minecraft.client.util.InputUtil;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.Util;
+import net.minecraft.Util;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.gui.screens.TitleScreen;
+import net.minecraft.resources.ResourceLocation;
 import org.lwjgl.glfw.GLFW;
 
 import java.io.IOException;
 
 public class ChromiumClientInitializer implements ClientModInitializer {
 
-    private KeyBinding configKey;
+    private KeyMapping configKey;
 
     private final int protocolId = 0;
-    private final Identifier hello = new Identifier("chromium", "client");
+    private final ResourceLocation hello = new ResourceLocation("chromium", "client");
 
     @Override
     public void onInitializeClient() {
-        if (Boolean.getBoolean("chromium.killmclauncher") && Util.getOperatingSystem().equals(Util.OperatingSystem.WINDOWS)) {
+        if (Boolean.getBoolean("chromium.killmclauncher") && Util.getPlatform().equals(Util.OS.WINDOWS)) {
             try {
                 Runtime.getRuntime().exec("taskkill /F /IM Minecraft.exe");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        configKey = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+        configKey = KeyBindingHelper.registerKeyBinding(new KeyMapping(
                 "key.chromium.config",
-                InputUtil.Type.KEYSYM,
+                InputConstants.Type.KEYSYM,
                 GLFW.GLFW_KEY_N,
-                "Chromium"
+                "key.chromium.category"
         ));
 
         ClientPlayConnectionEvents.JOIN.register(((handler, sender, client) -> {
-            if (!client.isInSingleplayer()) {
+            if (!client.isSingleplayer()) {
                 ByteArrayDataOutput out = Packet.out();
                 out.writeInt(protocolId);
                 Packet.send(hello, out);
             }
         }));
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if (configKey.isPressed()) {
+            if (configKey.isDown()) {
                 client.setScreen(OptionsScreenBuilder.build());
             }
         });

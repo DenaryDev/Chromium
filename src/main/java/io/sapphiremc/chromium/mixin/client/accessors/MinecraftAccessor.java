@@ -5,15 +5,15 @@
  * license that can be found in the LICENSE file or at
  * https://opensource.org/licenses/MIT.
  */
-package io.sapphiremc.chromium.mixin.client;
+package io.sapphiremc.chromium.mixin.client.accessors;
 
-import net.minecraft.client.MinecraftClient;
+import net.minecraft.client.Minecraft;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 
-@Mixin(MinecraftClient.class)
-public interface MixinMinecraftClient {
+@Mixin(Minecraft.class)
+public interface MinecraftAccessor {
 
-    @Accessor("currentFps")
-    int getCurrentFPS();
+    @Accessor("frames")
+    int getFrames();
 }

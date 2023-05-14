@@ -11,8 +11,8 @@ import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import com.terraformersmc.modmenu.gui.ModsScreen;
 import io.sapphiremc.chromium.client.gui.OptionsScreenBuilder;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 
 public class ModMenuCompat implements ModMenuApi {
 
@@ -21,7 +21,7 @@ public class ModMenuCompat implements ModMenuApi {
         return screen -> OptionsScreenBuilder.build();
     }
 
-    public static void openModsList(MinecraftClient client, Screen prev) {
+    public static void openModsList(Minecraft client, Screen prev) {
         client.setScreen(new ModsScreen(prev));
     }
 }

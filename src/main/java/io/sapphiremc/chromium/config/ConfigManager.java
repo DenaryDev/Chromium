@@ -59,6 +59,14 @@ public class ConfigManager {
                         ChromiumMod.LOGGER.warn("Hopper amount must not be greater than 64");
                         config.setHopperAmount(64);
                         changed = true;
+                    } else if (config.getMaxMessages() < 100) {
+                        ChromiumMod.LOGGER.warn("Max messages must not be greater than 100");
+                        config.setMaxMessages(100);
+                        changed = true;
+                    } else if (config.getMaxMessages() > 32767) {
+                        ChromiumMod.LOGGER.warn("Max messages must not be greater than 32767");
+                        config.setMaxMessages(32767);
+                        changed = true;
                     }
                     if (changed) writeConfig(async);
                 } else {

@@ -13,11 +13,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.ModifyArg;
 
 @Mixin(Main.class)
-public class MixinMain {
+public class MainMixin {
 
     @ModifyArg(method = "main",
             at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/client/WindowSettings;<init>(IILjava/util/OptionalInt;Ljava/util/OptionalInt;Z)V"
+                    target = "Lcom/mojang/blaze3d/platform/DisplayData;<init>(IILjava/util/OptionalInt;Ljava/util/OptionalInt;Z)V"
             ),
             index = 0
     )
@@ -27,7 +27,7 @@ public class MixinMain {
 
     @ModifyArg(method = "main",
             at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/client/WindowSettings;<init>(IILjava/util/OptionalInt;Ljava/util/OptionalInt;Z)V"
+                    target = "Lcom/mojang/blaze3d/platform/DisplayData;<init>(IILjava/util/OptionalInt;Ljava/util/OptionalInt;Z)V"
             ),
             index = 1
     )

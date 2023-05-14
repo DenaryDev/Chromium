@@ -7,12 +7,12 @@
  */
 package io.sapphiremc.chromium.client.compat;
 
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 //import the_fireplace.ias.gui.AccountListScreen;
 
 public class IASCompat {
-    public static void openAccountsList(MinecraftClient client, Screen prev) {
-//        client.setScreen(new AccountListScreen(prev));
+    public static void openAccountsList(Minecraft minecraft, Screen prev) {
+//        minecraft.setScreen(new AccountListScreen(prev));
     }
 }

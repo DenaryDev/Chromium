@@ -23,7 +23,7 @@ repositories {
 
 dependencies {
     minecraft(libs.minecraft)
-    mappings(libs.fabric.mappings) { artifact { classifier = "v2" } }
+    mappings(loom.officialMojangMappings())
     modImplementation(libs.fabric.loader)
     listOf(
         "fabric-key-binding-api-v1",

@@ -7,12 +7,12 @@
  */
 package io.sapphiremc.chromium.mixin.client;
 
+import com.mojang.blaze3d.platform.DisplayData;
+import com.mojang.blaze3d.platform.ScreenManager;
+import com.mojang.blaze3d.platform.Window;
+import com.mojang.blaze3d.platform.WindowEventHandler;
 import io.sapphiremc.chromium.client.gui.ChromiumTitleScreen;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.WindowEventHandler;
-import net.minecraft.client.WindowSettings;
-import net.minecraft.client.util.MonitorTracker;
-import net.minecraft.client.util.Window;
+import net.minecraft.client.Minecraft;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Final;
@@ -23,21 +23,21 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Window.class)
-public abstract class MixinWindow {
+public abstract class WindowMixin {
 
-    @Shadow @Final private long handle;
+    @Shadow @Final private long window;
 
     @Inject(method = "<init>",
             at = @At(value = "INVOKE", target = "Lorg/lwjgl/glfw/GLFW;glfwMakeContextCurrent(J)V"),
             remap = false
     )
-    private void chromium$setMinimumWindowSize(WindowEventHandler eventHandler, MonitorTracker monitorTracker, WindowSettings settings, @Nullable String videoMode, String title, CallbackInfo callbackInfo) {
-        GLFW.glfwSetWindowSizeLimits(handle, 960, 700, GLFW.GLFW_DONT_CARE, GLFW.GLFW_DONT_CARE);
+    private void chromium$setMinimumWindowSize(WindowEventHandler eventHandler, ScreenManager monitorTracker, DisplayData settings, @Nullable String videoMode, String title, CallbackInfo ci) {
+        GLFW.glfwSetWindowSizeLimits(window, 960, 700, GLFW.GLFW_DONT_CARE, GLFW.GLFW_DONT_CARE);
     }
 
-    @Inject(method = "toggleFullscreen", at = @At("HEAD"))
+    @Inject(method = "toggleFullScreen", at = @At("HEAD"))
     private void chromium$closeExitMenu(CallbackInfo ci) {
-        if (MinecraftClient.getInstance().currentScreen instanceof ChromiumTitleScreen screen && screen.isConfirmOpened()) {
+        if (Minecraft.getInstance().screen instanceof ChromiumTitleScreen screen && screen.isConfirmOpened()) {
             screen.setConfirmOpened(false);
         }
     }
