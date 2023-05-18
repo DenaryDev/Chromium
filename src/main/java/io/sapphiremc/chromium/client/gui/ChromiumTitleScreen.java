@@ -18,6 +18,7 @@ import io.sapphiremc.chromium.client.dummy.DummyClientPlayerEntity;
 import lombok.Getter;
 import lombok.Setter;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.SharedConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -229,19 +230,17 @@ public class ChromiumTitleScreen extends Screen {
         //graphics.blit(GOLD, goldX, 110, 0, 0, 11, 11, 11, 11);
         //graphics.drawString(this.font, goldAmount, goldX + 14, 112, 0xFFD700);
 
-        final var modVersion = FabricLoader.getInstance().getModContainer(ChromiumMod.MOD_ID).get().getMetadata().getVersion().getFriendlyString().toLowerCase();
-        final boolean isUnstable = modVersion.contains("alpha") || modVersion.contains("beta") || modVersion.contains("pre") || modVersion.contains("rc") || modVersion.contains("snapshot");
         final int settingsButtonY = settingsButton.getY();
         final int realmsButtonY = realmsButton.getY();
-        if (isUnstable) {
+        if (SharedConstants.SNAPSHOT) {
             if (settingsButtonY != 15) settingsButton.setY(15);
             if (realmsButtonY != 15) realmsButton.setY(15);
             graphics.fill(0, 0, width, 13, -1873784752);
-            final var beta = Component.translatable("chromium.warnings.unstable").getString();
-            graphics.drawString(this.font, beta, i, 3, 0xFF5555);
+            final var unstable = Component.translatable("chromium.warnings.unstable").getString();
+            graphics.drawString(this.font, unstable, i, 3, 0xFF5555);
 
             i -= 1;
-            if (i < (-font.width(beta))) {
+            if (i < (-font.width(unstable))) {
                 i = width;
             }
         } else {
