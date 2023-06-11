@@ -10,8 +10,8 @@ fabric = "0.81.2+1.20"
 loom = "1.2-SNAPSHOT"
 
 # Mod dependencies
-sodium = "mc1.19.4-0.4.11"
-iris = "1.6.2+1.19.4"
+sodium = "mc1.19.4-0.4.10"
+iris = "1.6.4+1.19.4"
 clothconfig = "10.0.96"
 modmenu = "7.0.0-beta.2"
 ias = "8.0.1.2-fabric1.19"
