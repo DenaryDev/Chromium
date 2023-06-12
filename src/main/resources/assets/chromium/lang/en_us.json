@@ -83,5 +83,7 @@
   "label.chromium.disabled": "Disabled",
 
   "sodium.options.chunk_update_threads.default": "Default",
-  "sodium.options.chunk_update_threads.threads": "threads"
+  "sodium.options.chunk_update_threads.threads": "threads",
+
+  "sodium.options.chunks": "chunks"
 }

@@ -26,10 +26,10 @@ public class MixinIrisSodiumOptions {
             remap = false
     )
     private static @NotNull ControlValueFormatter chromium$getChunksText(ControlValueFormatter formatter) {
-        return ControlValueFormatter.quantityOrDisabled(Text.translatable("options.chunks").getString(), Text.translatable("label.chromium.disabled").getString());
+        return ControlValueFormatter.quantityOrDisabled(Text.translatable("sodium.options.chunks").getString(), Text.translatable("label.chromium.disabled").getString());
     }
 
-    @ModifyArg(method = "lambda$createLimitedVideoSettingsButton$3",
+    @ModifyArg(method = "lambda$createLimitedVideoSettingsButton$6",
             at = @At(value = "INVOKE",
                     target = "Lme/jellysquid/mods/sodium/client/gui/options/control/CyclingControl;<init>(Lme/jellysquid/mods/sodium/client/gui/options/Option;Ljava/lang/Class;[Lnet/minecraft/text/Text;)V"
             ),
