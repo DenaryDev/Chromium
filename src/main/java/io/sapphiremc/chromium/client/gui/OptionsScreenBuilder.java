@@ -81,7 +81,7 @@ public class OptionsScreenBuilder {
                 .build();
         final var maxMessages = entryBuilder.startIntField(Component.translatable("options.chromium.maxMessages"), current.getMaxMessages())
                 .setDefaultValue(defaults.getMaxMessages())
-                .setMin(50).setMax(500)
+                .setMin(50).setMax(32767)
                 .setTooltip(getTooltip("options.chromium.maxMessages"))
                 .setSaveConsumer(value -> ChromiumMod.getConfig().setMaxMessages(value))
                 .build();

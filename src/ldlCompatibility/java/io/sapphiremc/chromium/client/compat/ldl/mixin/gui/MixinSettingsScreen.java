@@ -14,7 +14,7 @@ import dev.lambdaurora.spruceui.option.SpruceOption;
 import dev.lambdaurora.spruceui.screen.SpruceScreen;
 import dev.lambdaurora.spruceui.widget.container.SpruceOptionListWidget;
 import dev.lambdaurora.spruceui.widget.container.tabbed.SpruceTabbedWidget;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -37,7 +37,7 @@ public abstract class MixinSettingsScreen extends SpruceScreen {
 
     @Shadow protected abstract LightSourceListWidget buildBlockEntitiesTab(int width, int height);
 
-    protected MixinSettingsScreen(Text title) {
+    protected MixinSettingsScreen(Component title) {
         super(title);
     }
 
@@ -48,20 +48,20 @@ public abstract class MixinSettingsScreen extends SpruceScreen {
     @Overwrite
     protected void init() {
         super.init();
-        final var dynamicLightSources = Text.translatable("lambdynlights.menu.light_sources");
+        final var dynamicLightSources = Component.translatable("lambdynlights.menu.light_sources");
         this.tabbedWidget = new SpruceTabbedWidget(Position.origin(), this.width, this.height, null, Math.max(100, this.width / 8), 0);
         //this.tabbedWidget.getList().setBackground(RandomPrideFlagBackground.random());
-        this.tabbedWidget.addTabEntry(Text.translatable("lambdynlights.menu.tabs.general"), null, this.tabContainerBuilder(this::buildGeneralTab));
+        this.tabbedWidget.addTabEntry(Component.translatable("lambdynlights.menu.tabs.general"), null, this.tabContainerBuilder(this::buildGeneralTab));
         this.tabbedWidget.addSeparatorEntry(null);
         this.tabbedWidget
                 .addTabEntry(
-                        Text.empty().append(dynamicLightSources).append(": ").append(this.entitiesOption.getPrefix()),
+                        Component.empty().append(dynamicLightSources).append(": ").append(this.entitiesOption.getPrefix()),
                         null,
                         this.tabContainerBuilder(this::buildEntitiesTab)
                 );
         this.tabbedWidget
                 .addTabEntry(
-                        Text.empty().append(dynamicLightSources).append(": ").append(this.blockEntitiesOption.getPrefix()),
+                        Component.empty().append(dynamicLightSources).append(": ").append(this.blockEntitiesOption.getPrefix()),
                         null,
                         this.tabContainerBuilder(this::buildBlockEntitiesTab)
                 );

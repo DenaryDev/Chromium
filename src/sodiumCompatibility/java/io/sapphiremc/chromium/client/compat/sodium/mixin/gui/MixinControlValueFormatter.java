@@ -8,7 +8,7 @@
 package io.sapphiremc.chromium.client.compat.sodium.mixin.gui;
 
 import me.jellysquid.mods.sodium.client.gui.options.control.ControlValueFormatter;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -24,11 +24,11 @@ public interface MixinControlValueFormatter {
     static @NotNull ControlValueFormatter brightness() {
         return (v) -> {
             if (v == 0) {
-                return Text.translatable("options.gamma.min").getString();
+                return Component.translatable("options.gamma.min").getString();
             } else if (v == 50) {
-                return Text.translatable("options.gamma.default").getString();
+                return Component.translatable("options.gamma.default").getString();
             } else {
-                return v == 100 ? Text.translatable("options.gamma.max").getString() : v + "%";
+                return v == 100 ? Component.translatable("options.gamma.max").getString() : v + "%";
             }
         };
     }

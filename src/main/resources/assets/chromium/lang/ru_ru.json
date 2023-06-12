@@ -147,5 +147,6 @@
   "sodium.options.always_defer_chunk_updates.tooltip": "Если этот параметр включен, рендеринг никогда не будет ждать завершения обновлений фрагментов, даже если они важны. Это может значительно улучшить частоту кадров в некоторых сценариях, но может вызвать значительную визуальную задержку в мире.",
   "sodium.options.buttons.undo": "Отменить",
   "sodium.options.buttons.apply": "Применить",
-  "sodium.options.buttons.donate": "Подарите нам кофе!"
+  "sodium.options.buttons.donate": "Подарите нам кофе!",
+  "sodium.options.chunks": "чанков"
 }

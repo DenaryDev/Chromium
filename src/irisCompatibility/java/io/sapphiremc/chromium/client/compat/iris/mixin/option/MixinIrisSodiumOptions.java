@@ -9,7 +9,7 @@ package io.sapphiremc.chromium.client.compat.iris.mixin.option;
 
 import me.jellysquid.mods.sodium.client.gui.options.control.ControlValueFormatter;
 import net.coderbot.iris.compat.sodium.impl.options.IrisSodiumOptions;
-import net.minecraft.text.Text;
+import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -26,16 +26,16 @@ public class MixinIrisSodiumOptions {
             remap = false
     )
     private static @NotNull ControlValueFormatter chromium$getChunksText(ControlValueFormatter formatter) {
-        return ControlValueFormatter.quantityOrDisabled(Text.translatable("options.chunks").getString(), Text.translatable("label.chromium.disabled").getString());
+        return ControlValueFormatter.quantityOrDisabled(Component.translatable("sodium.options.chunks").getString(), Component.translatable("label.chromium.disabled").getString());
     }
 
-    @ModifyArg(method = "lambda$createLimitedVideoSettingsButton$3",
+    @ModifyArg(method = "lambda$createLimitedVideoSettingsButton$6",
             at = @At(value = "INVOKE",
-                    target = "Lme/jellysquid/mods/sodium/client/gui/options/control/CyclingControl;<init>(Lme/jellysquid/mods/sodium/client/gui/options/Option;Ljava/lang/Class;[Lnet/minecraft/text/Text;)V"
+                    target = "Lme/jellysquid/mods/sodium/client/gui/options/control/CyclingControl;<init>(Lme/jellysquid/mods/sodium/client/gui/options/Option;Ljava/lang/Class;[Lnet/minecraft/network/chat/Component;)V"
             ),
             index = 2
     )
-    private static @NotNull Text @NotNull [] chromium$getGraphicsText(Text[] names) {
-        return new Text[]{Text.translatable("options.graphics.fast"), Text.translatable("options.graphics.fancy")};
+    private static @NotNull Component @NotNull [] chromium$getGraphicsText(Component[] names) {
+        return new Component[]{Component.translatable("options.graphics.fast"), Component.translatable("options.graphics.fancy")};
     }
 }

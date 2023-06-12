@@ -11,8 +11,8 @@ import io.sapphiremc.chromium.ChromiumMod;
 import io.sapphiremc.chromium.config.ChromiumConfig;
 import me.jellysquid.mods.sodium.client.gui.SodiumGameOptionPages;
 import me.jellysquid.mods.sodium.client.gui.options.control.ControlValueFormatter;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.text.Text;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -32,7 +32,7 @@ public class MixinSodiumGameOptionPages {
         if (ChromiumMod.getConfig().getTitleScreenProvider().equals(ChromiumConfig.TitleScreenProvider.CHROMIUM)) {
             return 4;
         } else {
-            return MinecraftClient.getInstance().getWindow().calculateScaleFactor(0, MinecraftClient.getInstance().forcesUnicodeFont());
+            return Minecraft.getInstance().getWindow().calculateScale(0, Minecraft.getInstance().isEnforceUnicode());
         }
     }
 
@@ -44,6 +44,6 @@ public class MixinSodiumGameOptionPages {
             remap = false
     )
     private static @NotNull ControlValueFormatter chromium$getChunkUpdateThreadsText(ControlValueFormatter formatter) {
-        return ControlValueFormatter.quantityOrDisabled(Text.translatable("sodium.options.chunk_update_threads.threads").getString(), Text.translatable("sodium.options.chunk_update_threads.default").getString());
+        return ControlValueFormatter.quantityOrDisabled(Component.translatable("sodium.options.chunk_update_threads.threads").getString(), Component.translatable("sodium.options.chunk_update_threads.default").getString());
     }
 }

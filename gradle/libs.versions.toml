@@ -1,22 +1,22 @@
 [versions]
 # Fabric dependencies
 # The latest versions are available at https://fabricmc.net/develop
-minecraft = "1.20-pre2"
-mappings = "1.20-pre2+build.7"
-loader = "0.14.19"
-fabric = "0.81.2+1.20"
+minecraft = "1.20"
+mappings = "1.20+build.1"
+loader = "0.14.21"
+fabric = "0.83.0+1.20"
 
 # Fabric loom
 loom = "1.2-SNAPSHOT"
 
 # Mod dependencies
-sodium = "mc1.19.4-0.4.10"
-iris = "1.6.4+1.19.4"
-clothconfig = "10.0.96"
-modmenu = "7.0.0-beta.2"
+sodium = "mc1.20-0.4.10"
+iris = "1.6.4+1.20"
+clothconfig = "11.0.99"
+modmenu = "7.0.1"
 ias = "8.0.1.2-fabric1.19"
 ldl = "2.3.0+1.19.4"
-spruceui = "4.2.0+1.19.4"
+spruceui = "5.0.0+1.20"
 
 # Other dependencies
 jccp = "1.4.14"
