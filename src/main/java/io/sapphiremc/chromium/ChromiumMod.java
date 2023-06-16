@@ -9,7 +9,6 @@ package io.sapphiremc.chromium;
 
 import io.sapphiremc.chromium.config.ChromiumConfig;
 import io.sapphiremc.chromium.config.ConfigManager;
-import io.sapphiremc.chromium.mixin.client.accessors.MinecraftAccessor;
 import lombok.Getter;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -51,7 +50,7 @@ public class ChromiumMod implements ModInitializer {
 
         final var maxFPS = (double) client.options.framerateLimit().get() == Options.UNLIMITED_FRAMERATE_CUTOFF ? "∞" : client.options.framerateLimit().get().toString();
         final var vsync = client.options.enableVsync().get().toString();
-        return Component.translatable("options.chromium.fps", ((MinecraftAccessor) client).getFrames(), maxFPS, vsync).getString();
+        return Component.translatable("options.chromium.fps", client.getFps(), maxFPS, vsync).getString();
     }
 
     @Environment(EnvType.CLIENT)

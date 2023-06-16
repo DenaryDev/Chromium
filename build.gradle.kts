@@ -31,7 +31,7 @@ dependencies {
         "fabric-networking-api-v1",
         "fabric-screen-api-v1"
     ).forEach {
-        modImplementation(fabricApi.module(it, libs.versions.fabric.get()))?.let { it1 -> include(it1) }
+        modImplementation(fabricApi.module(it, libs.versions.fabric.get()))
     }
 
     if (sodiumCompatibility) {
@@ -47,10 +47,9 @@ dependencies {
         modImplementation(libs.mod.ldl.spruceui)
     }
     modImplementation(libs.mod.modmenu)
-    //modImplementation(libs.mod.ias) // TODO: Re-enable this
+    modImplementation(libs.mod.ias)
     modImplementation(libs.mod.clothconfig) {
         exclude(group = "net.fabricmc.fabric-api")
-        include(this)
     }
 
     modRuntimeOnly(libs.fabric.api)

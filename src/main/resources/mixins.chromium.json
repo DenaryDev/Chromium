@@ -14,7 +14,6 @@
     "client.WindowMixin",
     "client.KeyboardMixin",
     "client.GameModeSwitcherScreenMixin",
-    "client.accessors.MinecraftAccessor",
     "client.MainMixin",
     "client.BlockEntityRendererMixin"
   ],
