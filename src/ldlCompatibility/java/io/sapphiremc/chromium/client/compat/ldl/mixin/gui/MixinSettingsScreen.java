@@ -49,7 +49,7 @@ public abstract class MixinSettingsScreen extends SpruceScreen {
     protected void init() {
         super.init();
         final var dynamicLightSources = Component.translatable("lambdynlights.menu.light_sources");
-        this.tabbedWidget = new SpruceTabbedWidget(Position.origin(), this.width, this.height, null, /*Math.max(100, this.width / 8)*/0, 0);
+        this.tabbedWidget = new SpruceTabbedWidget(Position.origin(), this.width, this.height, null, Math.max(100, this.width / 8), 0);
         //this.tabbedWidget.getList().setBackground(RandomPrideFlagBackground.random());
         this.tabbedWidget.addTabEntry(Component.translatable("lambdynlights.menu.tabs.general"), null, this.tabContainerBuilder(this::buildGeneralTab));
         this.tabbedWidget.addSeparatorEntry(null);
