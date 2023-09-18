@@ -10,6 +10,7 @@ package io.sapphiremc.chromium.client.gui;
 import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.realmsclient.RealmsMainScreen;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import io.sapphiremc.chromium.ChromiumMod;
 import io.sapphiremc.chromium.client.compat.IASCompat;
@@ -149,8 +150,7 @@ public class ChromiumTitleScreen extends Screen {
         this.settingsButton = createButton(this.width - 22, 2, 20, 20, Component.literal("S"), (element) ->
                 this.minecraft.setScreen(OptionsScreenBuilder.build()));
         this.realmsButton = createButton(this.width - 44, 2, 20, 20, Component.literal("R"), (element) -> {
-            this.confirmOpened = false;
-            this.minecraft.setScreen(new ChromiumTitleScreen());
+            this.minecraft.setScreen(new RealmsMainScreen(this));
         });
         this.addRenderableWidget(settingsButton);
         this.addRenderableWidget(realmsButton);
