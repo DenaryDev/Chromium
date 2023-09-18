@@ -18,7 +18,8 @@ import java.util.Set;
 
 public class LdlCompatMixinPlugin implements IMixinConfigPlugin {
     private final List<AllowedVersion> allowedVersions = List.of(
-            new AllowedVersion("2.3.1", true)
+            new AllowedVersion("2.3.1", true),
+            new AllowedVersion("2.3.2", true)
     );
     private boolean isVersionValid = false;
 

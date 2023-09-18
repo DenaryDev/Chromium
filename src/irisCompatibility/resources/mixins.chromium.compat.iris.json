@@ -8,8 +8,7 @@
     "defaultRequire": 1
   },
   "client": [
-    "option.MixinIrisSodiumOptions",
-    "MixinIris"
+    "option.MixinIrisSodiumOptions"
   ],
   "refmap": "chromium-iris-compat-refmap.json"
 }

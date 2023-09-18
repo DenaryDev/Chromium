@@ -24,11 +24,11 @@ public interface MixinControlValueFormatter {
     static @NotNull ControlValueFormatter brightness() {
         return (v) -> {
             if (v == 0) {
-                return Component.translatable("options.gamma.min").getString();
+                return Component.translatable("options.gamma.min");
             } else if (v == 50) {
-                return Component.translatable("options.gamma.default").getString();
+                return Component.translatable("options.gamma.default");
             } else {
-                return v == 100 ? Component.translatable("options.gamma.max").getString() : v + "%";
+                return v == 100 ? Component.translatable("options.gamma.max") : Component.literal(v + "%");
             }
         };
     }
