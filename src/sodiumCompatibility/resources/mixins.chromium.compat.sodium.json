@@ -8,9 +8,9 @@
     "defaultRequire": 1
   },
   "client": [
-    "gui.MixinSodiumOptionsGUI",
-    "gui.MixinSodiumGameOptionPages",
-    "gui.MixinControlValueFormatter"
+    "gui.SodiumOptionsGUIMixin",
+    "gui.SodiumGameOptionPagesMixin",
+    "gui.ControlValueFormatterMixin"
   ],
   "refmap": "chromium-sodium-compat-refmap.json"
 }

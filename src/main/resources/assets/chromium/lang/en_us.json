@@ -1,18 +1,15 @@
 {
-  "chromium.warnings.unstable": "⚠ Unstable version! If bugs bother you, please let us know and go back to the stable version!",
-
   "key.chromium.category": "Chromium",
   "key.chromium.config": "Chromium Settings Menu",
 
   "title.chromium.config": "Chromium Settings",
   "category.chromium.general": "General settings",
-  "category.chromium.info": "Info panel",
-  "category.chromium.chat": "Chat settings",
-  "category.chromium.render": "Render settings",
+  "category.chromium.info": "Info",
+  "category.chromium.chat": "Chat",
+  "category.chromium.render": "Rendering",
   "category.chromium.render.te": "Block entities",
-  "category.chromium.world": "World settings",
-  "category.chromium.world.hopper": "Hoppers",
-  "category.chromium.screen": "Screens settings",
+  "category.chromium.mechanics": "Game mechanics",
+  "category.chromium.mechanics.hopper": "Hoppers",
 
   "options.chromium.showFps": "Show fps",
   "options.chromium.showFps.tooltip.1": "Current frame rate, maximum",
@@ -50,34 +47,19 @@
   "options.chromium.maxMessages": "Max messages",
 
   "options.chromium.render.te.bannerRenderDistance": "Banners max render distance",
-  "options.chromium.render.te.bannerRenderDistance.tooltip.1": "The value is in blocks, not chunks!",
+  "options.chromium.render.te.bannerRenderDistance.tooltip.1": "At what distance (in blocks) from the player the flags will stop rendering!",
   "options.chromium.render.te.chestRenderDistance": "Chests max render distance",
-  "options.chromium.render.te.chestRenderDistance.tooltip.1": "The value is in blocks, not chunks!",
+  "options.chromium.render.te.chestRenderDistance.tooltip.1": "At what distance (in blocks) from the player the chests will stop rendering!",
   "options.chromium.render.te.shulkerBoxRenderDistance": "Shulker Boxes max render distance",
-  "options.chromium.render.te.shulkerBoxRenderDistance.tooltip.1": "The value is in blocks, not chunks!",
+  "options.chromium.render.te.shulkerBoxRenderDistance.tooltip.1": "At what distance (in blocks) from the player shulker boxes will stop rendering",
   "options.chromium.render.te.signRenderDistance": "Signs max render distance",
-  "options.chromium.render.te.signRenderDistance.tooltip.1": "The value is in blocks, not chunks!",
-  "options.chromium.render.te.skullRenderDistance": "Skull max render distance",
-  "options.chromium.render.te.skullRenderDistance.tooltip.1": "The value is in blocks, not chunks!",
+  "options.chromium.render.te.signRenderDistance.tooltip.1": "At what distance (in blocks) from the player the signs will stop rendering",
+  "options.chromium.render.te.skullRenderDistance": "Heads max render distance",
+  "options.chromium.render.te.skullRenderDistance.tooltip.1": "At what distance (in blocks) from the player the heads will stop rendering",
 
-  "options.chromium.world.hopperTransfer": "Transfer cooldown",
+  "options.chromium.mechanics.hopperTransfer": "Item transfer cooldown (in ticks)",
 
-  "options.chromium.world.hopperAmount": "Transfer amount",
-
-  "options.chromium.changeScreenProvider": "Change title screen provider",
-  "options.chromium.screenType.chromium": "Chromium",
-  "options.chromium.screenType.minecraft": "Minecraft",
-
-  "message.chromium.skin.downloading": "Downloading skin...",
-  "message.chromium.skin.set": "You need to reconnect to apply skin.",
-  "message.chromium.skin.set.operator": "Operator set skin for you. You need to reconnect to apply it.",
-  "message.chromium.skin.clear": "",
-  "message.chromium.skin.clear.operator": "",
-
-  "menu.chromium.confirmQuit": "Quit the game?",
-  "menu.chromium.quit": "Quit",
-  "menu.chromium.cancel": "Cancel",
-  "menu.chromium.accounts": "Accounts",
+  "options.chromium.mechanics.hopperAmount": "The number of items moved at a time",
 
   "label.chromium.on": "\u00A7aOn",
   "label.chromium.off": "\u00A7eOff",

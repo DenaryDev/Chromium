@@ -10,19 +10,22 @@ package io.sapphiremc.chromium.client.dummy;
 import com.mojang.serialization.Lifecycle;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
+import net.minecraft.client.multiplayer.CommonListenerCookie;
 import net.minecraft.client.multiplayer.PlayerInfo;
+import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.core.MappedRegistry;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.PacketFlow;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.damagesource.DamageEffects;
 import net.minecraft.world.damagesource.DamageScaling;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.damagesource.DeathMessageType;
+import net.minecraft.world.flag.FeatureFlagSet;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeGenerationSettings;
 import net.minecraft.world.level.biome.BiomeSpecialEffects;
@@ -47,20 +50,20 @@ public class DummyClientPacketListener extends ClientPacketListener {
     private final DummyPlayerInfo dummyPlayerInfo;
 
     private DummyClientPacketListener() {
-        super(Minecraft.getInstance(), null, new Connection(PacketFlow.CLIENTBOUND), null, Minecraft.getInstance().getUser().getGameProfile(), null);
+        super(Minecraft.getInstance(), new Connection(PacketFlow.CLIENTBOUND), new CommonListenerCookie(Minecraft.getInstance().getGameProfile(), null, null, FeatureFlagSet.of(FeatureFlags.VANILLA), null, null, null));
         this.dummyRegistryManager = dummyRegistryManager();
         this.dummyPlayerInfo = new DummyPlayerInfo();
     }
 
     @NotNull
     @Override
-    public RegistryAccess registryAccess() {
-        return dummyRegistryManager;
+    public RegistryAccess.Frozen registryAccess() {
+        return dummyRegistryManager.freeze();
     }
 
     @Nullable
     @Override
-    public PlayerInfo getPlayerInfo(UUID uuid) {
+    public PlayerInfo getPlayerInfo(@NotNull UUID uuid) {
         return dummyPlayerInfo;
     }
 
@@ -111,14 +114,17 @@ public class DummyClientPacketListener extends ClientPacketListener {
     }
 
     public static class DummyPlayerInfo extends PlayerInfo {
+        private final PlayerSkin skinWithoutCape;
+
         public DummyPlayerInfo() {
-            super(Minecraft.getInstance().getUser().getGameProfile(), false);
+            super(Minecraft.getInstance().getGameProfile(), false);
+            final var currentSkin = getSkin();
+            this.skinWithoutCape = new PlayerSkin(currentSkin.texture(), currentSkin.textureUrl(), null, currentSkin.elytraTexture(), currentSkin.model(), currentSkin.secure()); //TODO: Fix cape texture rendering
         }
 
-        @Nullable
         @Override
-        public ResourceLocation getCapeLocation() {
-            return null; //TODO: Fix cape rendering (Disabled due to incorrect display)
+        public @NotNull PlayerSkin getSkin() {
+            return super.getSkin();
         }
     }
 }

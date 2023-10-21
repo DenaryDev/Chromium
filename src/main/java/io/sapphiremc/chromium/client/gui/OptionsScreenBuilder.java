@@ -86,7 +86,7 @@ public class OptionsScreenBuilder {
                 .setSaveConsumer(value -> ChromiumMod.getConfig().setMaxMessages(value))
                 .build();
 
-        /*========================= Tile entities view distance settings =========================*/
+        /*========================= Tile entities rendeding settings =========================*/
         final var bannerRenderDistance = entryBuilder.startIntField(Component.translatable("options.chromium.render.te.bannerRenderDistance"),
                         current.getBannerRenderDistance())
                 .setDefaultValue(defaults.getBannerRenderDistance())
@@ -126,29 +126,17 @@ public class OptionsScreenBuilder {
                 .build();
 
         /*========================= Hopper settings =========================*/
-        final var hopperTransfer = entryBuilder.startIntField(Component.translatable("options.chromium.world.hopperTransfer"), current.getHopperTransfer())
+        final var hopperTransfer = entryBuilder.startIntField(Component.translatable("options.chromium.mechanics.hopperTransfer"), current.getHopperTransfer())
                 .setDefaultValue(defaults.getHopperTransfer())
                 .setMin(2).setMax(200)
-                .setTooltip(getTooltip("options.chromium.world.hopperTransfer"))
+                .setTooltip(getTooltip("options.chromium.mechanics.hopperTransfer"))
                 .setSaveConsumer(value -> ChromiumMod.getConfig().setHopperTransfer(value))
                 .build();
-        final var hopperAmount = entryBuilder.startIntField(Component.translatable("options.chromium.world.hopperAmount"), current.getHopperAmount())
+        final var hopperAmount = entryBuilder.startIntField(Component.translatable("options.chromium.mechanics.hopperAmount"), current.getHopperAmount())
                 .setDefaultValue(defaults.getHopperAmount())
                 .setMin(1).setMax(64)
-                .setTooltip(getTooltip("options.chromium.world.hopperAmount"))
+                .setTooltip(getTooltip("options.chromium.mechanics.hopperAmount"))
                 .setSaveConsumer(value -> ChromiumMod.getConfig().setHopperAmount(value))
-                .build();
-
-        /*========================= Screen settings =========================*/
-        final var changeScreenType = entryBuilder.startEnumSelector(Component.translatable("options.chromium.changeScreenProvider"), ChromiumConfig.TitleScreenProvider.class, current.getTitleScreenProvider())
-                .setDefaultValue(defaults.getTitleScreenProvider())
-                .setTooltip(getTooltip("options.chromium.changeScreenProvider"))
-                .setSaveConsumer(value -> ChromiumMod.getConfig().setTitleScreenProvider(value))
-                .setEnumNameProvider(anEnum -> {
-                    if (anEnum.equals(ChromiumConfig.TitleScreenProvider.CHROMIUM))
-                        return Component.translatable("options.chromium.screenType.chromium");
-                    else return Component.translatable("options.chromium.screenType.minecraft");
-                })
                 .build();
 
         final var infoBuilder = entryBuilder.startSubCategory(Component.translatable("category.chromium.info"));
@@ -172,22 +160,18 @@ public class OptionsScreenBuilder {
         teBuider.add(skullRenderDistance);
         renderBuilder.add(teBuider.build());
 
-        final var worldBuilder = entryBuilder.startSubCategory(Component.translatable("category.chromium.world"));
+        final var mechanicsBuilder = entryBuilder.startSubCategory(Component.translatable("category.chromium.mechanics"));
 
-        final var hopperBuilder = entryBuilder.startSubCategory(Component.translatable("category.chromium.world.hopper"));
+        final var hopperBuilder = entryBuilder.startSubCategory(Component.translatable("category.chromium.mechanics.hopper"));
         hopperBuilder.add(hopperTransfer);
         hopperBuilder.add(hopperAmount);
         hopperBuilder.setExpanded(true);
-        worldBuilder.add(hopperBuilder.build());
-
-        final var screenBuilder = entryBuilder.startSubCategory(Component.translatable("category.chromium.screen"));
-        screenBuilder.add(changeScreenType);
+        mechanicsBuilder.add(hopperBuilder.build());
 
         category.addEntry(infoBuilder.build());
         category.addEntry(chatBuilder.build());
         category.addEntry(renderBuilder.build());
-        category.addEntry(worldBuilder.build());
-        category.addEntry(screenBuilder.build());
+        category.addEntry(mechanicsBuilder.build());
 
         return builder.build();
     }
@@ -204,6 +188,6 @@ public class OptionsScreenBuilder {
             list.add(Component.literal(value));
         }
 
-        return list.size() == 0 ? null : list.toArray(new Component[0]);
+        return list.isEmpty() ? null : list.toArray(new Component[0]);
     }
 }

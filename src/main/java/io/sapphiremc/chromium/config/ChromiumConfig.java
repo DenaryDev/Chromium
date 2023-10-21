@@ -22,8 +22,6 @@ public class ChromiumConfig {
     @Getter @Setter @Expose boolean showMessagesTime = false;
     @Getter @Setter @Expose int maxMessages = 100;
 
-    @Getter @Setter @Expose TitleScreenProvider titleScreenProvider = TitleScreenProvider.CHROMIUM;
-
     @Getter @Setter @Expose int hopperTransfer = 8;
     @Getter @Setter @Expose int hopperAmount = 1;
 
@@ -32,9 +30,4 @@ public class ChromiumConfig {
     @Getter @Setter @Expose int shulkerBoxRenderDistance = 64;
     @Getter @Setter @Expose int signRenderDistance = 64;
     @Getter @Setter @Expose int skullRenderDistance = 64;
-
-    public enum TitleScreenProvider {
-        CHROMIUM,
-        MINECRAFT
-    }
 }

@@ -11,8 +11,6 @@ import com.mojang.blaze3d.platform.DisplayData;
 import com.mojang.blaze3d.platform.ScreenManager;
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.platform.WindowEventHandler;
-import io.sapphiremc.chromium.client.gui.ChromiumTitleScreen;
-import net.minecraft.client.Minecraft;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.glfw.GLFW;
 import org.spongepowered.asm.mixin.Final;
@@ -33,12 +31,5 @@ public abstract class WindowMixin {
     )
     private void chromium$setMinimumWindowSize(WindowEventHandler eventHandler, ScreenManager monitorTracker, DisplayData settings, @Nullable String videoMode, String title, CallbackInfo ci) {
         GLFW.glfwSetWindowSizeLimits(window, 960, 700, GLFW.GLFW_DONT_CARE, GLFW.GLFW_DONT_CARE);
-    }
-
-    @Inject(method = "toggleFullScreen", at = @At("HEAD"))
-    private void chromium$closeExitMenu(CallbackInfo ci) {
-        if (Minecraft.getInstance().screen instanceof ChromiumTitleScreen screen && screen.isConfirmOpened()) {
-            screen.setConfirmOpened(false);
-        }
     }
 }

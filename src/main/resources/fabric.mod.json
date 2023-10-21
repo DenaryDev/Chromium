@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "Chromium",
-  "description": "All features from DenaryLauncher in one mod!",
+  "description": "Another fabric mod with some functional!",
   "authors": [
     "DenaryDev"
   ],
@@ -13,7 +13,6 @@
     "sources": "https://github.com/SapphireMC/Chromium-Fabric.git",
     "issues": "https://github.com/SapphireMC/Chromium-Fabric/issues"
   },
-
   "license": "MIT",
   "icon": "assets/chromium/icon.png",
 
@@ -23,7 +22,7 @@
       "io.sapphiremc.chromium.ChromiumMod"
     ],
     "client": [
-      "io.sapphiremc.chromium.client.ChromiumClientInitializer"
+      "io.sapphiremc.chromium.client.ChromiumClientMod"
     ],
     "modmenu": [
       "io.sapphiremc.chromium.client.compat.ModMenuCompat"
@@ -38,10 +37,10 @@
 
   "depends": {
     "fabricloader": "0.14.x",
-    "minecraft": "~1.20.1",
+    "minecraft": "~1.20.2",
     "java": "17",
-    "fabric-api": "*",
-    "cloth-config": "11.0.x"
+    "fabric-api": ">=0.90",
+    "cloth-config": "12.0.x"
   },
 
   "custom": {

@@ -13,6 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.DebugScreenOverlay;
 import net.minecraft.world.entity.player.Player;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -32,9 +33,11 @@ public abstract class GuiMixin {
 
     @Shadow protected abstract Player getCameraPlayer();
 
+    @Shadow @Final private DebugScreenOverlay debugOverlay;
+
     @Inject(method = "render", at = @At("TAIL"))
     private void chromium$renderInfoPanel(GuiGraphics context, float tickDelta, CallbackInfo callbackInfo) {
-        boolean flag = this.minecraft.level != null && (!this.minecraft.options.hideGui || this.minecraft.screen != null) && !this.minecraft.options.renderDebug;
+        boolean flag = this.minecraft.level != null && (!this.minecraft.options.hideGui || this.minecraft.screen != null) && !this.debugOverlay.showDebugScreen();
         if (flag) {
             final var config = ChromiumMod.getConfig();
             final var player = getCameraPlayer();

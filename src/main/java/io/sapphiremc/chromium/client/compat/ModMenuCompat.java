@@ -20,8 +20,4 @@ public class ModMenuCompat implements ModMenuApi {
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
         return screen -> OptionsScreenBuilder.build();
     }
-
-    public static void openModsList(Minecraft client, Screen prev) {
-        client.setScreen(new ModsScreen(prev));
-    }
 }
