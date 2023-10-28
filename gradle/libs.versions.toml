@@ -2,7 +2,7 @@
 # Fabric dependencies
 # The latest versions are available at https://fabricmc.net/develop
 minecraft = "1.20.2"
-mappings = "1.20.2+build.4"
+parchment = "1.20.2:2023.10.22"
 loader = "0.14.23"
 fabric = "0.90.0+1.20.2"
 
@@ -28,7 +28,6 @@ lombok = "1.18.30"
 minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
 
 # Fabric
-fabric_mappings = { module = "net.fabricmc:yarn", version.ref = "mappings" }
 fabric_loader = { module = "net.fabricmc:fabric-loader", version.ref = "loader" }
 fabric_api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric" }
 
