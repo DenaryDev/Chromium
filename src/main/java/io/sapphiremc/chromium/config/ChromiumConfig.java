@@ -21,6 +21,7 @@ public class ChromiumConfig {
 
     @Getter @Setter @Expose boolean showMessagesTime = false;
     @Getter @Setter @Expose int maxMessages = 100;
+    @Getter @Setter @Expose boolean messageAnimations = false;
 
     @Getter @Setter @Expose int hopperTransfer = 8;
     @Getter @Setter @Expose int hopperAmount = 1;

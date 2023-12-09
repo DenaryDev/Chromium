@@ -45,6 +45,9 @@
 
   "options.chromium.maxMessages": "Максимальное кол-во сообщений",
 
+  "options.chromium.messageAnimations": "Анимация сообщений",
+  "options.chromium.messageAnimation.tooltip.1": "Новые сообщения плавно появляются",
+
   "options.chromium.render.te.bannerRenderDistance": "Расстояние видимости флагов",
   "options.chromium.render.te.bannerRenderDistance.tooltip.1": "На каком расстоянии (в блоках) от игрока флаги будут прекращать отображаться!",
   "options.chromium.render.te.chestRenderDistance": "Расстояние видимости сундуков",

@@ -46,6 +46,9 @@
 
   "options.chromium.maxMessages": "Max messages",
 
+  "options.chromium.messageAnimations": "Messages animations",
+  "options.chromium.messageAnimation.tooltip.1": "Smooth appearance of messages",
+
   "options.chromium.render.te.bannerRenderDistance": "Banners max render distance",
   "options.chromium.render.te.bannerRenderDistance.tooltip.1": "At what distance (in blocks) from the player the flags will stop rendering!",
   "options.chromium.render.te.chestRenderDistance": "Chests max render distance",

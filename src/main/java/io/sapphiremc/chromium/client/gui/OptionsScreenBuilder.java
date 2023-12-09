@@ -85,6 +85,12 @@ public class OptionsScreenBuilder {
                 .setTooltip(getTooltip("options.chromium.maxMessages"))
                 .setSaveConsumer(value -> ChromiumMod.getConfig().setMaxMessages(value))
                 .build();
+        final var messageAnimations = entryBuilder.startBooleanToggle(Component.translatable("options.chromium.messageAnimations"), current.isMessageAnimations())
+                .setDefaultValue(defaults.isMessageAnimations())
+                .setTooltip(getTooltip("options.chromium.messageAnimations"))
+                .setSaveConsumer(value -> ChromiumMod.getConfig().setMessageAnimations(value))
+                .setYesNoTextSupplier(yesNoSupplier)
+                .build();
 
         /*========================= Tile entities rendeding settings =========================*/
         final var bannerRenderDistance = entryBuilder.startIntField(Component.translatable("options.chromium.render.te.bannerRenderDistance"),
@@ -149,6 +155,7 @@ public class OptionsScreenBuilder {
         final var chatBuilder = entryBuilder.startSubCategory(Component.translatable("category.chromium.chat"));
         chatBuilder.add(toggleMessagesTime);
         chatBuilder.add(maxMessages);
+        chatBuilder.add(messageAnimations);
 
         final var renderBuilder = entryBuilder.startSubCategory(Component.translatable("category.chromium.render"));
 
