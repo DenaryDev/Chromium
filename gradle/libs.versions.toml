@@ -3,20 +3,20 @@
 # The latest versions are available at https://fabricmc.net/develop
 minecraft = "1.20.2"
 parchment = "1.20.2:2023.10.22"
-loader = "0.14.23"
-fabric = "0.90.0+1.20.2"
+loader = "0.15.1"
+fabric = "0.91.2+1.20.2"
 
 # Fabric loom
 loom = "1.4-SNAPSHOT"
 
 # Mod dependencies
-sodium = "mc1.20.2-0.5.3"
-iris = "1.6.10+1.20.2"
-clothconfig = "12.0.109"
+sodium = "mc1.20.2-0.5.4"
+iris = "1.6.13+1.20.2"
+clothconfig = "12.0.111"
 modmenu = "8.0.0"
 ias = "8.0.2-fabric1.20.2"
-ldl = "2.3.2+1.20.1"
-spruceui = "5.0.0+1.20"
+ldl = "2.3.3+1.20.2"
+spruceui = "5.0.3+1.20.2"
 
 # Other dependencies
 jccp = "1.4.14"

@@ -35,7 +35,12 @@ public abstract class GuiMixin {
 
     @Shadow @Final private DebugScreenOverlay debugOverlay;
 
-    @Inject(method = "render", at = @At("TAIL"))
+    @Inject(method = "render",
+            at = @At(value = "INVOKE",
+                    target = "Lnet/minecraft/client/gui/Gui;renderSavingIndicator(Lnet/minecraft/client/gui/GuiGraphics;)V",
+                    shift = At.Shift.AFTER
+            )
+    )
     private void chromium$renderInfoPanel(GuiGraphics context, float tickDelta, CallbackInfo callbackInfo) {
         boolean flag = this.minecraft.level != null && (!this.minecraft.options.hideGui || this.minecraft.screen != null) && !this.debugOverlay.showDebugScreen();
         if (flag) {
@@ -63,7 +68,7 @@ public abstract class GuiMixin {
                 info.add(ChromiumMod.getBiomeString(player));
             }
 
-            if (info.size() > 0) {
+            if (!info.isEmpty()) {
                 for (int i = 0; i < info.size(); i++) {
                     final var s = info.get(i);
                     if (Strings.isNullOrEmpty(s)) continue;

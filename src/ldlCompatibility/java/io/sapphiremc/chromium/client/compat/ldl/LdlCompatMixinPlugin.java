@@ -18,8 +18,9 @@ import java.util.Set;
 
 public class LdlCompatMixinPlugin implements IMixinConfigPlugin {
     private final List<AllowedVersion> allowedVersions = List.of(
-            new AllowedVersion("2.3.1", true),
-            new AllowedVersion("2.3.2", true)
+            new AllowedVersion("2.3.1"),
+            new AllowedVersion("2.3.2"),
+            new AllowedVersion("2.3.3")
     );
     private boolean isVersionValid = false;
 
@@ -77,14 +78,10 @@ public class LdlCompatMixinPlugin implements IMixinConfigPlugin {
         return false;
     }
 
-    private record AllowedVersion(String version, boolean prefix) {
+    private record AllowedVersion(String version) {
 
         private boolean matches(String candidate) {
-            if (prefix) {
-                return candidate.startsWith(version);
-            } else {
-                return candidate.equals(version);
-            }
+            return candidate.startsWith(version);
         }
     }
 }

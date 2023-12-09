@@ -9,6 +9,7 @@ package io.sapphiremc.chromium.client.compat.iris;
 
 import java.util.List;
 import java.util.Set;
+
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import org.objectweb.asm.tree.ClassNode;
@@ -17,7 +18,7 @@ import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
 public class IrisCompatMixinPlugin implements IMixinConfigPlugin {
     private final List<AllowedIrisVersion> allowedIrisVersions = List.of(
-            new AllowedIrisVersion("1.6.10", true)
+            new AllowedIrisVersion("1.6.13")
     );
     private boolean validIrisVersion = false;
 
@@ -75,14 +76,10 @@ public class IrisCompatMixinPlugin implements IMixinConfigPlugin {
         return false;
     }
 
-    private record AllowedIrisVersion(String version, boolean prefix) {
+    private record AllowedIrisVersion(String version) {
 
         private boolean matches(String candidate) {
-            if (prefix) {
-                return candidate.startsWith(version);
-            } else {
-                return candidate.equals(version);
-            }
+            return candidate.startsWith(version);
         }
     }
 }

@@ -24,6 +24,9 @@ bin/
 .classpath
 .project
 
+# fleet
+.fleet/
+
 # macos
 
 *.DS_Store

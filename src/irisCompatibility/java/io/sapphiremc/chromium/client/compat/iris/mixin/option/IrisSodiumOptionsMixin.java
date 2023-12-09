@@ -28,14 +28,4 @@ public class IrisSodiumOptionsMixin {
     private static @NotNull ControlValueFormatter chromium$getChunksText(ControlValueFormatter formatter) {
         return ControlValueFormatter.quantityOrDisabled(Component.translatable("sodium.options.chunks").getString(), Component.translatable("label.chromium.disabled").getString());
     }
-
-    @ModifyArg(method = "lambda$createLimitedVideoSettingsButton$6",
-            at = @At(value = "INVOKE",
-                    target = "Lme/jellysquid/mods/sodium/client/gui/options/control/CyclingControl;<init>(Lme/jellysquid/mods/sodium/client/gui/options/Option;Ljava/lang/Class;[Lnet/minecraft/network/chat/Component;)V"
-            ),
-            index = 2
-    )
-    private static @NotNull Component @NotNull [] chromium$getGraphicsText(Component[] names) {
-        return new Component[]{Component.translatable("options.graphics.fast"), Component.translatable("options.graphics.fancy")};
-    }
 }
