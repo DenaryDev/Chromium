@@ -6,6 +6,7 @@
   "category.chromium.general": "General settings",
   "category.chromium.info": "Info",
   "category.chromium.chat": "Chat",
+  "category.chromium.tablist": "Tablist",
   "category.chromium.render": "Rendering",
   "category.chromium.render.te": "Block entities",
   "category.chromium.mechanics": "Game mechanics",
@@ -48,6 +49,26 @@
 
   "options.chromium.messageAnimations": "Messages animations",
   "options.chromium.messageAnimation.tooltip.1": "Smooth appearance of messages",
+
+  "options.chromium.showPingAmount": "Show ping amount",
+
+  "options.chromium.replacePingBars": "Replace ping bars",
+  "options.chromium.replacePingBars.tooltip.1": "If enabled, the ping amount will replace ping bars",
+  "options.chromium.replacePingBars.tooltip.2": "Has no effect if ping amount display is disabled",
+
+  "options.chromium.pingAmountAutoColor": "Auto-color ping text",
+  "options.chromium.pingAmountAutoColor.tooltip.1": "Whether to color a player's ping based on their latency.",
+  "options.chromium.pingAmountAutoColor.tooltip.2": "E.g, low latency = green, high latency = red",
+
+  "options.chromium.pingAmountColor": "Ping text color",
+  "options.chromium.pingAmountColor.tooltip.1": "The ping text color to use.",
+  "options.chromium.pingAmountColor.tooltip.2": "It only works when the auto-color ping text is turned off",
+
+  "options.chromium.pingAmountFormat": "Ping text format",
+  "options.chromium.pingAmountFormat.tooltip.1": "The format string for ping text.",
+  "options.chromium.pingAmountFormat.tooltip.2": "Must include a `<num>`, which will be replaced",
+  "options.chromium.pingAmountFormat.tooltip.3": "dynamically by the actual ping value.",
+  "options.chromium.pingAmountFormat.invalid": "This parameter must contain `<num>`",
 
   "options.chromium.render.te.bannerRenderDistance": "Banners max render distance",
   "options.chromium.render.te.bannerRenderDistance.tooltip.1": "At what distance (in blocks) from the player the flags will stop rendering!",

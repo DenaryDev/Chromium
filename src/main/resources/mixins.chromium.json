@@ -15,7 +15,8 @@
     "client.KeyboardMixin",
     "client.GameModeSwitcherScreenMixin",
     "client.MainMixin",
-    "client.BlockEntityRendererMixin"
+    "client.BlockEntityRendererMixin",
+    "client.PlayerListComponentMixin"
   ],
   "mixins": [
     "shared.HopperBlockEntityMixin"

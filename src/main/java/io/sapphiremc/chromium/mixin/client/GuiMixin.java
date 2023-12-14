@@ -48,23 +48,23 @@ public abstract class GuiMixin {
             final var player = getCameraPlayer();
             final var info = new ArrayList<String>();
 
-            if (config.isShowFps()) {
+            if (config.showFps) {
                 info.add(ChromiumMod.getFpsString());
             }
 
-            if (config.isShowTime()) {
+            if (config.showTime) {
                 info.add(ChromiumMod.getTimeString());
             }
 
-            if (config.isShowCoords()) {
+            if (config.showCoords) {
                 info.add(ChromiumMod.getCoordsString(player));
             }
 
-            if (config.isShowLight()) {
+            if (config.showLight) {
                 info.add(ChromiumMod.getLightString(player));
             }
 
-            if (config.isShowBiome()) {
+            if (config.showBiome) {
                 info.add(ChromiumMod.getBiomeString(player));
             }
 

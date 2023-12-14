@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.entity.SignBlockEntity;
 import net.minecraft.world.level.block.entity.SkullBlockEntity;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -33,20 +34,21 @@ public interface BlockEntityRendererMixin<T extends BlockEntity> {
                 Vec3.atCenterOf(blockEntity.getBlockPos()).closerThan(pos, this.getRenderDistance(blockEntity)));
     }
 
+    @Unique
     default double getRenderDistance(T blockEntity) {
         final var config = ChromiumMod.getConfig();
 
         if (blockEntity instanceof BannerBlockEntity) {
-            return config.getBannerRenderDistance();
+            return config.bannerRenderDistance;
         } else if (blockEntity instanceof ChestBlockEntity
                 || blockEntity instanceof EnderChestBlockEntity) {
-            return config.getChestRenderDistance();
+            return config.chestRenderDistance;
         } else if (blockEntity instanceof ShulkerBoxBlockEntity) {
-            return config.getShulkerBoxRenderDistance();
+            return config.shulkerBoxRenderDistance;
         } else if (blockEntity instanceof SignBlockEntity) {
-            return config.getSignRenderDistance();
+            return config.signRenderDistance;
         } else if (blockEntity instanceof SkullBlockEntity) {
-            return config.getSkullRenderDistance();
+            return config.skullRenderDistance;
         } else {
             return 64;
         }

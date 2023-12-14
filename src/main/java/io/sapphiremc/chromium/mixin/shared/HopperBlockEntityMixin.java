@@ -16,41 +16,23 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 @Mixin(HopperBlockEntity.class)
 public class HopperBlockEntityMixin {
 
-    @ModifyArg(method = "tryMoveItems",
-            at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/block/entity/HopperBlockEntity;setCooldown(I)V"
-            )
-    )
+    @ModifyArg(method = "tryMoveItems", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/entity/HopperBlockEntity;setCooldown(I)V"))
     private static int chromium$hopperTransfer$tryMoveItems(int cooldown) {
-        return ChromiumMod.getConfig().getHopperTransfer();
+        return ChromiumMod.getConfig().hopperTransfer;
     }
 
-    @ModifyArg(method = "ejectItems",
-            at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/world/Container;removeItem(II)Lnet/minecraft/world/item/ItemStack;"
-            ),
-            index = 1
-    )
+    @ModifyArg(method = "ejectItems", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/Container;removeItem(II)Lnet/minecraft/world/item/ItemStack;"), index = 1)
     private static int chromium$hopperAmount$ejectItems(int amount) {
-        return ChromiumMod.getConfig().getHopperAmount();
+        return ChromiumMod.getConfig().hopperAmount;
     }
 
-    @ModifyArg(method = "tryTakeInItemFromSlot",
-            at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/world/Container;removeItem(II)Lnet/minecraft/world/item/ItemStack;"
-            ),
-            index = 1
-    )
+    @ModifyArg(method = "tryTakeInItemFromSlot", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/Container;removeItem(II)Lnet/minecraft/world/item/ItemStack;"), index = 1)
     private static int chromium$hopperAmount$tryTakeInItemFromSlot(int amount) {
-        return ChromiumMod.getConfig().getHopperAmount();
+        return ChromiumMod.getConfig().hopperAmount;
     }
 
-    @ModifyArg(method = "tryMoveInItem",
-            at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/block/entity/HopperBlockEntity;setCooldown(I)V"
-            )
-    )
+    @ModifyArg(method = "tryMoveInItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/entity/HopperBlockEntity;setCooldown(I)V"))
     private static int chromium$hopperTransfer$tryMoveInItem(int cooldown) {
-        return ChromiumMod.getConfig().getHopperTransfer() - (8 - cooldown);
+        return ChromiumMod.getConfig().hopperTransfer - (8 - cooldown);
     }
 }

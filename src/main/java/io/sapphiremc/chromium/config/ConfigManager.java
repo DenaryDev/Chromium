@@ -30,7 +30,7 @@ public class ConfigManager {
     private final Executor executor = Executors.newSingleThreadExecutor();
 
     public ConfigManager() {
-        this.gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+        this.gson = new GsonBuilder().setPrettyPrinting().create();
         this.configFile = new File(FabricLoader.getInstance().getConfigDir().toString() + File.separator + ChromiumMod.MOD_ID, "settings.json");
         readConfig(false);
     }
@@ -43,29 +43,29 @@ public class ConfigManager {
                     config = gson.fromJson(content, ChromiumConfig.class);
 
                     boolean changed = false;
-                    if (config.getHopperTransfer() < 2) {
+                    if (config.hopperTransfer < 2) {
                         ChromiumMod.LOGGER.warn("Hopper transfer must not be less than 2");
-                        config.setHopperTransfer(2);
+                        config.hopperTransfer = 2;
                         changed = true;
-                    } else if (config.getHopperTransfer() > 200) {
+                    } else if (config.hopperTransfer > 200) {
                         ChromiumMod.LOGGER.warn("Hopper transfer must not be greater than 200");
-                        config.setHopperTransfer(200);
+                        config.hopperTransfer = 200;
                         changed = true;
-                    } else if (config.getHopperAmount() < 1) {
+                    } else if (config.hopperAmount < 1) {
                         ChromiumMod.LOGGER.warn("Hopper amount must not be less than 1");
-                        config.setHopperAmount(1);
+                        config.hopperAmount = 1;
                         changed = true;
-                    } else if (config.getHopperAmount() > 64) {
+                    } else if (config.hopperAmount > 64) {
                         ChromiumMod.LOGGER.warn("Hopper amount must not be greater than 64");
-                        config.setHopperAmount(64);
+                        config.hopperAmount = 64;
                         changed = true;
-                    } else if (config.getMaxMessages() < 100) {
+                    } else if (config.messagesHistorySize < 100) {
                         ChromiumMod.LOGGER.warn("Max messages must not be greater than 100");
-                        config.setMaxMessages(100);
+                        config.messagesHistorySize = 100;
                         changed = true;
-                    } else if (config.getMaxMessages() > 32767) {
+                    } else if (config.messagesHistorySize > 32767) {
                         ChromiumMod.LOGGER.warn("Max messages must not be greater than 32767");
-                        config.setMaxMessages(32767);
+                        config.messagesHistorySize = 32767;
                         changed = true;
                     }
                     if (changed) writeConfig(async);

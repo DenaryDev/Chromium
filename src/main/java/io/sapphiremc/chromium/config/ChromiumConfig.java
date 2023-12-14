@@ -7,28 +7,29 @@
  */
 package io.sapphiremc.chromium.config;
 
-import com.google.gson.annotations.Expose;
-import lombok.Getter;
-import lombok.Setter;
+public final class ChromiumConfig {
+    public boolean showFps = false;
+    public boolean showTime = false;
+    public boolean showCoords = true;
+    public boolean showLight = false;
+    public boolean showBiome = false;
 
-public class ChromiumConfig {
+    public boolean showTimestamp = false;
+    public int messagesHistorySize = 100;
+    public boolean messageAnimations = false;
 
-    @Getter @Setter @Expose boolean showFps = false;
-    @Getter @Setter @Expose boolean showTime = false;
-    @Getter @Setter @Expose boolean showCoords = true;
-    @Getter @Setter @Expose boolean showLight = false;
-    @Getter @Setter @Expose boolean showBiome = false;
+    public boolean showPingAmount = false;
+    public boolean replacePingBars = true;
+    public boolean pingAmountAutoColor = false;
+    public String pingAmountColor = "#A0A0A0";
+    public String pingAmountFormat = "<num>ms";
 
-    @Getter @Setter @Expose boolean showMessagesTime = false;
-    @Getter @Setter @Expose int maxMessages = 100;
-    @Getter @Setter @Expose boolean messageAnimations = false;
+    public int hopperTransfer = 8;
+    public int hopperAmount = 1;
 
-    @Getter @Setter @Expose int hopperTransfer = 8;
-    @Getter @Setter @Expose int hopperAmount = 1;
-
-    @Getter @Setter @Expose int bannerRenderDistance = 64;
-    @Getter @Setter @Expose int chestRenderDistance = 64;
-    @Getter @Setter @Expose int shulkerBoxRenderDistance = 64;
-    @Getter @Setter @Expose int signRenderDistance = 64;
-    @Getter @Setter @Expose int skullRenderDistance = 64;
+    public int bannerRenderDistance = 64;
+    public int chestRenderDistance = 64;
+    public int shulkerBoxRenderDistance = 64;
+    public int signRenderDistance = 64;
+    public int skullRenderDistance = 64;
 }

@@ -61,7 +61,7 @@ public abstract class ChatComponentMixin {
             constant = @Constant(intValue = 100)
     )
     private int chromium$getMaxMessages(int max) {
-        return ChromiumMod.getConfig().getMaxMessages();
+        return ChromiumMod.getConfig().messagesHistorySize;
     }
 
     // Timestamp prefix
@@ -71,8 +71,8 @@ public abstract class ChatComponentMixin {
             ),
             index = 1
     )
-    private int chromium$getLineLenght(int width) {
-        return ChromiumMod.getConfig().isShowMessagesTime() ? width - this.minecraft.font.width("[HH:mm:ss] ") : width;
+    private int chromium$getLineLength(int width) {
+        return ChromiumMod.getConfig().showTimestamp ? width - this.minecraft.font.width("[HH:mm:ss] ") : width;
     }
 
     @ModifyArg(method = "addMessage(Lnet/minecraft/network/chat/Component;Lnet/minecraft/network/chat/MessageSignature;ILnet/minecraft/client/GuiMessageTag;Z)V",
@@ -82,7 +82,7 @@ public abstract class ChatComponentMixin {
             index = 1
     )
     private FormattedCharSequence chromium$addMessageTimePrefix(FormattedCharSequence message) {
-        if (ChromiumMod.getConfig().isShowMessagesTime()) {
+        if (ChromiumMod.getConfig().showTimestamp) {
             final var hoverText = Component.translatable(ChatFormatting.YELLOW + new SimpleDateFormat("dd-MM-yyyy HH:mm:ss ").format(new Date()) + TimeZone.getDefault().getID());
             final var timeText = Component.translatable(ChatFormatting.GRAY + new SimpleDateFormat("[HH:mm:ss] ").format(new Date()) + ChatFormatting.RESET).withStyle(
                     (style -> style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, hoverText))));
@@ -92,13 +92,9 @@ public abstract class ChatComponentMixin {
     }
 
     // Chat messages animations
-    @Inject(method = "render",
-            at = @At(value = "INVOKE",
-                    target = "Lnet/minecraft/client/GuiMessage$Line;addedTime()I"
-            )
-    )
+    @Inject(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/GuiMessage$Line;addedTime()I"))
     private void chromium$getChatLineIndex(CallbackInfo ci, @Local(ordinal = 13) int chatLineIndex) {
-        if (!ChromiumMod.getConfig().isMessageAnimations()) return;
+        if (!ChromiumMod.getConfig().messageAnimations) return;
         this.chatLineIndex = chatLineIndex;
     }
 
@@ -117,15 +113,9 @@ public abstract class ChatComponentMixin {
         }
     }
 
-    @ModifyArg(method = "render",
-            at = @At(value = "INVOKE",
-                    target = "Lcom/mojang/blaze3d/vertex/PoseStack;translate(FFF)V",
-                    ordinal = 1
-            ),
-            index = 1
-    )
-    private float applyYOffset(float y) {
-        if (!ChromiumMod.getConfig().isMessageAnimations()) return y;
+    @ModifyArg(method = "render", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/vertex/PoseStack;translate(FFF)V", ordinal = 1), index = 1)
+    private float chromium$applyYOffset(float y) {
+        if (!ChromiumMod.getConfig().messageAnimations) return y;
         calculateYOffset();
 
         // Raised mod compatibility
@@ -138,12 +128,9 @@ public abstract class ChatComponentMixin {
         return y + chatDisplacementY;
     }
 
-    @ModifyVariable(method = "render",
-            at = @At("STORE"),
-            ordinal = 2
-    )
-    private double modifyOpacity(double originalOpacity) {
-        if (!ChromiumMod.getConfig().isMessageAnimations()) return originalOpacity;
+    @ModifyVariable(method = "render", at = @At("STORE"), ordinal = 2)
+    private double chromium$modifyOpacity(double originalOpacity) {
+        if (!ChromiumMod.getConfig().messageAnimations) return originalOpacity;
         double opacity = originalOpacity;
 
         try {
@@ -158,11 +145,9 @@ public abstract class ChatComponentMixin {
     }
 
     @SuppressWarnings("InvalidInjectorMethodSignature")
-    @ModifyVariable(method = "render",
-            at = @At("STORE")
-    )
+    @ModifyVariable(method = "render", at = @At("STORE"))
     private GuiMessageTag chromium$removeMessageTag(GuiMessageTag originalMessageTag) {
-        if (!ChromiumMod.getConfig().isMessageAnimations()) return originalMessageTag;
+        if (!ChromiumMod.getConfig().messageAnimations) return originalMessageTag;
         return null; // Don't allow the chat indicator bar to be rendered
     }
 
@@ -170,7 +155,7 @@ public abstract class ChatComponentMixin {
             at = @At("TAIL")
     )
     private void chromium$addMessage(Component message, MessageSignature signature, GuiMessageTag tag, CallbackInfo ci) {
-        if (!ChromiumMod.getConfig().isMessageAnimations()) return;
+        if (!ChromiumMod.getConfig().messageAnimations) return;
         messageTimestamps.add(0, System.currentTimeMillis());
         while (this.messageTimestamps.size() > this.trimmedMessages.size()) {
             this.messageTimestamps.remove(this.messageTimestamps.size() - 1);

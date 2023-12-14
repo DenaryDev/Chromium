@@ -21,7 +21,7 @@ public class MainMixin {
             ),
             index = 0
     )
-    private static int chromium$getWidth(int width) {
+    private static int chromium$applyMinWidth(int width) {
         return Math.max(width, 960);
     }
 
@@ -31,7 +31,7 @@ public class MainMixin {
             ),
             index = 1
     )
-    private static int chromium$getHeight(int height) {
+    private static int chromium$applyMinHeight(int height) {
         return Math.max(height, 700);
     }
 }
