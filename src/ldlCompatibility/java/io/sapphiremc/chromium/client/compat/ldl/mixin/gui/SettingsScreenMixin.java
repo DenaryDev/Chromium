@@ -1,11 +1,11 @@
 /*
- * Copyright (c) 2023 DenaryDev
+ * Copyright (c) 2024 DenaryDev
  *
  * Use of this source code is governed by an MIT-style
  * license that can be found in the LICENSE file or at
  * https://opensource.org/licenses/MIT.
  */
-package io.sapphiremc.chromium.client.compat.ldl.mixin.gui;
+package me.denarydev.chromium.client.compat.ldl.mixin.gui;
 
 import dev.lambdaurora.lambdynlights.gui.LightSourceListWidget;
 import dev.lambdaurora.lambdynlights.gui.SettingsScreen;

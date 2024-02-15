@@ -1,5 +1,3 @@
-@file:Suppress("UnstableApiUsage")
-
 plugins {
     java
     `maven-publish`
@@ -26,10 +24,7 @@ repositories {
 
 dependencies {
     minecraft(libs.minecraft)
-    mappings(loom.layered {
-        officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${libs.versions.parchment.get()}@zip")
-    })
+    mappings(variantOf(libs.fabric.yarn) { classifier("v2") })
     modImplementation(libs.fabric.loader)
     listOf(
         "fabric-key-binding-api-v1",

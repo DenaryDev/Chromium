@@ -1,22 +1,22 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "io.sapphiremc.chromium.mixin",
+  "package": "me.denarydev.chromium.mixin",
   "compatibilityLevel": "JAVA_17",
   "injectors": {
     "defaultRequire": 1
   },
   "client": [
-    "client.ChatComponentMixin",
-    "client.GuiMixin",
+    "client.ChatHudMixin",
+    "client.InGameHudMixin",
     "client.LivingEntityRendererMixin",
     "client.TitleScreenMixin",
     "client.WindowMixin",
     "client.KeyboardMixin",
-    "client.GameModeSwitcherScreenMixin",
+    "client.GameModeSelectionScreenMixin",
     "client.MainMixin",
     "client.BlockEntityRendererMixin",
-    "client.PlayerListComponentMixin"
+    "client.PlayerListHudMixin"
   ],
   "mixins": [
     "shared.HopperBlockEntityMixin"

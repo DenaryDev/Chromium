@@ -4,7 +4,7 @@
   "version": "${version}",
 
   "name": "Chromium",
-  "description": "Another fabric mod with some functional!",
+  "description": "Another fabric mod with some functional",
   "authors": [
     "DenaryDev"
   ],
@@ -19,13 +19,13 @@
   "environment": "*",
   "entrypoints": {
     "main": [
-      "io.sapphiremc.chromium.ChromiumMod"
+      "me.denarydev.chromium.ChromiumMod"
     ],
     "client": [
-      "io.sapphiremc.chromium.client.ChromiumClientMod"
+      "me.denarydev.chromium.client.ChromiumClientMod"
     ],
     "modmenu": [
-      "io.sapphiremc.chromium.client.compat.ModMenuCompat"
+      "me.denarydev.chromium.client.compat.ModMenuCompat"
     ]
   },
   "mixins": [
@@ -41,14 +41,5 @@
     "java": "17",
     "fabric-api": ">=0.90",
     "cloth-config": "13.0.x"
-  },
-
-  "custom": {
-    "multiconnect": {
-      "custom_payloads": {
-        "allowed_clientbound": "chromium:client",
-        "allowed_serverbound": "chromium:client"
-      }
-    }
   }
 }
